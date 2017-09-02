@@ -1,20 +1,11 @@
 import { EventProvider } from './../../providers/event/event';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
-
-/**
- * Generated class for the EventDetailPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-
-@IonicPage()
 @Component({
-    selector: 'page-event-detail',
-    templateUrl: 'event-detail.html',
-  })
+  selector: 'page-event-detail',
+  templateUrl: 'event-detail.html',
+})
 export class EventDetailPage {
   currentEvent: any;
 
@@ -28,4 +19,9 @@ export class EventDetailPage {
       this.currentEvent.id = snapshot.key;
     });
   }
+
+ 
+
+
+
 }

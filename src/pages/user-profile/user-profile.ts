@@ -2,12 +2,13 @@ import { EventProvider } from './../../providers/event/event';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { EventDetailPage } from '../event-detail/event-detail';
+import { ProfilePage } from '../profile/profile';
 
 @Component({
   selector: 'page-event-list',
-  templateUrl: 'event-list.html',
+  templateUrl: 'user-profile.html',
 })
-export class EventListPage {
+export class UserProfilePage {
   public eventList: any;
 
   constructor(public navCtrl: NavController, public eventData: EventProvider) {}
@@ -19,7 +20,7 @@ export class EventListPage {
         rawList.push({
           id: snap.key,
           name: snap.val().name,
-          price: snap.val().price,
+          photo: snap.val().photo,
         });
       return false
       });

@@ -1,10 +1,10 @@
 import { EventProvider } from './../../providers/event/event';
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, IonicPage } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 import { UserProfilePage } from '../user-profile/user-profile';
 
-
+@IonicPage()
 @Component({
   selector: 'page-event-create',
   templateUrl: 'event-create.html',

@@ -20,7 +20,7 @@ export class LoginPage {
         message: `Welcome to Beep, ${event.result.email}`,
         duration: 3000
       }).present();
-      this.navCtrl.setRoot('EditProfilePage');
+      this.navCtrl.setRoot('TabsPage');
     }
     else {
       this.toast.create({
@@ -28,5 +28,9 @@ export class LoginPage {
         duration: 3000
       }).present();
     }
+  }
+
+  navigateToResetPasswordPage(){
+    this.navCtrl.push('ResetPasswordPage');
   }
 }

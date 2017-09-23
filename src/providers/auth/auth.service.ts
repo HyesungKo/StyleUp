@@ -1,3 +1,4 @@
+import { AngularFireDatabase } from 'angularfire2/database';
 import { LoginResponse } from './../../models/login/login-response.interface';
 import { Account } from './../../models/account/account.interface';
 import { Injectable } from '@angular/core';
@@ -7,12 +8,16 @@ import { AngularFireAuth } from 'angularfire2/auth';
 @Injectable()
 export class AuthProvider {
 
-  constructor(private auth: AngularFireAuth) {
+  constructor(private auth: AngularFireAuth ) {
     console.log('Hello AuthProvider Provider');
   }
 
   getAuthenticatedUser() {
     return this.auth.authState;
+  }
+
+  resetPassword(email: string) {
+    return this.auth.auth.sendPasswordResetEmail(email);
   }
 
   async createUserWithEmailAndPassword(account: Account) {

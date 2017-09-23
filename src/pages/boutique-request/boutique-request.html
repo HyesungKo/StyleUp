@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Boutique Request</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label stacked>Name of Boutique</ion-label>
+    <ion-input [(ngModel)]="nameOfBoutique" type="text" placeholder="Name of Boutique"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Business Account</ion-label>
+    <ion-input [(ngModel)]="businessAccount" type="text" placeholder="Business Account"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Phone Number</ion-label>
+    <ion-input [(ngModel)]="phoneNumber" type="text" placeholder="Phone Number"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Email Address</ion-label>
+    <ion-input [(ngModel)]="email" type="text" placeholder="Email Address"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Address</ion-label>
+    <ion-input [(ngModel)]="address" type="text" placeholder="Address"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>City</ion-label>
+    <ion-input [(ngModel)]="city" type="text" placeholder="City"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>State</ion-label>
+    <ion-input [(ngModel)]="state" type="text" placeholder="State"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Zip Code</ion-label>
+    <ion-input [(ngModel)]="zipCode" type="text" placeholder="Zip Code"></ion-input>
+  </ion-item>
+
+  <button ion-button block (click)="sendRequest(nameOfBoutique, businessAccount, phoneNumber, email, address, city, state, zipCode)">
+    Send Request
+  </button>
+
+  <button ion-button block color = "danger" (click)="goToLogIn()">
+    Back to LogIn Page
+  </button>
+
+</ion-content>

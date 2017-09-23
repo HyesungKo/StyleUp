@@ -1,3 +1,4 @@
+import { NavController } from 'ionic-angular';
 import { AuthProvider } from './../../providers/auth/auth.service';
 import { DataProvider } from './../../providers/data/data.service';
 import { Profile } from './../../models/profile/profile.interface';
@@ -25,7 +26,7 @@ export class EditProfileFormComponent implements OnDestroy{
   private authenticatedUser: User;
   profile = {} as Profile;
 
-  constructor(private data: DataProvider, private auth: AuthProvider) {
+  constructor(private data: DataProvider, private auth: AuthProvider, private navCtrl: NavController) {
     this.authenticatedUser$ = this.auth.getAuthenticatedUser().subscribe((user: User) => {
       this.authenticatedUser = user;
     });
@@ -37,5 +38,6 @@ export class EditProfileFormComponent implements OnDestroy{
       const result = await this.data.saveProfile(this.authenticatedUser, this.profile);
       console.log(result);
     }
+    this.navCtrl.setRoot('ProfilePage');
   }
 }

@@ -31,17 +31,13 @@ export class EventCreatePage {
   }*/  
 
 
-  getEventList(): firebase.database.Reference {
-    return this.eventList;
-  }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EventCreatePage');
   }
 
-  goToProfile(){
-    this.navCtrl.push('EventListPage');
-  }
+
   takePicture(){
     this.cameraPlugin.getPicture({
       quality : 95,
@@ -80,7 +76,7 @@ export class EventCreatePage {
 
           });
        this.showSuccesfulUploadAlert();
-       this.navCtrl.push('EventListPage');
+       this.navCtrl.setRoot('EventListPage');
 
        //nav.popToRoot() 
        //this.navCtrl.popToRoot();

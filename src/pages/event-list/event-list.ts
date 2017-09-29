@@ -1,7 +1,8 @@
 import { EventCreatePage } from '../event-create/event-create';
 import { Component } from '@angular/core';
 import { EventDetailPage } from '../event-detail/event-detail';
-import { NavController, IonicPage,NavParams} from 'ionic-angular';
+import { NavController, IonicPage} from 'ionic-angular';
+import firebase from 'firebase';
 
 
 @IonicPage()
@@ -10,11 +11,19 @@ import { NavController, IonicPage,NavParams} from 'ionic-angular';
   templateUrl: 'event-list.html',
 })
 export class EventListPage {
-  public eventList: any;
-  constructor(public navCtrl: NavController, public eventData: EventCreatePage,public navParams: NavParams) {}
+  public foo: any;
+  public eventList: firebase.database.Reference;
+    public currentUser: string;
 
+  constructor(public navCtrl: NavController) {
+    this.currentUser = firebase.auth().currentUser.uid;
+    this.eventList = firebase.database().ref(`userProfile/${this.currentUser}/eventList`);
+
+
+  }
+ 
   ionViewDidEnter(){
-    this.eventData.getEventList().on('value', snapshot => {
+    this.eventList.on('value', snapshot => {
       let rawList = [];
       snapshot.forEach( snap => {
         rawList.push({
@@ -24,7 +33,8 @@ export class EventListPage {
         });
       return false
       });
-      this.eventList = rawList;
+      this.foo = rawList;
+      console.log(this.eventList);
     });
   }
 

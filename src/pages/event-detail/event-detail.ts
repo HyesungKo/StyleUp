@@ -1,4 +1,4 @@
-import { EventProvider } from './../../providers/event/event';
+import { EventCreatePage } from '../event-create/event-create';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
@@ -11,7 +11,7 @@ export class EventDetailPage {
 
   
   constructor(public nav: NavController, public navParams: NavParams, 
-    public eventData: EventProvider) {}
+    public eventData: EventCreatePage) {}
 
   ionViewDidEnter(){
     this.eventData.getEventDetail(this.navParams.get('eventId')).on('value', snapshot => {

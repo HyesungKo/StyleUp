@@ -1,16 +1,17 @@
-import { EventProvider } from './../../providers/event/event';
+import { EventCreatePage } from '../event-create/event-create';
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
 import { EventDetailPage } from '../event-detail/event-detail';
+import { NavController, IonicPage,NavParams} from 'ionic-angular';
 
+
+@IonicPage()
 @Component({
   selector: 'page-event-list',
   templateUrl: 'event-list.html',
 })
 export class EventListPage {
   public eventList: any;
-
-  constructor(public navCtrl: NavController, public eventData: EventProvider) {}
+  constructor(public navCtrl: NavController, public eventData: EventCreatePage,public navParams: NavParams) {}
 
   ionViewDidEnter(){
     this.eventData.getEventList().on('value', snapshot => {
@@ -19,7 +20,7 @@ export class EventListPage {
         rawList.push({
           id: snap.key,
           name: snap.val().name,
-          price: snap.val().price,
+          photo: snap.val().photo,
         });
       return false
       });

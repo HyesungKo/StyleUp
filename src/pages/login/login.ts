@@ -9,7 +9,7 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 })
 export class LoginPage {
 
-  constructor(private navCtrl: NavController, private navParams: NavParams,
+  constructor(private navCtrl: NavController,
   private toast:ToastController) {
   }
 
@@ -20,7 +20,7 @@ export class LoginPage {
         message: `Welcome to Beep, ${event.result.email}`,
         duration: 3000
       }).present();
-      this.navCtrl.setRoot('EditProfilePage');
+      this.navCtrl.setRoot('TabsPage');
     }
     else {
       this.toast.create({

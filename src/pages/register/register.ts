@@ -33,5 +33,4 @@ export class RegisterPage {
       }).present();
     }
   }
-
 }

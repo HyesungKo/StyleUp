@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { LoginPage } from '../login/login';
+import { NavController, IonicPage } from 'ionic-angular';
 import { EmailComposer } from '@ionic-native/email-composer';
 
-
+@IonicPage()
 @Component({
   selector: 'page-boutique-request',
   templateUrl: 'boutique-request.html',
@@ -20,7 +19,7 @@ export class BoutiqueRequestPage{
     let email = {
       to: 'kohs0429@gmail.com',
       subject: 'Boutique Request',
-      body: '<p>Name of Boutique: <br>businessAccount: <br>phoneNumber: <br>email: <br>address: <br>city: <br>state: <br>zipCode: </p>',
+      body: '',
       isHtml : true
     };
 
@@ -32,11 +31,11 @@ export class BoutiqueRequestPage{
 
     this.emailComposer.open(email);
 
-		this.nav.push(LoginPage);
+		this.nav.setRoot('LoginPage');
 
 	}
 
 	goToLogIn(): void {
-    	this.nav.push(LoginPage);
+    	this.nav.push('LoginPage');
   	}
 }

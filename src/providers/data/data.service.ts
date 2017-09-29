@@ -24,4 +24,9 @@ export class DataProvider {
     
   }
 
+  getProfile(user: User) {
+    this.profileObject = this.database.object(`/profiles/${user.uid}`) 
+    return this.profileObject;
+  }
+
 }

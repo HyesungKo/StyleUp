@@ -1,4 +1,4 @@
-import { EventProvider } from './../../providers/event/event';
+import { EventProvider } from './../../providers/event/event.service';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 

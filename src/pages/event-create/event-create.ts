@@ -1,4 +1,4 @@
-import { EventProvider } from './../../providers/event/event';
+import { EventProvider } from './../../providers/event/event.service';
 import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
@@ -16,9 +16,9 @@ export class EventCreatePage {
 
   constructor(public navCtrl: NavController, public eventData: EventProvider, public cameraPlugin: Camera) {}
 
-  createEvent(eventName: string,  eventCaption: string, eventHashtags: string) {
+  createEvent(eventName: string, eventCaption: string, eventHashtags: string) {
     this.eventData.createEvent(eventName, eventCaption, eventHashtags,this.postPicture).then( () => {
-     this.navCtrl.push('EventListPage');
+     this.navCtrl.setRoot('EventListPage');
 
     });
   }

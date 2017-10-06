@@ -1,3 +1,4 @@
+import { Camera } from '@ionic-native/camera';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { FIREBASE_CONFIGURE } from './app.firebase.config';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,6 +12,7 @@ import { AuthProvider } from '../providers/auth/auth.service';
 import { DataProvider } from '../providers/data/data.service';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { EventProvider } from '../providers/event/event';
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { EventProvider } from '../providers/event/event';
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIGURE),
     AngularFireAuthModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    FormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -33,7 +36,8 @@ import { EventProvider } from '../providers/event/event';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     DataProvider,
-    EventProvider
+    EventProvider,
+    Camera
   ]
 })
 export class AppModule {}

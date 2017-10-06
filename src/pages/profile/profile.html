@@ -8,11 +8,14 @@
 
   <ion-navbar>
     <ion-title>Profile</ion-title>
+    <button ion-button style="float: right" clear small color="secondary" (click)="navigateToEditProfile()">Edit</button>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
+  <profile-form></profile-form>
+  
 </ion-content>

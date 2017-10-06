@@ -15,4 +15,7 @@ export class EditProfilePage {
     console.log('ionViewDidLoad EditProfilePage');
   }
 
+  saveProfileResult(event: Boolean) {
+    event? this.navCtrl.setRoot('ProfilePage') : console.log("not authenticated");
+  }
 }

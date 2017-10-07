@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import firebase from 'firebase';
-import { FirebaseApp } from 'angularfire2';
+
 /*
   Generated class for the EventProvider provider.
 
@@ -18,11 +18,10 @@ export class EventProvider {
   public eventList: firebase.database.Reference;
   public profilePictureRef: firebase.storage.Reference;
 
-  constructor(private auth: AngularFireAuth, private data: AngularFireDatabase, private app: FirebaseApp) {
+  constructor(private auth: AngularFireAuth, private data: AngularFireDatabase) {
     this.currentUser = this.auth.auth.currentUser.uid;
     this.eventList = this.data.database.ref(`Profiles/${this.currentUser}/eventLIst`)
-    this.profilePictureRef = this.app.storage().ref('/userPosts/');
-  }
+    this.profilePictureRef = firebase.storage().ref('/userPosts/');  }
 
   getEventList() {
     return this.eventList;
@@ -32,7 +31,7 @@ export class EventProvider {
     return this.eventList.child(eventId);
   }
 
-  createEvent(eventName: string, eventCaption: string,
+  async createEvent(eventName: string, eventCaption: string,
     eventHashtags: string, guestPicture: any) {
    const filename = Math.floor(Date.now() / 1000);
 

@@ -11,7 +11,7 @@ import { MyApp } from './app.component';
 import { AuthProvider } from '../providers/auth/auth.service';
 import { DataProvider } from '../providers/data/data.service';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { EventProvider } from '../providers/event/event';
+import { EventProvider } from '../providers/event/event.service';
 import { FormsModule } from "@angular/forms";
 
 @NgModule({

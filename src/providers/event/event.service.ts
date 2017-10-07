@@ -20,7 +20,7 @@ export class EventProvider {
 
   constructor(private auth: AngularFireAuth, private data: AngularFireDatabase) {
     this.currentUser = this.auth.auth.currentUser.uid;
-    this.eventList = this.data.database.ref(`Profiles/${this.currentUser}/eventLIst`)
+    this.eventList = this.data.database.ref(`profiles/${this.currentUser}/eventList`)
     this.profilePictureRef = firebase.storage().ref('/userPosts/');  }
 
   getEventList() {

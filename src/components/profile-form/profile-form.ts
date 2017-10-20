@@ -29,8 +29,4 @@ export class ProfileFormComponent implements OnInit {
       content: 'Loading profile...'
     });
   }
-
-  navigateToEditProfile(){
-    this.navCtrl.push('EditProfilePage');
-  }
 }

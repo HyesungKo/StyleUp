@@ -8,8 +8,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProfilePage {
 
+  constructor(private navCtrl: NavController){
+    
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
   }
 
+  navigateToEditProfile(){
+    this.navCtrl.push('EditProfilePage');
+  }
 }

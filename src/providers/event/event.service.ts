@@ -1,5 +1,3 @@
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -7,7 +5,6 @@ import firebase from 'firebase';
 
 /*
   Generated class for the EventProvider provider.
-
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular DI.
 */
@@ -18,21 +15,23 @@ export class EventProvider {
   public eventList: firebase.database.Reference;
   public profilePictureRef: firebase.storage.Reference;
 
-  constructor(private auth: AngularFireAuth, private data: AngularFireDatabase) {
-    this.currentUser = this.auth.auth.currentUser.uid;
-    this.eventList = this.data.database.ref(`profiles/${this.currentUser}/eventList`)
-    this.profilePictureRef = firebase.storage().ref('/userPosts/');  }
+  constructor() {
+    this.currentUser = firebase.auth().currentUser.uid;
+    this.eventList = firebase.database().ref(`userProfile/${this.currentUser}/eventList`);
+    this.profilePictureRef = firebase.storage().ref('/userPosts/');
 
-  getEventList() {
+  }
+
+  getEventList(): firebase.database.Reference {
     return this.eventList;
   }
 
-  getEventDetail(eventId) {
+  getEventDetail(eventId): firebase.database.Reference {
     return this.eventList.child(eventId);
   }
 
-  async createEvent(eventName: string, eventCaption: string,
-    eventHashtags: string, guestPicture: any) {
+  createEvent(eventName: string, eventCaption: string,
+    eventHashtags: string, guestPicture: any): firebase.Promise<any> {
    const filename = Math.floor(Date.now() / 1000);
 
    return this.profilePictureRef.child(`images/${filename}.png`)

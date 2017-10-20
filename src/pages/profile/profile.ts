@@ -1,3 +1,4 @@
+import { AuthProvider } from './../../providers/auth/auth.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -8,7 +9,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProfilePage {
 
-  constructor(private navCtrl: NavController){
+  constructor(private navCtrl: NavController, private auth: AuthProvider){
     
   }
 
@@ -18,5 +19,10 @@ export class ProfilePage {
 
   navigateToEditProfile(){
     this.navCtrl.push('EditProfilePage');
+  }
+
+  signOut() {
+    this.auth.signOut();
+    this.navCtrl.setRoot('LoginPage');
   }
 }

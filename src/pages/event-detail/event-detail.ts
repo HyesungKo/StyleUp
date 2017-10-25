@@ -19,9 +19,4 @@ export class EventDetailPage {
       this.currentEvent.id = snapshot.key;
     });
   }
-
- 
-
-
-
 }

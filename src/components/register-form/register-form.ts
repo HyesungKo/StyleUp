@@ -1,3 +1,4 @@
+import { NavController } from 'ionic-angular';
 import { LoginResponse } from './../../models/login/login-response.interface';
 import { AuthProvider } from './../../providers/auth/auth.service';
 import { Account } from './../../models/account/account.interface';
@@ -13,7 +14,7 @@ export class RegisterFormComponent {
 
   @Output() registerStatus: EventEmitter<LoginResponse>
 
-  constructor(private auth: AuthProvider) {
+  constructor(private auth: AuthProvider, private navCtrl: NavController) {
     this.registerStatus = new EventEmitter<LoginResponse>();
   }
 
@@ -21,7 +22,7 @@ export class RegisterFormComponent {
     try{
       const result = await this.auth.createUserWithEmailAndPassword(this.account);
       this.registerStatus.emit(result);
-      console.log(result);
+      this.navCtrl.setRoot('LoginPage');
     }
     catch(e) {
       this.registerStatus.emit(e);

@@ -2,7 +2,6 @@ import { EventProvider } from './../../providers/event/event';
 import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
-import { UserProfilePage } from '../user-profile/user-profile';
 
 @IonicPage()
 @Component({
@@ -19,7 +18,7 @@ export class EventCreatePage {
 
   createEvent(eventName: string,  eventCaption: string, eventHashtags: string) {
     this.eventData.createEvent(eventName, eventCaption, eventHashtags,this.postPicture).then( () => {
-     this.navCtrl.push(UserProfilePage);
+     this.navCtrl.push('EventListPage');
 
     });
   }

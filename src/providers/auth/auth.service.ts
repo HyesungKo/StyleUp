@@ -41,8 +41,12 @@ export class AuthProvider {
     catch(e) {
       return <LoginResponse> {
         error: e
-      };
+      }
     }
+  }
+
+  signOut() {
+    this.auth.auth.signOut();
   }
 
 }

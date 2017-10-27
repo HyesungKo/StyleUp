@@ -16,8 +16,8 @@ export class EventCreatePage {
 
   constructor(public navCtrl: NavController, public eventData: EventProvider, public cameraPlugin: Camera) {}
 
-  createEvent(eventName: string,  eventCaption: string, eventHashtags: string) {
-    this.eventData.createEvent(eventName, eventCaption, eventHashtags,this.postPicture).then( () => {
+  createEvent(eventName: string,  eventCaption: string, eventHashtags: string,eventZipcode) {
+    this.eventData.createEvent(eventName, eventCaption,eventZipcode, eventHashtags,this.postPicture).then( () => {
      this.navCtrl.push('EventListPage');
 
     });

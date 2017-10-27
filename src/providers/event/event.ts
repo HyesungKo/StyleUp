@@ -32,7 +32,7 @@ export class EventProvider {
   }
 
   createEvent(eventName: string, eventCaption: string,
-    eventHashtags: string, guestPicture: any): firebase.Promise<any> {
+    eventHashtags: string,eventZipcode:string, guestPicture: any): firebase.Promise<any> {
    const filename = Math.floor(Date.now() / 1000);
 
    return this.profilePictureRef.child(`images/${filename}.png`)
@@ -43,6 +43,7 @@ export class EventProvider {
             name: eventName,
             caption: eventCaption,
             hashtags: eventHashtags,
+            zipcode: eventZipcode,
             photo: savedPicture.downloadURL,
 
           });

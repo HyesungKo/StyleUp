@@ -15,5 +15,17 @@
 
 <ion-content padding>
   <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-list>
+    <ion-card>
+      <ion-card-header>
+        {{currentEvent?.name}}
+      </ion-card-header>
+    <ion-card-content>
+        <p><img src="{{currentEvent?.photo}}"></p>
+        <h1 align="center"> {{currentEvent?.caption}} </h1>
+        <h1 align="center"> {{currentEvent?.hashtags}} </h1>
+    </ion-card-content>
+    </ion-card>
+  </ion-list>    
 
 </ion-content>

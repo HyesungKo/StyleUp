@@ -28,7 +28,7 @@ export class TabsPage {
     this.tab3Root = 'EventCreatePage';
     this.tab4Root = '';
     this.tab5Root = 'ProfilePage'; 
-    this.tab5Root = 'ExplorePage';  
+    this.tab6Root = 'ExplorePage';  
   }
 
 

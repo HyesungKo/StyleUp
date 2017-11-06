@@ -1,0 +1,31 @@
+<!--
+  Generated template for the ExplorePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Explore</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-list>
+    <ion-card>
+      <ion-card-header>
+        {{currentEvent?.name}}
+      </ion-card-header>
+    <ion-card-content>
+        <p><img src="{{currentEvent?.photo}}"></p>
+        <h1 align="center"> {{currentEvent?.caption}} </h1>
+        <h1 align="center"> {{currentEvent?.hashtags}} </h1>
+    </ion-card-content>
+    </ion-card>
+  </ion-list>    
+
+</ion-content>

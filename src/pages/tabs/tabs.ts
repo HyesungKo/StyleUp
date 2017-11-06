@@ -20,6 +20,7 @@ export class TabsPage {
   tab3Root: string;
   tab4Root: string;
   tab5Root: string;
+  tab6Root: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.tab1Root = 'InboxPage';

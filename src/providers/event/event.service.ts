@@ -3,11 +3,6 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import firebase from 'firebase';
 
-/*
-  Generated class for the EventProvider provider.
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular DI.
-*/
 @Injectable()
 export class EventProvider {
 
@@ -19,7 +14,6 @@ export class EventProvider {
     this.currentUser = firebase.auth().currentUser.uid;
     this.eventList = firebase.database().ref(`userProfile/${this.currentUser}/eventList`);
     this.profilePictureRef = firebase.storage().ref('/userPosts/');
-
   }
 
   getEventList(): firebase.database.Reference {

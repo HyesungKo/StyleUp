@@ -17,15 +17,15 @@ export class LoginPage {
     console.log(event);
     if(!event.error){
       this.toast.create({
-        message: `Welcome to Beep, ${event.result.email}`,
-        duration: 3000
+        message: `Welcome to StyleUp, ${event.result.email}`,
+        duration: 1
       }).present();
       this.navCtrl.setRoot('TabsPage');
     }
     else {
       this.toast.create({
         message: event.error.message,
-        duration: 3000
+        duration: 1
       }).present();
     }
   }

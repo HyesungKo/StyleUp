@@ -10,14 +10,14 @@
 
   </ion-row>
 
-  <ion-card>
-    <ion-card-header>
-      {{currentEvent?.name}}
+  <ion-card *ngFor="let event of currentEvent">
+    <ion-card-header >
+      {{event?.eventLocation}}
     </ion-card-header>
     <ion-card-content>
-      <p><img src="{{currentEvent?.photo}}"></p>
-      <h1 align="center"> {{currentEvent?.caption}} </h1>
-      <h1 align="center"> {{currentEvent?.hashtags}} </h1>
+     <p><img src="{{event?.photo}}"></p>
+      <h1 align="center"> {{event?.caption}} </h1>
+     
     </ion-card-content>
   </ion-card>
 

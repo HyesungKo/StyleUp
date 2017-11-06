@@ -11,7 +11,7 @@ import firebase from 'firebase';
 })
 export class EventCreatePage {
   postPicture: string;
-  eventName: string;
+  eventLocation: string;
   eventCaption: string;
   eventHashtags: string;
 
@@ -26,9 +26,6 @@ export class EventCreatePage {
     this.alertCtrl = alertCtrl;
   }
 
-  /*createEvent(eventName: string,  eventCaption: string, eventHashtags: string) {
-    this.eventData.createEvent(eventName, eventCaption, eventHashtags,this.postPicture);
-  }*/  
 
 
 
@@ -55,10 +52,10 @@ export class EventCreatePage {
     });
   }
 
-    upload(eventName: string ,eventCaption: string, eventHashtags: string) {
+    upload(eventLocation: string ,eventCaption: string, eventHashtags: string) {
     this.eventCaption= eventCaption;
     this.eventHashtags= eventHashtags;
-    this.eventName= eventName;
+    this.eventLocation= eventLocation;
 
     let storageRef = firebase.storage().ref();
     // Create a timestamp as filename
@@ -68,7 +65,7 @@ export class EventCreatePage {
     const imageRef = storageRef.child(`images/${filename}.jpg`);
      imageRef.putString(this.postPicture, firebase.storage.StringFormat.DATA_URL).then((snapshot)=> {
            this.eventList.push({
-            name: eventName,
+            name: eventLocation,
             caption: eventCaption,
             hashtags: eventHashtags,
             //photo: this.postPicture,
@@ -94,13 +91,15 @@ export class EventCreatePage {
 
     // clear the previous photo data in the variable
     this.postPicture = "";
-    this.eventName= null;
+    this.eventLocation= null;
     this.eventCaption= null;
     this.eventHashtags= null;
   }
 
-    getEventDetail(eventId): firebase.database.Reference {
+  getEventDetail(eventId): firebase.database.Reference {
     return this.eventList.child(eventId);
   }
+
+
 
 }

@@ -20,7 +20,7 @@ export class LoginPage {
     if(!event.error){
       this.toast.create({
         message: `Welcome to StyleUp, ${event.result.email}`,
-        duration: 3000
+        duration: 1
       }).present();
 
       /* this.data.getProfile(<User>event.result).subscribe(profile => {
@@ -32,7 +32,7 @@ export class LoginPage {
     else {
       this.toast.create({
         message: event.error.message,
-        duration: 3000
+        duration: 1 
       }).present();
     }
   }

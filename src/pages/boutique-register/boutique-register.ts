@@ -12,11 +12,11 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 @IonicPage()
 @Component({
   selector: 'page-register',
-  templateUrl: 'register.html',
+  templateUrl: 'boutique-register.html',
 })
-export class RegisterPage {
+export class BoutiqueRegisterPage {
 
-  constructor(private navCtrl: NavController, private navParams: NavParams, private toast: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private toast: ToastController) {
   }
 
   register(event: LoginResponse) {
@@ -32,9 +32,5 @@ export class RegisterPage {
         duration: 3000
       }).present();
     }
-  }
-
-  navigateToBoutiqueRegisterPage() {
-    this.navCtrl.push('BoutiqueRegisterPage');
   }
 }

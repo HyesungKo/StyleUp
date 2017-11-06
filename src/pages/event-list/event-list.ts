@@ -1,7 +1,8 @@
 import { EventProvider } from './../../providers/event/event.service';
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, IonicPage } from 'ionic-angular';
 
+@IonicPage()
 @Component({
   selector: 'page-event-list',
   templateUrl: 'event-list.html',
@@ -23,6 +24,7 @@ export class EventListPage {
       return false
       });
       this.eventList = rawList;
+      console.log(rawList);
     });
   }
 

@@ -17,9 +17,25 @@
           <div padding *ngIf="password.invalid && password.dirty">
             <span class="global__error">Password must be at least 6 character and 1 number.</span>
           </div>
+
+      
+    
+    <ion-list  radio-group [(ngModel)]="account.isB"  [ngModelOptions]="{standalone: true}">
+
+          <ion-item>
+            <ion-label>Boutique</ion-label>
+            <ion-radio value="Boutique" checked></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Standard</ion-label>
+            <ion-radio value="Standard"></ion-radio>
+          </ion-item>
+   
+    </ion-list>
+
     </ion-card-content>
     <ion-row class="register-form__button">
-      <button ion-button color="primary" (click)="register()" [disabled]="registerForm.invalid">Register</button>
+      <button ion-button color="primary" (click)="register()" [disabled]="registerForm.invalid || !account.isB ">Register</button>
     </ion-row>
   </ion-card>
 </form>

@@ -1,4 +1,4 @@
-import { EventProvider } from './../../providers/event/event';
+
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -17,7 +17,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ExplorePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public eventData: EventProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {

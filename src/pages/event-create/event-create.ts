@@ -26,10 +26,6 @@ export class EventCreatePage {
     this.alertCtrl = alertCtrl;
   }
 
-
-
-
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad EventCreatePage');
   }

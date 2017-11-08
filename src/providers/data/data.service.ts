@@ -22,7 +22,6 @@ export class DataProvider {
       console.error(e);
       return false;
     }
-    
   }
 
   getProfile(user: User) {

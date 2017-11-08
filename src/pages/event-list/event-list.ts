@@ -17,8 +17,6 @@ export class EventListPage {
   constructor(public navCtrl: NavController) {
     this.currentUser = firebase.auth().currentUser.uid;
     this.eventList = firebase.database().ref(`userProfile/${this.currentUser}/eventList`);
-
-
   }
  
   ionViewDidEnter(){
@@ -42,6 +40,4 @@ export class EventListPage {
   goToEventDetail(eventId){
     this.navCtrl.push('EventDetailPage', { eventId: eventId });
   }
-
-
 }

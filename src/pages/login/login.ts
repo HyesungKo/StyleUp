@@ -11,8 +11,13 @@ import { User } from 'firebase/app';
 })
 export class LoginPage {
 
+<<<<<<< HEAD
   constructor(private navCtrl: NavController, private navParams: NavParams,
   private toast:ToastController, private data: DataProvider) {
+=======
+  constructor(private navCtrl: NavController,
+  private toast:ToastController) {
+>>>>>>> origin/jozef
   }
 
   login(event: LoginResponse) {
@@ -20,6 +25,7 @@ export class LoginPage {
     if(!event.error){
       this.toast.create({
         message: `Welcome to StyleUp, ${event.result.email}`,
+<<<<<<< HEAD
         duration: 3000
       }).present();
 
@@ -27,12 +33,16 @@ export class LoginPage {
         profile.val() ? this.navCtrl.setRoot('TabsPage') : this.navCtrl.setRoot('EditProfilePage');
       }) */
 
+=======
+        duration: 1
+      }).present();
+>>>>>>> origin/jozef
       this.navCtrl.setRoot('TabsPage');
     }
     else {
       this.toast.create({
         message: event.error.message,
-        duration: 3000
+        duration: 1
       }).present();
     }
   }

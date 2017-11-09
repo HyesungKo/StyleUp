@@ -1,32 +1,51 @@
-import { EventProvider } from './../../providers/event/event';
+import { EventCreatePage } from '../event-create/event-create';
 import { Component } from '@angular/core';
+<<<<<<< HEAD
 import { NavController } from 'ionic-angular';
+=======
+import { NavController, IonicPage} from 'ionic-angular';
+import firebase from 'firebase';
+>>>>>>> origin/jozef
 
+
+@IonicPage()
 @Component({
   selector: 'page-event-list',
   templateUrl: 'event-list.html',
 })
 export class EventListPage {
-  public eventList: any;
+  public foo: any;
+  public eventList: firebase.database.Reference;
+  public currentUser: string;
 
-  constructor(public navCtrl: NavController, public eventData: EventProvider) {}
+  constructor(public navCtrl: NavController) {
+    this.currentUser = firebase.auth().currentUser.uid;
+    this.eventList = firebase.database().ref(`userProfile/${this.currentUser}/eventList`);
 
+
+  }
+ 
   ionViewDidEnter(){
-    this.eventData.getEventList().on('value', snapshot => {
+        console.log("ypppp");
+
+    this.eventList.on('value', snapshot => {
       let rawList = [];
       snapshot.forEach( snap => {
         rawList.push({
           id: snap.key,
-          name: snap.val().name,
-          price: snap.val().price,
+          eventLocation: snap.val().eventLocation,
+          photo: snap.val().photo,
         });
       return false
       });
-      this.eventList = rawList;
+      this.foo = rawList;
+      console.log(this.eventList);
     });
   }
 
   goToEventDetail(eventId){
     this.navCtrl.push('EventDetailPage', { eventId: eventId });
   }
+
+
 }

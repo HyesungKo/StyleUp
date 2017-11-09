@@ -1,6 +1,10 @@
 {
   "name": "beep",
+<<<<<<< HEAD
   "app_id": "c03abb43",
+=======
+  "app_id": "6eb32376",
+>>>>>>> origin/jozef
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

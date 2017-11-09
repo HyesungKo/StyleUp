@@ -11,16 +11,10 @@ import { MyApp } from './app.component';
 import { AuthProvider } from '../providers/auth/auth.service';
 import { DataProvider } from '../providers/data/data.service';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-<<<<<<< HEAD
-import { EventProvider } from '../providers/event/event';
-import { FormsModule } from "@angular/forms";
-=======
 //import { EventProvider } from '../providers/event/event';
-import { Camera } from '@ionic-native/camera';
 import { EventCreatePage } from '../pages/event-create/event-create';
 
 
->>>>>>> origin/jozef
 
 @NgModule({
   declarations: [
@@ -45,16 +39,11 @@ import { EventCreatePage } from '../pages/event-create/event-create';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     DataProvider,
-<<<<<<< HEAD
-    EventProvider,
-    Camera
-=======
    // EventProvider,
     Camera,
     EventCreatePage
 
 
->>>>>>> origin/jozef
   ]
 })
 export class AppModule {}

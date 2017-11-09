@@ -1,11 +1,7 @@
 import { EventCreatePage } from '../event-create/event-create';
 import { Component } from '@angular/core';
-<<<<<<< HEAD
-import { NavController } from 'ionic-angular';
-=======
 import { NavController, IonicPage} from 'ionic-angular';
 import firebase from 'firebase';
->>>>>>> origin/jozef
 
 
 @IonicPage()

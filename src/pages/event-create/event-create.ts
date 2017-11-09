@@ -2,10 +2,7 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage, AlertController } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
-<<<<<<< HEAD
-=======
 import firebase from 'firebase';
->>>>>>> origin/jozef
 
 @IonicPage()
 @Component({
@@ -22,18 +19,12 @@ export class EventCreatePage {
   public currentUser: string;
   public eventList: firebase.database.Reference;
 
-<<<<<<< HEAD
-  createEvent(eventName: string,  eventCaption: string, eventHashtags: string) {
-    this.eventData.createEvent(eventName, eventCaption, eventHashtags,this.postPicture).then( () => {
-     this.navCtrl.push('EventListPage');
-=======
   constructor(public navCtrl: NavController/*, public eventData: EventProvider*/, public cameraPlugin: Camera,
    alertCtrl: AlertController) {
     this.currentUser = firebase.auth().currentUser.uid;
     this.eventList = firebase.database().ref(`userProfile/${this.currentUser}/eventList`);
     this.alertCtrl = alertCtrl;
   }
->>>>>>> origin/jozef
 
 
 

@@ -34,8 +34,6 @@ export class EventDetailPage {
         this.currentEvent = rawList2;
   });
   }
-<<<<<<< HEAD
-=======
 
 
 
@@ -46,5 +44,4 @@ export class EventDetailPage {
 
 
 
->>>>>>> origin/jozef
 }

@@ -12,51 +12,45 @@
       <ion-icon name="md-pin" style="float: right;"></ion-icon>
     </ion-title>
   </ion-navbar>
-  <ion-searchbar
-  [(ngModel)]="myInput"
-  [showCancelButton]="shouldShowCancel"
-  (ionInput)="onInput($event)"
-  (ionCancel)="onCancel($event)">
-  </ion-searchbar>
+  
+  <ion-segment [(ngModel)]="postType">
+    <ion-segment-button value="standard">
+      Users
+    </ion-segment-button>
+    <ion-segment-button value="boutique">
+      Boutiques
+    </ion-segment-button>
+  </ion-segment>
 
 </ion-header>
 
 
 <ion-content no-padding>
+    <ion-searchbar
+    [(ngModel)]="myInput"
+    [showCancelButton]="shouldShowCancel"
+    (ionInput)="onInput($event)"
+    (ionCancel)="onCancel($event)">
+    </ion-searchbar>
 
-  <ion-grid>
-    <ion-row *ngFor="let post of [1,2,3,4,5,6,7,8,9,10,11,12]">
-      
-      <ion-col col-6 *ngIf="post % 2 !== 0">
+  <ion-grid [ngSwitch]="postType">
+
+    <ion-row *ngSwitchCase="standard">
+      <ion-col class="min-padding" col-4 *ngFor="let post of [1,2,3,4,5,6,7,8,9,10,11,12];">
         <div>
-          <img src='assets/img/{{post}}.jpg' style="width:auto;height:auto;" />
+          <img *ngIf="post % 2 == 1" src='assets/img/{{post}}.jpg' style="width:auto;height:auto;"/>
         </div>
       </ion-col>
-      <ion-col col-6 *ngIf="post % 2 !== 0">
-          <div>
-            <img src='assets/img/{{post+1}}.jpg' style="width:auto;height:auto;" />
-          </div>
-        </ion-col>
-
-      <ion-col col-12 *ngIf="post % 4 == 0 ">
-        <div>
-          <img src='assets/img/{{(post/4)}}.jpg' style="width:auto;height:auto;" />
-        </div>
-      </ion-col>
-
     </ion-row>
+    
   </ion-grid>
 
-  <!--
-    Preferred Layout:
-    <ion-grid>
-      <ion-row> //looped twice (2 rows of 3 images)
-        <ion-col> Post </ion-col>
-        <ion-col> Post </ion-col>
-        <ion-col> Post </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col> Banner </ion-col> //same height as above, but takes whole width
-      </ion-row>
-  -->
+  <ion-row *ngSwitchCase="boutique">
+    <ion-col class="min-padding" col-4 *ngFor="let post of [1,2,3,4,5,6,7,8,9,10,11,12];">
+      <div>
+        <img *ngIf="post % 2 == 0" src='assets/img/{{post}}.jpg' style="width:auto;height:auto;"/>
+      </div>
+    </ion-col>
+  </ion-row>
+
 </ion-content>

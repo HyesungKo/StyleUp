@@ -16,6 +16,6 @@ export class EditProfilePage {
   }
 
   saveProfileResult(event: Boolean) {
-    event? this.navCtrl.setRoot('ProfilePage') : console.log("not authenticated");
+    event? this.navCtrl.setRoot('TabsPage') : console.log("not authenticated");
   }
 }

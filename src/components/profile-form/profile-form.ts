@@ -19,6 +19,7 @@ export class ProfileFormComponent implements OnInit {
     this.auth.getAuthenticatedUser().subscribe((user: User) => {
       this.data.getProfile(user).subscribe(profile => {
         this.userProfile = <Profile>profile;
+        
         this.loader.dismiss();
       })
     })

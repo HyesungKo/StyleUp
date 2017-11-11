@@ -20,8 +20,6 @@ export class EventListPage {
   }
  
   ionViewDidEnter(){
-        console.log("ypppp");
-
     this.eventList.on('value', snapshot => {
       let rawList = [];
       snapshot.forEach( snap => {
@@ -29,11 +27,13 @@ export class EventListPage {
           id: snap.key,
           eventLocation: snap.val().eventLocation,
           photo: snap.val().photo,
+          eventCaption: snap.val().eventCaption,
+          eventHashtag: snap.val().eventhashtag
         });
       return false
       });
       this.foo = rawList;
-      console.log(this.eventList);
+      console.log(this.foo[0]);
     });
   }
 

@@ -2,6 +2,7 @@ import { Profile } from './../../models/profile/profile.interface';
 
 const userList: Profile[] = [
     {
+        userName: 'harry',
         firstName: 'Hyesung',
         lastName: 'Ko',
         avatar: 'assets/img/avatar.png',
@@ -9,6 +10,7 @@ const userList: Profile[] = [
         dateOfBirth: new Date()
     },
     {
+        userName: 'yunster',
         firstName: 'Yunsung',
         lastName: 'Ko',
         avatar: 'assets/img/avatar.png',
@@ -16,6 +18,7 @@ const userList: Profile[] = [
         dateOfBirth: new Date()
     },
     {
+        userName: 'jj',
         firstName: 'Jozef',
         lastName: 'T',
         avatar: 'assets/img/avatar.png',
@@ -23,6 +26,7 @@ const userList: Profile[] = [
         dateOfBirth: new Date()
     },
     {
+        userName: 'CU',
         firstName: 'BY',
         lastName: 'Yong',
         avatar: 'assets/img/avatar.png',

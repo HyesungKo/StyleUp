@@ -23,11 +23,11 @@ export class LoginPage {
         duration: 1
       }).present();
 
-      /* this.data.getProfile(<User>event.result).subscribe(profile => {
-        profile.val() ? this.navCtrl.setRoot('TabsPage') : this.navCtrl.setRoot('EditProfilePage');
-      }) */
+      this.data.getProfile(<User>event.result).subscribe(profile => {
+        console.log(profile.userName);        
+        profile.userName ? this.navCtrl.setRoot('TabsPage') : this.navCtrl.setRoot('EditProfilePage');
+      })
 
-      this.navCtrl.setRoot('TabsPage');
     }
     else {
       this.toast.create({

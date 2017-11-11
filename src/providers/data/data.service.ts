@@ -13,12 +13,15 @@ export class DataProvider {
   }
 
   async saveProfile(user: User, profile: Profile) {
-    this.profileObject = this.database.object(`/profiles/${user.uid}`, {preserveSnapshot : true})
-  
+    this.profileObject = this.database.object(`/profiles/${user.uid}`, {preserveSnapshot : true});
+    console.log(this.profileObject);
+    
+    console.log(profile);
     try {
       await this.profileObject.set(profile);
       return true;
-    } catch (e) {
+      
+    } catch (e) {      
       console.error(e);
       return false;
     }
@@ -26,6 +29,8 @@ export class DataProvider {
 
   getProfile(user: User) {
     this.profileObject = this.database.object(`/profiles/${user.uid}`) 
+    console.log(this.profileObject.take(1));
+    
     return this.profileObject.take(1);
   }
 

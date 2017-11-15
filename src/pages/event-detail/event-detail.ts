@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import firebase from 'firebase';
+import { User } from 'firebase/app';
 
 @IonicPage()
 @Component({
@@ -10,16 +11,17 @@ import firebase from 'firebase';
 })
 export class EventDetailPage {
   currentEvent: any;
-  public eventList: firebase.database.Reference;
-  public currentUser: string;
+  private posts: firebase.database.Reference;
+  private currentUser: string;
+  private userOfPost: User;
 
 
 
   constructor(public navC: NavController, public navParams: NavParams, 
     ) {
         this.currentUser = firebase.auth().currentUser.uid;
-        this.eventList = firebase.database().ref(`userProfile/${this.currentUser}/eventList`);
-
+        this.posts = firebase.database().ref(`posts`);
+        // this.userOfPost = this.getEventDetail(this.navParams.get('eventId'))
   }
 
   ionViewDidEnter(){
@@ -35,13 +37,7 @@ export class EventDetailPage {
   });
   }
 
-
-
   getEventDetail(eventId): firebase.database.Reference {
-    return this.eventList.child(eventId);
+    return this.posts.child(eventId);
   }
- 
-
-
-
 }

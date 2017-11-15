@@ -1,7 +1,8 @@
+import { EventCreatePage } from '../event-create/event-create';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import firebase from 'firebase';
-
+import { User } from 'firebase/app';
 /**
  * Generated class for the ExplorePage page.
  *
@@ -15,43 +16,72 @@ import firebase from 'firebase';
   templateUrl: 'explore.html',
 })
 export class ExplorePage {
-  allList: any
-  public profiles: firebase.database.Reference;
-  public currentList: firebase.database.Reference;
-  postType = 'standard';
+  public normalList: any;
+  public boutiqueList: any;
+  public posts: firebase.database.Reference;
+  public postType = 'standard';
   
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.profiles = firebase.database().ref(`profiles`);
+
+  constructor(public navCtrl: NavController) {
+    this.posts = firebase.database().ref(`posts`);
   }
-
-  ionViewDidLoad() {
-
-    this.profiles.on('value', snapshot => {
-      let rawList = [];
-      snapshot.forEach(snap => {
-        this.currentList = firebase.database().ref('profiles/' + snap.key + '/posts');
-        this.currentList.on('value', snapshot2 => {
-          snapshot2.forEach(snap2 => {
-            rawList.push({
-              id: snap2.key,
-              eventLocation: snap2.val().eventLocation,
-              photo: snap2.val().photo,
-            });
-            return false
+ 
+  ionViewDidEnter(){
+    this.posts.on('value', snapshot => {
+      let normalList = [];
+      let boutiqueList = [];
+      snapshot.forEach( snap => {
+        if (snap.val().userType === 'regular'){
+          normalList.push({
+            id: snap.key,
+            eventLocation: snap.val().name,
+            photo: snap.val().photo,
+            eventCaption: snap.val().caption,
+            eventHashtag: snap.val().hashtags,
+            userType: snap.val().userType
           });
-        });
-        return false
+        } else {
+          boutiqueList.push({
+            id: snap.key,
+            eventLocation: snap.val().name,
+            photo: snap.val().photo,
+            eventCaption: snap.val().caption,
+            eventHashtag: snap.val().hashtags,
+            userType: snap.val().userType
+          });
+        }
+       
+      return false;
       });
-      this.allList = rawList;
+      this.normalList = normalList;
+      this.boutiqueList = boutiqueList;
     });
   }
 
-  getEventList(posts): firebase.database.Reference {
-    return this.profiles.child(posts);
-  }
-
-  goToEventDetail(eventId) {
+  goToEventDetail(eventId){
     this.navCtrl.push('EventDetailPage', { eventId: eventId });
   }
 
+  
+  filterPost(ev: any) {
+    this.ionViewDidEnter();
+    if(this.postType === 'standard'){
+      let val = ev.target.value;
+  
+      if (val && val.trim() !== '') {
+        this.normalList = this.normalList.filter(function(item) {
+          return item.eventCaption.toLowerCase().includes(val.toLowerCase());
+        });
+      }
+    } else {
+      let val = ev.target.value;
+      
+      if (val && val.trim() !== '') {
+        this.boutiqueList = this.boutiqueList.filter(function(item) {
+          return item.eventCaption.toLowerCase().includes(val.toLowerCase());
+        });
+      }
+    }
+    
+  }
 }

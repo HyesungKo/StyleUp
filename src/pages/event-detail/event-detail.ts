@@ -10,10 +10,9 @@ import { User } from 'firebase/app';
   templateUrl: 'event-detail.html',
 })
 export class EventDetailPage {
-  currentEvent: any;
+  public currentEvent: any;
   private posts: firebase.database.Reference;
-  private currentUser: string;
-  // private userOfPost: User;
+  public currentUser: string;
 
 
 
@@ -21,26 +20,33 @@ export class EventDetailPage {
     ) {
         this.currentUser = firebase.auth().currentUser.uid;
         this.posts = firebase.database().ref(`posts`);
-        // this.userOfPost = this.getEventDetail(this.navParams.get('eventId'))
   }
-
   ionViewDidEnter(){
       this.getEventDetail(this.navParams.get('eventId')).on('value', snapshot => {
-      let rawList2 = [];
-        rawList2.push({
+      let event = ({
           id: snapshot.key,
-          eventLocation: snapshot.val().eventLocation,
+          eventLocation: snapshot.val().name,
           caption: snapshot.val().caption,
           photo: snapshot.val().photo,
+          hashtags: snapshot.val().hashtags,
           userType: snapshot.val().userType,
-          userName: snapshot.val().UserName,
+          userName: snapshot.val().userName,
           uid: snapshot.val().uid
         });
-        this.currentEvent = rawList2;
-  });
+        this.currentEvent = event;
+        
+    });
   }
+
+/*   isPostOwner() {
+    return this.currentUser ===this.currentEvent.uid;
+  } */
 
   getEventDetail(eventId): firebase.database.Reference {
     return this.posts.child(eventId);
+  }
+
+  navigateToEditPostPage() {
+    this.navC.push('EditPostPage', {currentEvent: this.currentEvent});
   }
 }

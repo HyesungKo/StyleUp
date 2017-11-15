@@ -50,8 +50,26 @@ export class ExplorePage {
     console.log('ionViewDidLoad ExplorePage');
   }
 
-  getEventList(posts): firebase.database.Reference {
-    return this.profiles.child(posts);
+  doRefresh(refresher) {
+    this.profiles.on('value', snapshot => {
+      let rawList = [];
+      snapshot.forEach(snap => {
+        this.currentList = firebase.database().ref('profiles/' + snap.key + '/posts');
+        this.currentList.on('value', snapshot2 => {
+          snapshot2.forEach(snap2 => {
+            rawList.push({
+              id: snap2.key,
+              eventLocation: snap2.val().eventLocation,
+              photo: snap2.val().photo,
+            });
+            return false
+          });
+        });
+        return false
+      });
+      this.allList = rawList;
+    });
+    refresher.complete();
   }
 
   goToEventDetail(eventId) {

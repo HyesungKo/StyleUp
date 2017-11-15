@@ -32,7 +32,9 @@ export class EventDetailPage {
           eventLocation: snapshot.val().eventLocation,
           caption: snapshot.val().caption,
           photo: snapshot.val().photo,
-          profile: snapshot.val().profile
+          userType: snapshot.val().userType,
+          userName: snapshot.val().UserName,
+          uid: snapshot.val().uid
         });
         this.currentEvent = rawList2;
   });

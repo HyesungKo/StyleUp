@@ -31,7 +31,7 @@ export class EventListPage {
           photo: snap.val().photo,
           eventCaption: snap.val().caption,
           eventHashtag: snap.val().hashtags,
-          profile: snap.val().profile
+          userType: snap.val().userTyle
         });
       return false
       });

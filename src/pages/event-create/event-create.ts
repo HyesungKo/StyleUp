@@ -93,7 +93,7 @@ export class EventCreatePage {
   }
 
   getEventDetail(eventId): firebase.database.Reference {
-    return this.eventList.child(eventId);
+    return this.posts.child(eventId);
   }
 
 

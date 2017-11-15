@@ -15,7 +15,21 @@
     <ion-item>
       <ion-label floating>Date of Birth</ion-label>
       <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="profile.dateOfBirth"></ion-datetime>
-    </ion-item>  
+    </ion-item>
+    <ion-list radio-group [(ngModel)]="profile.userType">
+      <ion-list-header>
+        User Type
+      </ion-list-header>
+      <ion-item>
+        <ion-label>Normal</ion-label>
+        <ion-radio value="normal" checked="true"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Boutique</ion-label>
+        <ion-radio value="boutique"></ion-radio>
+      </ion-item>
+    </ion-list>
+           
   </ion-card-content>
 </ion-card>
 

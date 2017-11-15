@@ -7,7 +7,8 @@ const userList: Profile[] = [
         lastName: 'Ko',
         avatar: 'assets/img/avatar.png',
         email: 'Hyesung@ko.com',
-        dateOfBirth: new Date()
+        dateOfBirth: new Date(),
+        userType: 'Boutique'
     },
     {
         userName: 'yunster',
@@ -15,7 +16,8 @@ const userList: Profile[] = [
         lastName: 'Ko',
         avatar: 'assets/img/avatar.png',
         email: 'Yunsung@ko.com',
-        dateOfBirth: new Date()
+        dateOfBirth: new Date(),
+        userType: 'Normal'
     },
     {
         userName: 'jj',
@@ -23,7 +25,8 @@ const userList: Profile[] = [
         lastName: 'T',
         avatar: 'assets/img/avatar.png',
         email: 'jozef@T.com',
-        dateOfBirth: new Date()
+        dateOfBirth: new Date(),
+        userType: 'Boutique'
     },
     {
         userName: 'CU',
@@ -31,7 +34,8 @@ const userList: Profile[] = [
         lastName: 'Yong',
         avatar: 'assets/img/avatar.png',
         email: 'By@young.com',
-        dateOfBirth: new Date()
+        dateOfBirth: new Date(),
+        userType: 'Normal'
     }
 ];
 

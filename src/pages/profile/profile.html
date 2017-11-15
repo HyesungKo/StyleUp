@@ -15,8 +15,21 @@
 
 
 <ion-content>
-
   <profile-form></profile-form>
+
+
+  <ion-grid *ngIf="myPosts">
+    <ion-card>
+      <ion-row>
+        <ion-label>Your Posts</ion-label>
+      </ion-row>
+      <ion-row>
+          <ion-col class="min-padding" col-4 *ngFor="let post of myPosts" (click)="goToEventDetail(post?.id)">
+            <img src='{{post?.photo}}' style="width:auto;height:auto;" />
+          </ion-col>
+        </ion-row>
+    </ion-card>
+  </ion-grid>
   <button ion-button block (click)="signOut()">Logout</button>
 </ion-content>
 

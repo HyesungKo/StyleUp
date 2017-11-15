@@ -46,7 +46,7 @@ export class EventListPage {
           });
         }
        
-      return false
+      return false;
       });
       this.normalList = normalList;
       this.boutiqueList = boutiqueList;

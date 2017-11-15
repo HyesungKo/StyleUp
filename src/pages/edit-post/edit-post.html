@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Edit Post</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label stacked>Location</ion-label>
+    <ion-input [(ngModel)]="eventLocation" type="text" placeholder="eventLocation"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Caption</ion-label>
+    <ion-input [(ngModel)]="eventCaption" type="text" placeholder="Caption"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Hashtags</ion-label>
+    <ion-input [(ngModel)]="eventHashtags" type="text" placeholder="Hashtags"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+        <button ion-button color="primary" (click)="takePicture()">Lets take a picture!</button>
+  </ion-item>
+  <img [src]="postPicture"  *ngIf="postPicture"/>
+
+  <button ion-button block (click)="upload(eventLocation,eventCaption, eventHashtags)" *ngIf="postPicture">
+    Share post
+  </button>
+</ion-content>

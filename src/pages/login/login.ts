@@ -27,7 +27,6 @@ export class LoginPage {
         console.log(profile.userName);        
         profile.userName ? this.navCtrl.setRoot('TabsPage') : this.navCtrl.setRoot('EditProfilePage');
       })
-
     }
     else {
       this.toast.create({

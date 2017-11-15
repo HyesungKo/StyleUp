@@ -1,6 +1,9 @@
+import { Subscription } from 'rxjs/Subscription';
 import { AuthProvider } from './../../providers/auth/auth.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import firebase from 'firebase';
+import { User } from 'firebase/app';
 
 @IonicPage()
 @Component({
@@ -8,17 +11,46 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
+  public myPosts: any;
+  private posts: firebase.database.Reference;
+  private currentUserUid: string;
+  private authenticatedUser$: Subscription;
+  private authenticatedUser: User;
 
   constructor(private navCtrl: NavController, private auth: AuthProvider){
-    
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfilePage');
+    this.posts = firebase.database().ref('posts');
+    this.authenticatedUser$ = this.auth.getAuthenticatedUser().subscribe((user: User) => {
+      this.currentUserUid = user.uid;
+    });
   }
 
   navigateToEditProfile(){
     this.navCtrl.push('EditProfileWithExistingProfilePage');
+  }
+
+  ionViewDidEnter(){
+   this.posts.on('value', snapshot => {
+     let postList = [];
+     snapshot.forEach( snap => {
+       if (snap.val().uid === this.currentUserUid) {         
+         postList.push({
+           id: snap.key,
+           eventLocation: snap.val().name,
+           photo: snap.val().photo,
+           eventCaption: snap.val().caption,
+           eventHashtag: snap.val().hashtags,
+           userType: snap.val().userType
+         });
+       }
+       return false;
+     });
+     this.myPosts = postList;
+     
+   });
+  }
+
+  goToEventDetail(eventId){
+    this.navCtrl.push('EventDetailPage', { eventId: eventId });
   }
 
   signOut() {

@@ -1,8 +1,11 @@
+import { DataProvider } from './../../providers/data/data.service';
 //import { EventProvider } from './../../providers/event/event';
 import { Component } from '@angular/core';
 import { NavController, IonicPage, AlertController } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 import firebase from 'firebase';
+import { User } from 'firebase/app';
+import { Profile } from '../../models/profile/profile.interface';
 
 @IonicPage()
 @Component({
@@ -16,19 +19,24 @@ export class EventCreatePage {
   eventHashtags: string;
 
   alertCtrl: AlertController;
-  public currentUser: string;
+  public currentUser: User;
+  public profile: Profile;
   public posts: firebase.database.Reference;
 
   constructor(public navCtrl: NavController/*, public eventData: EventProvider*/, public cameraPlugin: Camera,
-   alertCtrl: AlertController) {
-    this.currentUser = firebase.auth().currentUser.uid;
-    this.posts = firebase.database().ref(`profiles/${this.currentUser}/posts`);
+   alertCtrl: AlertController, private data: DataProvider) {
+    this.currentUser = firebase.auth().currentUser;
+    this.data.getProfile(this.currentUser).subscribe(profile => {
+      this.profile = <Profile>profile;
+    });
+    this.posts = firebase.database().ref(`posts`);
     this.alertCtrl = alertCtrl;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EventCreatePage');
   }
+
 
   takePicture(){
     this.cameraPlugin.getPicture({
@@ -65,7 +73,9 @@ export class EventCreatePage {
             hashtags: eventHashtags,
             //photo: this.postPicture,
             photo: snapshot.downloadURL,
-            uid: this.currentUser
+            userType: this.profile.userType,
+            uid: this.currentUser.uid,
+            userName: this.profile.userName
           });
        this.showSuccesfulUploadAlert();
        this.navCtrl.setRoot('TabsPage');

@@ -1,6 +1,7 @@
 <ion-header>
   <ion-navbar>
-    <ion-title></ion-title>
+    <ion-title *ngIf="currentEvent">{{currentEvent.caption}}</ion-title>
+    <button ion-button style="float: right" clear edit color="secondary" (click)="navigateToEditPostPage()">Edit</button>
   </ion-navbar>
 </ion-header>
 
@@ -10,14 +11,14 @@
 
   </ion-row>
 
-  <ion-card *ngFor="let event of currentEvent">
+  <ion-card *ngIf="currentEvent">
     <ion-card-header >
-      {{event?.eventLocation}}
+      {{currentEvent.eventLocation}}
     </ion-card-header>
     <ion-card-content>
-     <p><img src="{{event?.photo}}"></p>
-      <h1 align="center"> {{event?.caption}} </h1>
-      <!-- <h2 align="center"> {{}} </h2> -->
+     <p><img src="{{currentEvent.photo}}"></p>
+      <h1 align="center"> {{currentEvent.hashtags}} </h1>
+      <h2 align="center"> {{currentEvent.userName}} </h2>
     </ion-card-content>
   </ion-card>
 

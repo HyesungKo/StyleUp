@@ -26,7 +26,7 @@ export class TabsPage {
     this.tab1Root = 'InboxPage';
     this.tab2Root = 'ChannelPage';
     this.tab3Root = 'EventCreatePage';
-    this.tab4Root = 'EventListPage';
+    this.tab4Root = 'ExplorePage';
     this.tab5Root = 'ProfilePage';  
   }
 

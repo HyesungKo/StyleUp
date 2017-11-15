@@ -22,14 +22,13 @@ export class EventCreatePage {
   constructor(public navCtrl: NavController/*, public eventData: EventProvider*/, public cameraPlugin: Camera,
    alertCtrl: AlertController) {
     this.currentUser = firebase.auth().currentUser.uid;
-    this.posts = firebase.database().ref(`posts/`);
+    this.posts = firebase.database().ref(`profiles/${this.currentUser}/posts`);
     this.alertCtrl = alertCtrl;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EventCreatePage');
   }
-
 
   takePicture(){
     this.cameraPlugin.getPicture({

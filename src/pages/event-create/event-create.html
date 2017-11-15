@@ -1,4 +1,4 @@
-x<ion-header>
+<ion-header>
   <ion-navbar>
     <ion-title>New Post</ion-title>
   </ion-navbar>
@@ -19,10 +19,11 @@ x<ion-header>
     <ion-label stacked>Hashtags</ion-label>
     <ion-input [(ngModel)]="eventHashtags" type="text" placeholder="Hashtags"></ion-input>
   </ion-item>
-<ion-item>
+  
+  <ion-item>
         <button ion-button color="primary" (click)="takePicture()">Lets take a picture!</button>
-</ion-item>
-<img [src]="postPicture"  *ngIf="postPicture"/>
+  </ion-item>
+  <img [src]="postPicture"  *ngIf="postPicture"/>
 
   <button ion-button block (click)="upload(eventLocation,eventCaption, eventHashtags)" *ngIf="postPicture">
     Share post

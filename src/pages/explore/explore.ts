@@ -19,9 +19,7 @@ export class ExplorePage {
   public profiles: firebase.database.Reference;
   public currentList: firebase.database.Reference;
   postType = 'standard';
-
-
-
+  
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.profiles = firebase.database().ref(`profiles`);
   }
@@ -46,8 +44,6 @@ export class ExplorePage {
       });
       this.allList = rawList;
     });
-
-    console.log('ionViewDidLoad ExplorePage');
   }
 
   getEventList(posts): firebase.database.Reference {

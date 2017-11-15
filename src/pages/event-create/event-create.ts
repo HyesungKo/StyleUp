@@ -30,6 +30,7 @@ export class EventCreatePage {
     console.log('ionViewDidLoad EventCreatePage');
   }
 
+
   takePicture(){
     this.cameraPlugin.getPicture({
       quality : 95,

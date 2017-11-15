@@ -12,11 +12,11 @@ import firebase from 'firebase';
 export class EventListPage {
   public foo: any;
   public posts: firebase.database.Reference;
-  public currentUser: string;
+  // public currentUser: string;
 
   constructor(public navCtrl: NavController) {
-    this.currentUser = firebase.auth().currentUser.uid;
-    this.posts = firebase.database().ref(`profiles/${this.currentUser}/postss`);
+    // this.currentUser = firebase.auth().currentUser.uid;
+    this.posts = firebase.database().ref(`posts`);
   }
  
   ionViewDidEnter(){
@@ -33,6 +33,7 @@ export class EventListPage {
       return false
       });
       this.foo = rawList;
+      console.log(this.foo[0]);
     });
   }
 

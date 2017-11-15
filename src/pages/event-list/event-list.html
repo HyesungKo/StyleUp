@@ -19,31 +19,24 @@
   </ion-header>
   
   <ion-content no-padding>
-    <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)">
-    </ion-searchbar>
+    <ion-searchbar placeHoler="filter" (ionInput)="filterPost($event)">
+  </ion-searchbar>
   
     <div [ngSwitch]="postType">
       <ion-grid *ngSwitchCase="'standard'">
-        <ion-row>
-          <ion-col class="min-padding" col-4 *ngFor="let post of foo;" (click)="goToEventDetail(post?.id)">
-            <div *ngIf="post.userType === 'normal'">
-              <img src='{{post?.photo}}' style="width:auto;height:auto;" />
-            </div>
-          </ion-col>
-        </ion-row>
+          <ion-row>
+              <ion-col class="min-padding" col-4 *ngFor="let post of normalList;" (click)="goToEventDetail(post?.id)">
+                <img src='{{post?.photo}}' style="width:auto;height:auto;" />
+              </ion-col>
+            </ion-row>
       </ion-grid>
     
       <ion-grid *ngSwitchCase="'boutique'">
-        <ion-row>
-          <!-- <ion-col class="min-padding" col-4 *ngFor="let post of [1,2,3,4,5,6,7,8,9,10,11,12];">
-            <img src='assets/img/{{post}}.jpg' style="width:auto;height:auto;" />
-          </ion-col> -->
-          <ion-col class="min-padding" col-4 *ngFor="let post of foo;" (click)="goToEventDetail(post?.id)">
-              <div *ngIf="post.userType === 'boutique'">
+          <ion-row>
+              <ion-col class="min-padding" col-4 *ngFor="let post of boutiqueList;" (click)="goToEventDetail(post?.id)">
                 <img src='{{post?.photo}}' style="width:auto;height:auto;" />
-              </div>
-            </ion-col>
-        </ion-row>
+              </ion-col>
+            </ion-row>
       </ion-grid>
     </div>
   </ion-content>

@@ -14,6 +14,12 @@ export class ProfileFormComponent implements OnInit {
   userProfile: Profile;
   loader: Loading;
 
+  constructor(private loading: LoadingController, private data: DataProvider, private auth: AuthProvider, private navCtrl: NavController){
+    this.loader = this.loading.create({
+      content: 'Loading profile...'
+    });
+  }
+
   ngOnInit(): void {
     this.loader.present();
     this.auth.getAuthenticatedUser().subscribe((user: User) => {
@@ -25,9 +31,5 @@ export class ProfileFormComponent implements OnInit {
     })
   }
 
-  constructor(private loading: LoadingController, private data: DataProvider, private auth: AuthProvider, private navCtrl: NavController){
-    this.loader = this.loading.create({
-      content: 'Loading profile...'
-    });
-  }
+  
 }

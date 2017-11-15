@@ -18,7 +18,7 @@ export class ProfilePage {
   }
 
   navigateToEditProfile(){
-    this.navCtrl.push('EditProfilePage');
+    this.navCtrl.push('EditProfileWithExistingProfilePage');
   }
 
   signOut() {

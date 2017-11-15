@@ -7,10 +7,10 @@ import { Subscription } from 'rxjs/Subscription';
 import { User } from 'firebase/app';
 
 @Component({
-  selector: 'edit-profile-form',
-  templateUrl: 'edit-profile-form.html'
+  selector: 'edit-profile-form-with-existing-profile',
+  templateUrl: 'edit-profile-form-with-existing-profile.html'
 })
-export class EditProfileFormComponent implements OnDestroy{
+export class EditProfileFormWithExistingProfileComponent implements OnDestroy{
   
   private authenticatedUser$: Subscription;
   private authenticatedUser: User;
@@ -23,9 +23,9 @@ export class EditProfileFormComponent implements OnDestroy{
     this.authenticatedUser$ = this.auth.getAuthenticatedUser().subscribe((user: User) => {
       this.authenticatedUser = user;
       console.log(this.data.getProfile);
-      /* this.data.getProfile(this.authenticatedUser).subscribe(profile => {
+      this.data.getProfile(this.authenticatedUser).subscribe(profile => {
         this.profile = <Profile>profile;
-      }); */
+      });
     });
 
     

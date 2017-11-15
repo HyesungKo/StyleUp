@@ -31,7 +31,7 @@ export class ExplorePage {
     this.profiles.on('value', snapshot => {
       let rawList = [];
       snapshot.forEach(snap => {
-        this.currentList = firebase.database().ref('userProfile/' + snap.key + '/posts');
+        this.currentList = firebase.database().ref('profiles/' + snap.key + '/posts');
         this.currentList.on('value', snapshot2 => {
           snapshot2.forEach(snap2 => {
             rawList.push({

@@ -68,7 +68,7 @@ export class EventCreatePage {
             uid: this.currentUser
           });
        this.showSuccesfulUploadAlert();
-       this.navCtrl.setRoot('EventListPage');
+       this.navCtrl.setRoot('TabsPage');
 
       //  nav.popToRoot() 
        //this.navCtrl.popToRoot();

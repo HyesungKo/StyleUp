@@ -14,7 +14,7 @@ export class EventListPage {
   public foo: any;
   public posts: firebase.database.Reference;
   public postType = 'standard';
-  // public currentUser: User;
+  
 
   constructor(public navCtrl: NavController) {
     // this.currentUser = firebase.auth().currentUser.uid;
@@ -31,12 +31,11 @@ export class EventListPage {
           photo: snap.val().photo,
           eventCaption: snap.val().caption,
           eventHashtag: snap.val().hashtags,
-          uid: snap.val().uid
+          profile: snap.val().profile
         });
       return false
       });
       this.foo = rawList;
-      console.log(this.foo);
     });
   }
 

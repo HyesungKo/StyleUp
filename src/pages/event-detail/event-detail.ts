@@ -13,7 +13,7 @@ export class EventDetailPage {
   currentEvent: any;
   private posts: firebase.database.Reference;
   private currentUser: string;
-  private userOfPost: User;
+  // private userOfPost: User;
 
 
 
@@ -32,6 +32,7 @@ export class EventDetailPage {
           eventLocation: snapshot.val().eventLocation,
           caption: snapshot.val().caption,
           photo: snapshot.val().photo,
+          profile: snapshot.val().profile
         });
         this.currentEvent = rawList2;
   });

@@ -52,9 +52,6 @@ export class EventCreatePage {
     });
   }
 
-<<<<<<< HEAD
-}
-=======
     upload(eventLocation: string ,eventCaption: string, eventHashtags: string) {
     this.eventCaption= eventCaption;
     this.eventHashtags= eventHashtags;
@@ -106,4 +103,3 @@ export class EventCreatePage {
 
 
 }
->>>>>>> origin/jozef

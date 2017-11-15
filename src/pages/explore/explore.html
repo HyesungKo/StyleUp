@@ -12,7 +12,7 @@
       <ion-icon name="md-pin" style="float: right;"></ion-icon>
     </ion-title>
   </ion-navbar>
-  
+
   <ion-segment [(ngModel)]="postType">
     <ion-segment-button value="standard">
       Users
@@ -26,31 +26,25 @@
 
 
 <ion-content no-padding>
-    <ion-searchbar
-    [(ngModel)]="myInput"
-    [showCancelButton]="shouldShowCancel"
-    (ionInput)="onInput($event)"
-    (ionCancel)="onCancel($event)">
-    </ion-searchbar>
+  <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)">
+  </ion-searchbar>
 
-  <ion-grid [ngSwitch]="postType">
-
-    <ion-row *ngSwitchCase="standard">
-      <ion-col class="min-padding" col-4 *ngFor="let post of [1,2,3,4,5,6,7,8,9,10,11,12];">
-        <div>
-          <img *ngIf="post % 2 == 1" src='assets/img/{{post}}.jpg' style="width:auto;height:auto;"/>
-        </div>
-      </ion-col>
-    </ion-row>
-    
-  </ion-grid>
-
-  <ion-row *ngSwitchCase="boutique">
-    <ion-col class="min-padding" col-4 *ngFor="let post of [1,2,3,4,5,6,7,8,9,10,11,12];">
-      <div>
-        <img *ngIf="post % 2 == 0" src='assets/img/{{post}}.jpg' style="width:auto;height:auto;"/>
-      </div>
-    </ion-col>
-  </ion-row>
+  <div [ngSwitch]="postType">
+    <ion-grid *ngSwitchCase="'standard'">
+      <ion-row>
+        <ion-col class="min-padding" col-4 *ngFor="let post of allList;" (click)="goToEventDetail(post?.id)">
+          <img src='{{post?.photo}}' style="width:auto;height:auto;" />
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  
+    <ion-grid *ngSwitchCase="'boutique'">
+      <ion-row>
+        <ion-col class="min-padding" col-4 *ngFor="let post of [1,2,3,4,5,6,7,8,9,10,11,12];">
+          <img src='assets/img/{{post}}.jpg' style="width:auto;height:auto;" />
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 
 </ion-content>

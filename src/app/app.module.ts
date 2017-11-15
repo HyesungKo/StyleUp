@@ -13,7 +13,7 @@ import { DataProvider } from '../providers/data/data.service';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 //import { EventProvider } from '../providers/event/event';
 import { EventCreatePage } from '../pages/event-create/event-create';
-
+import { FormsModule } from "@angular/forms";
 
 
 @NgModule({

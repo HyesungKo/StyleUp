@@ -10,7 +10,9 @@
     <ion-item *ngFor="let event of foo" (click)="goToEventDetail(event?.id)">
       <h2>{{event?.eventLocation}}</h2>
 
-  <p><img src="{{event?.photo}}" style="max-height: 100px; max-width: 100px;"> </p>
+      <p>
+        <img src="{{event?.photo}}" style="max-height: 100px; max-width: 100px;">
+      </p>
     </ion-item>
   </ion-list>
 </ion-content>

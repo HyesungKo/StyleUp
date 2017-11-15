@@ -2,6 +2,7 @@ import { EventCreatePage } from '../event-create/event-create';
 import { Component } from '@angular/core';
 import { NavController, IonicPage} from 'ionic-angular';
 import firebase from 'firebase';
+import { User } from 'firebase/app';
 
 
 @IonicPage()
@@ -12,7 +13,8 @@ import firebase from 'firebase';
 export class EventListPage {
   public foo: any;
   public posts: firebase.database.Reference;
-  // public currentUser: string;
+  public postType = 'standard';
+  // public currentUser: User;
 
   constructor(public navCtrl: NavController) {
     // this.currentUser = firebase.auth().currentUser.uid;
@@ -25,15 +27,16 @@ export class EventListPage {
       snapshot.forEach( snap => {
         rawList.push({
           id: snap.key,
-          eventLocation: snap.val().eventLocation,
+          eventLocation: snap.val().name,
           photo: snap.val().photo,
-          eventCaption: snap.val().eventCaption,
-          eventHashtag: snap.val().eventhashtag
+          eventCaption: snap.val().caption,
+          eventHashtag: snap.val().hashtags,
+          uid: snap.val().uid
         });
       return false
       });
       this.foo = rawList;
-      console.log(this.foo[0]);
+      console.log(this.foo);
     });
   }
 

@@ -17,12 +17,12 @@ export class EventCreatePage {
 
   alertCtrl: AlertController;
   public currentUser: string;
-  public eventList: firebase.database.Reference;
+  public posts: firebase.database.Reference;
 
   constructor(public navCtrl: NavController/*, public eventData: EventProvider*/, public cameraPlugin: Camera,
    alertCtrl: AlertController) {
     this.currentUser = firebase.auth().currentUser.uid;
-    this.eventList = firebase.database().ref(`userProfile/${this.currentUser}/eventList`);
+    this.posts = firebase.database().ref(`posts/`);
     this.alertCtrl = alertCtrl;
   }
 
@@ -60,18 +60,18 @@ export class EventCreatePage {
     // Create a reference to 'images/todays-date.jpg'
     const imageRef = storageRef.child(`images/${filename}.jpg`);
      imageRef.putString(this.postPicture, firebase.storage.StringFormat.DATA_URL).then((snapshot)=> {
-           this.eventList.push({
+           this.posts.push({
             name: eventLocation,
             caption: eventCaption,
             hashtags: eventHashtags,
             //photo: this.postPicture,
             photo: snapshot.downloadURL,
-
+            uid: this.currentUser
           });
        this.showSuccesfulUploadAlert();
        this.navCtrl.setRoot('EventListPage');
 
-       //nav.popToRoot() 
+      //  nav.popToRoot() 
        //this.navCtrl.popToRoot();
      // Do something here when the data is succesfully uploaded!
     });

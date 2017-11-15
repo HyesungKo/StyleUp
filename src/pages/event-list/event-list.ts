@@ -11,16 +11,16 @@ import firebase from 'firebase';
 })
 export class EventListPage {
   public foo: any;
-  public eventList: firebase.database.Reference;
-  public currentUser: string;
+  public posts: firebase.database.Reference;
+  // public currentUser: string;
 
   constructor(public navCtrl: NavController) {
-    this.currentUser = firebase.auth().currentUser.uid;
-    this.eventList = firebase.database().ref(`userProfile/${this.currentUser}/eventList`);
+    // this.currentUser = firebase.auth().currentUser.uid;
+    this.posts = firebase.database().ref(`posts`);
   }
  
   ionViewDidEnter(){
-    this.eventList.on('value', snapshot => {
+    this.posts.on('value', snapshot => {
       let rawList = [];
       snapshot.forEach( snap => {
         rawList.push({

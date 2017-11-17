@@ -14,6 +14,8 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { EventProvider } from '../providers/event/event.service';
 import { FormsModule } from "@angular/forms";
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { Geolocation } from '@ionic-native/geolocation';
+import { NativeGeocoder } from '@ionic-native/native-geocoder';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     AuthProvider,
     DataProvider,
     EventProvider,
-    Camera
+    Camera,
+    Geolocation,
+    NativeGeocoder
   ]
 })
 export class AppModule {}

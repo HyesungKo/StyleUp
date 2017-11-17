@@ -1,8 +1,9 @@
-import { EventCreatePage } from '../event-create/event-create';
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import firebase from 'firebase';
-import { User } from 'firebase/app';
+import { Geolocation, GeolocationOptions, Geoposition, PositionError } from '@ionic-native/geolocation';
+import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/native-geocoder';
+
 /**
  * Generated class for the ExplorePage page.
  *
@@ -20,27 +21,25 @@ export class ExplorePage {
   public boutiqueList: any;
   public posts: firebase.database.Reference;
   public postType = 'standard';
-  
 
-  constructor(public navCtrl: NavController) {
+  options: GeolocationOptions;
+  currentPos: Geoposition;
+  currentCity: string;
+
+
+  constructor(public navCtrl: NavController, private geolocation: Geolocation, private geocoder: NativeGeocoder) {
     this.posts = firebase.database().ref(`posts`);
   }
- 
-  ionViewDidEnter(){
+
+  ionViewDidEnter() {
+    //this.doRefresh(0);
+    this.getUserPosition();
+
     this.posts.on('value', snapshot => {
       let normalList = [];
       let boutiqueList = [];
-      snapshot.forEach( snap => {
-        if (snap.val().userType === 'regular'){
-          normalList.push({
-            id: snap.key,
-            eventLocation: snap.val().name,
-            photo: snap.val().photo,
-            eventCaption: snap.val().caption,
-            eventHashtag: snap.val().hashtags,
-            userType: snap.val().userType
-          });
-        } else {
+      snapshot.forEach(snap => {
+        if (snap.val().userType === 'boutique') {
           boutiqueList.push({
             id: snap.key,
             eventLocation: snap.val().name,
@@ -49,74 +48,74 @@ export class ExplorePage {
             eventHashtag: snap.val().hashtags,
             userType: snap.val().userType
           });
+        } else {
+          normalList.push({
+            id: snap.key,
+            eventLocation: snap.val().name,
+            photo: snap.val().photo,
+            eventCaption: snap.val().caption,
+            eventHashtag: snap.val().hashtags,
+            userType: snap.val().userType
+          });
         }
-       
-      return false;
+        return false;
       });
-      this.normalList = normalList;
-      this.boutiqueList = boutiqueList;
+      this.normalList = normalList.reverse();
+      this.boutiqueList = boutiqueList.reverse();
     });
 
     console.log('ionViewDidLoad ExplorePage');
   }
 
   doRefresh(refresher) {
-    this.posts.on('value', snapshot => {
-      let normalList = [];
-      let boutiqueList = [];
-      snapshot.forEach( snap => {
-        if (snap.val().userType === 'regular'){
-          normalList.push({
-            id: snap.key,
-            eventLocation: snap.val().name,
-            photo: snap.val().photo,
-            eventCaption: snap.val().caption,
-            eventHashtag: snap.val().hashtags,
-            userType: snap.val().userType
-          });
-        } else {
-          boutiqueList.push({
-            id: snap.key,
-            eventLocation: snap.val().name,
-            photo: snap.val().photo,
-            eventCaption: snap.val().caption,
-            eventHashtag: snap.val().hashtags,
-            userType: snap.val().userType
-          });
-        }
-      return false;
-      });
-      this.normalList = normalList;
-      this.boutiqueList = boutiqueList;
-    });
+    this.ionViewDidEnter();
     
     refresher.complete();
   }
 
-  goToEventDetail(eventId){
+  goToEventDetail(eventId) {
     this.navCtrl.push('EventDetailPage', { eventId: eventId });
   }
 
-  
   filterPost(ev: any) {
     this.ionViewDidEnter();
-    if(this.postType === 'standard'){
+    if (this.postType === 'standard') {
       let val = ev.target.value;
-  
+
       if (val && val.trim() !== '') {
-        this.normalList = this.normalList.filter(function(item) {
-          return item.eventCaption.toLowerCase().includes(val.toLowerCase());
+        this.normalList = this.normalList.filter(function (item) {
+          return item.eventHashtag.toLowerCase().includes(val.toLowerCase());
         });
       }
     } else {
       let val = ev.target.value;
-      
+
       if (val && val.trim() !== '') {
-        this.boutiqueList = this.boutiqueList.filter(function(item) {
-          return item.eventCaption.toLowerCase().includes(val.toLowerCase());
+        this.boutiqueList = this.boutiqueList.filter(function (item) {
+          return item.eventHashtag.toLowerCase().includes(val.toLowerCase());
         });
       }
     }
-    
+  }
+
+  getUserPosition() {
+    this.options = {
+      enableHighAccuracy: true
+    };
+    this.geolocation.getCurrentPosition(this.options).then((pos: Geoposition) => {
+      this.currentPos = pos;
+      this.getCity(pos);
+      console.log(pos);
+    }, (err: PositionError) => {
+      console.log("error : " + err.message);
+    });
+  }
+  
+  getCity(pos) {
+    this.geocoder.reverseGeocode(pos.coords.latitude, pos.coords.longitude).then((res: NativeGeocoderReverseResult) => {
+      let city = res.locality;
+      this.currentCity = city;
+      console.log("city: " + this.currentCity);
+    });
   }
 }

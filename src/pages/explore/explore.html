@@ -3,9 +3,12 @@
     <ion-navbar>
       <ion-title>
         Explore
-        <ion-icon name="md-pin" style="float: right;"></ion-icon>
       </ion-title>
     </ion-navbar>
+
+    <ion-searchbar placeHoler="filter" (ionInput)="filterPost($event)"> </ion-searchbar>
+    
+    <div style="text-align: center;"><ion-icon name="md-pin"> {{currentCity}}</ion-icon></div>
   
     <ion-segment [(ngModel)]="postType">
       <ion-segment-button value="standard">
@@ -15,15 +18,21 @@
         Boutiques
       </ion-segment-button>
     </ion-segment>
+    
   </ion-header>
   
   <ion-content no-padding>
+
+
     <ion-refresher (ionRefresh)="doRefresh($event)">
-      <ion-refresher-content></ion-refresher-content>
+      <ion-refresher-content
+        pullingIcon="arrow-dropdown"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
     </ion-refresher>
-  
-    <ion-searchbar placeHoler="filter" (ionInput)="filterPost($event)"> </ion-searchbar>
-  
+    
     <div [ngSwitch]="postType">
       <ion-grid *ngSwitchCase="'standard'">
           <ion-row>
@@ -43,3 +52,4 @@
     </div>
   </ion-content>
 
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyA08OkLA-rf3vxr3qL5yL0QZXOPd_4FpXM"></script>

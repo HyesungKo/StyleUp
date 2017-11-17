@@ -63,7 +63,7 @@ export class ExplorePage {
   }
 
   goToEventDetail(post){
-    this.navCtrl.push('EventDetailPage', {post : post });
+    this.navCtrl.push('EventDetailPage', { post : post });
   }
 
   
@@ -86,6 +86,5 @@ export class ExplorePage {
         });
       }
     }
-    
   }
 }

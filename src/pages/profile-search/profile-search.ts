@@ -47,7 +47,6 @@ export class ProfileSearchPage{
       });
       this.profile = profile;
     });
-
     this.posts.on('value', snapshot => {
       let postList = [];
       snapshot.forEach( snap => {

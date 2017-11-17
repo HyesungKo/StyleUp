@@ -74,7 +74,7 @@ export class ExplorePage {
   
       if (val && val.trim() !== '') {
         this.standardList = this.standardList.filter(function(item) {
-          return item.caption.toLowerCase().includes(val.toLowerCase());
+          return item.hashtags.toLowerCase().includes(val.toLowerCase());
         });
       }
     } else {
@@ -82,7 +82,7 @@ export class ExplorePage {
       
       if (val && val.trim() !== '') {
         this.boutiqueList = this.boutiqueList.filter(function(item) {
-          return item.caption.toLowerCase().includes(val.toLowerCase());
+          return item.hashtags.toLowerCase().includes(val.toLowerCase());
         });
       }
     }

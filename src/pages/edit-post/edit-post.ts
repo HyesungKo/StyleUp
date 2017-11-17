@@ -10,24 +10,26 @@ import firebase from 'firebase';
 })
 export class EditPostPage {
 
-  postPicture: string;
-  eventLocation: string;
-  eventCaption: string;
-  eventHashtags: string;
-  currentPost: any;
-
-  // alertCtrl: AlertController;
+  public currentPost: any;
   public currentUser: string;
-  public posts: firebase.database.Reference;
+  public currentPostRef: firebase.database.Reference;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.currentUser = firebase.auth().currentUser.uid;
-    this.currentPost = this.navParams.get('currentPost');
-
+    this.currentPost = this.navParams.get('currentEvent');
+    console.log(this.currentPost);
+    
+    this.currentPostRef = firebase.database().ref(`posts/${this.currentPost.id}`);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditPostPage');
+  }
+
+  updatePost(location, caption, hashtags) {
+    this.currentPostRef.update({
+
+    })
   }
 
 }

@@ -15,8 +15,6 @@ export class EventDetailPage {
   public currentUser: string;
   public owner: boolean;
 
-
-
   constructor(public navC: NavController, public navParams: NavParams, 
     ) {
         this.currentUser = firebase.auth().currentUser.uid;

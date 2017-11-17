@@ -51,4 +51,8 @@ export class EventDetailPage {
   navigateToEditPostPage() {
     this.navC.push('EditPostPage', {currentPost: this.currentPost});
   }
+
+  goToProfile(userName) {
+    this.navC.push('ProfileSearchPage', { userName : this.currentPost.userName})
+  }
 }

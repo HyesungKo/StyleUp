@@ -15,7 +15,7 @@
     <ion-card-content>
      <p><img src="{{currentPost.photo}}"></p>
       <h1 align="center"> {{currentPost.hashtags}} </h1>
-      <h2 align="center"> {{currentPost.userName}} </h2>
+      <a ion-item align="center" (click)="goToProfile(currentPost.userNam)"> {{currentPost.userName}} </a>
     </ion-card-content>
   </ion-card>
 

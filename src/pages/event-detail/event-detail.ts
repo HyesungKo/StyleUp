@@ -25,34 +25,12 @@ export class EventDetailPage {
         this.owner = (this.currentPost.uid === this.currentUser);
    
   }
-  ionViewDidEnter(){
-
- /* 
-      this.getEventDetail(this.navParams.get('eventId')).on('value', snapshot => {
-      let event = ({
-          id: snapshot.key,
-          eventLocation: snapshot.val().name,
-          caption: snapshot.val().caption,
-          photo: snapshot.val().photo,
-          hashtags: snapshot.val().hashtags,
-          userType: snapshot.val().userType,
-          userName: snapshot.val().userName,
-          uid: snapshot.val().uid
-        });
-        this.currentEvent = event;
-     }); */
-  }
-
-
-/*   getEventDetail(eventId): firebase.database.Reference {
-    return this.posts.child(eventId);
-  } */
 
   navigateToEditPostPage() {
     this.navC.push('EditPostPage', {currentPost: this.currentPost});
   }
 
   goToProfile(userName) {
-    this.navC.push('ProfileSearchPage', { userName : this.currentPost.userName})
+    this.navC.push('ProfileSearchPage', { userName : this.currentPost.userName })
   }
 }

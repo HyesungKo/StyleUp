@@ -26,8 +26,6 @@ export class EditProfileFormComponent implements OnDestroy{
         this.profile = <Profile>profile;
       }); */
     });
-
-    
   }
 
   async saveProfile() {

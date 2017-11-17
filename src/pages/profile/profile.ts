@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs/Subscription';
 import { AuthProvider } from './../../providers/auth/auth.service';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import firebase from 'firebase';
 import { User } from 'firebase/app';
@@ -10,7 +10,7 @@ import { User } from 'firebase/app';
   selector: 'page-profile',
   templateUrl: 'profile.html',
 })
-export class ProfilePage {
+export class ProfilePage implements OnDestroy{
   public myPosts: any;
   private posts: firebase.database.Reference;
   private currentUserUid: string;
@@ -34,12 +34,14 @@ export class ProfilePage {
      snapshot.forEach( snap => {
        if (snap.val().uid === this.currentUserUid) {         
          postList.push({
-           id: snap.key,
-           eventLocation: snap.val().name,
-           photo: snap.val().photo,
-           eventCaption: snap.val().caption,
-           eventHashtag: snap.val().hashtags,
-           userType: snap.val().userType
+          id: snap.key,
+          location: snap.val().name,
+          photo: snap.val().photo,
+          caption: snap.val().caption,
+          hashtags: snap.val().hashtags,
+          userType: snap.val().userType,
+          userName: snap.val().userName,
+          uid: snap.val().uid
          });
        }
        return false;
@@ -49,12 +51,16 @@ export class ProfilePage {
    });
   }
 
-  goToEventDetail(eventId){
-    this.navCtrl.push('EventDetailPage', { eventId: eventId });
+  goToEventDetail(post){
+    this.navCtrl.push('EventDetailPage', { post: post });
   }
 
   signOut() {
     this.auth.signOut();
     this.navCtrl.setRoot('LoginPage');
+  }
+
+  ngOnDestroy(): void {
+    this.authenticatedUser$.unsubscribe();
   }
 }

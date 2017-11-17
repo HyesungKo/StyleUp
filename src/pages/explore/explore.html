@@ -24,7 +24,7 @@
     <div [ngSwitch]="postType">
       <ion-grid *ngSwitchCase="'standard'">
           <ion-row>
-              <ion-col class="min-padding" col-4 *ngFor="let post of standardList;" (click)="goToEventDetail(post?.id)">
+              <ion-col class="min-padding" col-4 *ngFor="let post of standardList" (click)="goToEventDetail(post)">
                 <img src='{{post?.photo}}' style="width:auto;height:auto;" />
               </ion-col>
             </ion-row>
@@ -32,7 +32,7 @@
     
       <ion-grid *ngSwitchCase="'boutique'">
           <ion-row>
-              <ion-col class="min-padding" col-4 *ngFor="let post of boutiqueList;" (click)="goToEventDetail(post?.id)">
+              <ion-col class="min-padding" col-4 *ngFor="let post of boutiqueList" (click)="goToEventDetail(post)">
                 <img src='{{post?.photo}}' style="width:auto;height:auto;" />
               </ion-col>
             </ion-row>

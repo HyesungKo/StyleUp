@@ -34,20 +34,24 @@ export class ExplorePage {
         if (snap.val().userType === 'standard'){
           standardList.push({
             id: snap.key,
-            eventLocation: snap.val().name,
+            location: snap.val().name,
             photo: snap.val().photo,
-            eventCaption: snap.val().caption,
-            eventHashtag: snap.val().hashtags,
-            userType: snap.val().userType
+            caption: snap.val().caption,
+            hashtags: snap.val().hashtags,
+            userType: snap.val().userType,
+            userName: snap.val().userName,
+            uid: snap.val().uid
           });
         } else if (snap.val().userType === 'boutique'){
           boutiqueList.push({
             id: snap.key,
-            eventLocation: snap.val().name,
+            location: snap.val().name,
             photo: snap.val().photo,
-            eventCaption: snap.val().caption,
-            eventHashtag: snap.val().hashtags,
-            userType: snap.val().userType
+            caption: snap.val().caption,
+            hashtags: snap.val().hashtags,
+            userType: snap.val().userType,
+            userName: snap.val().userName,
+            uid: snap.val().uid
           });
         }
        
@@ -58,8 +62,8 @@ export class ExplorePage {
     });
   }
 
-  goToEventDetail(eventId){
-    this.navCtrl.push('EventDetailPage', { eventId: eventId });
+  goToEventDetail(post){
+    this.navCtrl.push('EventDetailPage', {post : post });
   }
 
   
@@ -70,7 +74,7 @@ export class ExplorePage {
   
       if (val && val.trim() !== '') {
         this.standardList = this.standardList.filter(function(item) {
-          return item.eventCaption.toLowerCase().includes(val.toLowerCase());
+          return item.caption.toLowerCase().includes(val.toLowerCase());
         });
       }
     } else {
@@ -78,7 +82,7 @@ export class ExplorePage {
       
       if (val && val.trim() !== '') {
         this.boutiqueList = this.boutiqueList.filter(function(item) {
-          return item.eventCaption.toLowerCase().includes(val.toLowerCase());
+          return item.caption.toLowerCase().includes(val.toLowerCase());
         });
       }
     }

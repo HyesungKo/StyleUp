@@ -16,7 +16,7 @@ export class EditPostPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.currentUser = firebase.auth().currentUser.uid;
-    this.currentPost = this.navParams.get('currentEvent');
+    this.currentPost = this.navParams.get('currentPost');
     console.log(this.currentPost);
     
     this.currentPostRef = firebase.database().ref(`posts/${this.currentPost.id}`);
@@ -26,10 +26,20 @@ export class EditPostPage {
     console.log('ionViewDidLoad EditPostPage');
   }
 
-  updatePost(location, caption, hashtags) {
+  updatePost(location : string, caption : string, hashtags: string) {
     this.currentPostRef.update({
+      "name" : location,
+      "caption" : caption,
+      "hashtags" : hashtags
+    });
+  
+  this.navCtrl.pop();
+  }
 
-    })
+  deletePost() {
+    this.currentPostRef.remove();
+
+    this.navCtrl.setRoot('ProfilePage');
   }
 
 }

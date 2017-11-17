@@ -16,7 +16,7 @@ import { User } from 'firebase/app';
   templateUrl: 'explore.html',
 })
 export class ExplorePage {
-  public normalList: any;
+  public standardList: any;
   public boutiqueList: any;
   public posts: firebase.database.Reference;
   public postType = 'standard';
@@ -28,11 +28,11 @@ export class ExplorePage {
  
   ionViewDidEnter(){
     this.posts.on('value', snapshot => {
-      let normalList = [];
+      let standardList = [];
       let boutiqueList = [];
       snapshot.forEach( snap => {
-        if (snap.val().userType === 'regular'){
-          normalList.push({
+        if (snap.val().userType === 'standard'){
+          standardList.push({
             id: snap.key,
             eventLocation: snap.val().name,
             photo: snap.val().photo,
@@ -40,7 +40,7 @@ export class ExplorePage {
             eventHashtag: snap.val().hashtags,
             userType: snap.val().userType
           });
-        } else {
+        } else if (snap.val().userType === 'boutique'){
           boutiqueList.push({
             id: snap.key,
             eventLocation: snap.val().name,
@@ -53,7 +53,7 @@ export class ExplorePage {
        
       return false;
       });
-      this.normalList = normalList;
+      this.standardList = standardList;
       this.boutiqueList = boutiqueList;
     });
   }
@@ -69,7 +69,7 @@ export class ExplorePage {
       let val = ev.target.value;
   
       if (val && val.trim() !== '') {
-        this.normalList = this.normalList.filter(function(item) {
+        this.standardList = this.standardList.filter(function(item) {
           return item.eventCaption.toLowerCase().includes(val.toLowerCase());
         });
       }

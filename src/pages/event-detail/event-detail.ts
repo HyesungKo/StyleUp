@@ -13,6 +13,7 @@ export class EventDetailPage {
   public currentEvent: any;
   private posts: firebase.database.Reference;
   public currentUser: string;
+  public owner: boolean;
 
 
 
@@ -34,13 +35,11 @@ export class EventDetailPage {
           uid: snapshot.val().uid
         });
         this.currentEvent = event;
-        
+        this.owner = (this.currentEvent.uid === this.currentUser);
+
     });
   }
 
-/*   isPostOwner() {
-    return this.currentUser ===this.currentEvent.uid;
-  } */
 
   getEventDetail(eventId): firebase.database.Reference {
     return this.posts.child(eventId);

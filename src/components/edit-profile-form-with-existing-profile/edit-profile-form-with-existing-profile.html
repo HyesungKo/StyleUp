@@ -1,4 +1,9 @@
-<ion-card>
+<div class="profile-view__image-container">
+  <img (click)="takePicture()" *ngIf="postPicture" class="profile-view__image" [src]="postPicture" alt="profile">
+  <img (click)="takePicture()" *ngIf="!postPicture" class="profile-view__image" [src]="profile? profile.profilePhoto : defaultProfile" alt="profile">
+</div>
+
+<ion-card>assets/img/profile-placeholder.png
     <ion-card-content>
       <ion-item>
         <ion-label floating>User Name</ion-label>

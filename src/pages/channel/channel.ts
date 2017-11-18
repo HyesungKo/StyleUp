@@ -23,7 +23,9 @@ export class ChannelPage {
     this.postRef = firebase.database().ref(`posts`);
     this.followingRef = firebase.database().ref(`profiles/${this.currentUser}/following`)
   }
-
+  ionViewWillEnter(){
+   this.ionViewDidLoad();
+  }
   ionViewDidLoad() {
     this.postRef.on('value', snapshot => {
       let list = [];
@@ -40,10 +42,8 @@ export class ChannelPage {
       });
       this.followingUsersPosts = list;
       console.log(this.followingUsersPosts);
-      
     });
   }
-
     
   filterPost(ev: any) {
     this.ionViewDidLoad();

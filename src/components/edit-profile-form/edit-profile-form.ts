@@ -34,15 +34,17 @@ export class EditProfileFormComponent implements OnDestroy{
   }
 
   async saveProfile() {
+    this.profile.email = this.authenticatedUser.email;
+    let storageRef = firebase.storage().ref();
+    const filename = Math.floor(Date.now() / 1000);
+    const imageRef = storageRef.child(`profileImgs/${filename}.jpg`);
     if(this.postPicture) {
-      let storageRef = firebase.storage().ref();
-      const filename = Math.floor(Date.now() / 1000);
-      const imageRef = storageRef.child(`profileImgs/${filename}.jpg`);
-      this.profile.profilePhoto = imageRef.putString(this.postPicture, firebase.storage.StringFormat.DATA_URL).snapshot.downloadURL;
+      imageRef.putString(this.postPicture, firebase.storage.StringFormat.DATA_URL).then((snapshot) => {
+        this.profile.profilePhoto = snapshot.downloadURL;
+      });
     } else {
       this.profile.profilePhoto = this.defaultProfile;
     }
-    this.profile.email = this.authenticatedUser.email;
     const result = await this.data.saveProfile(this.authenticatedUser, this.profile);
     this.saveProfileResult.emit(result);
   }

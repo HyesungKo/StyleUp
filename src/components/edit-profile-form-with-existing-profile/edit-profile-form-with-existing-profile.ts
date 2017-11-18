@@ -17,7 +17,7 @@ export class EditProfileFormWithExistingProfileComponent implements OnDestroy{
   private authenticatedUser: User;
   profile = {} as Profile;
   public postPicture: string;
-  public defaultProfile = "assets/img/profile-placeholder.png"
+  public defaultProfile = "assets/img/profile-placeholder.png";
 
   @Output() saveProfileResult: EventEmitter<Boolean>;
 

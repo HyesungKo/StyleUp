@@ -1,9 +1,7 @@
-<div class="profile-view__image-container">
-    <img  *ngIf="userProfile.profilePhoto" class="profile-view__image" [src]="userProfile.profilePhoto" alt="profile">
-    <img  *ngIf="!userProfile.profilePhoto" class="profile-view__image" src="assets/img/profile-placeholder.png" alt="profile">
-</div>
-
 <div *ngIf="userProfile">
+  <div class="profile-view__image-container">
+      <img *ngIf="userProfile.profilePhoto" class="profile-view__image" [src]="userProfile.profilePhoto" alt="profile">
+  </div>
   <ion-card>
     <ion-card-content>
       <ion-item>

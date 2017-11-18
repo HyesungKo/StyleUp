@@ -13,7 +13,6 @@ export class ProfileFormComponent implements OnInit {
 
   userProfile: Profile;
   loader: Loading;
-  public defaultProfile = "assets/img/profile-placeholder.png";
 
   constructor(private loading: LoadingController, private data: DataProvider, private auth: AuthProvider, private navCtrl: NavController){
     this.loader = this.loading.create({

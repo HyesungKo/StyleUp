@@ -1,5 +1,6 @@
 <div class="profile-view__image-container">
-  <img class="profile-view__image" [src]="userProfile.profilePhoto? userProfile.profilePhoto : defaultProfile" alt="profile">
+    <img  *ngIf="userProfile.profilePhoto" class="profile-view__image" [src]="userProfile.profilePhoto" alt="profile">
+    <img  *ngIf="!userProfile.profilePhoto" class="profile-view__image" src="assets/img/profile-placeholder.png" alt="profile">
 </div>
 
 <div *ngIf="userProfile">

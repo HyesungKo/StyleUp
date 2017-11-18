@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import firebase from 'firebase';
 
-
 @IonicPage()
 @Component({
   selector: 'page-edit-post',
@@ -10,6 +9,7 @@ import firebase from 'firebase';
 })
 export class EditPostPage {
 
+  private postPicture: string;
   public currentPost: any;
   public currentUser: string;
   public currentPostRef: firebase.database.Reference;
@@ -25,6 +25,7 @@ export class EditPostPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditPostPage');
   }
+
 
   updatePost(location : string, caption : string, hashtags: string) {
     this.currentPostRef.update({

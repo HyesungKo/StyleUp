@@ -47,11 +47,17 @@ export class MessageDetailPage {
   sendMessage(){
     this.senderMessageRef.push({
       message: this.message,
-      userName: this.receiverProfile.profile.userName
+      userName: this.receiverProfile.profile.userName,
+      messageOwner: true,
+      time: new Date().toISOString()
     });
+    console.log(new Date().toISOString());
+    
     this.receiverMessageRef.push({
       message: this.message,
-      userName: this.profile.userName
+      userName: this.profile.userName,
+      messageOwner: false,
+      time: new Date().toISOString() 
     });
   }
 

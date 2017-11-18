@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>receiverProfile.userName</ion-title>
+    <ion-title>{{receiverProfile.profile.userName}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -21,13 +21,13 @@
             <img src="assets/img/profile-placeholder.png" alt="avatar">
           </ion-avatar>
           <h2>{{message.message}}</h2>
-          <p>{{message.userName}}</p>
+
         </ion-item>
       </ion-list>
   </ion-card>
   <ion-row bottom>
     <ion-col col-10>
-      <ion-input value="message" [(ngModel)]="message">Type messages</ion-input>
+      <ion-input value="" [(ngModel)]="message">Type Messages</ion-input>
     </ion-col>
     <ion-col col-2>
       <button ion-button (click)="sendMessage()">send</button>

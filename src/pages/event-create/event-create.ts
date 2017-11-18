@@ -55,34 +55,34 @@ export class EventCreatePage {
     });
   }
 
-    upload(eventLocation: string ,eventCaption: string, eventHashtags: string) {
-    this.eventCaption= eventCaption;
-    this.eventHashtags= eventHashtags;
-    this.eventLocation= eventLocation;
+  upload(eventLocation: string ,eventCaption: string, eventHashtags: string) {
+  this.eventCaption= eventCaption;
+  this.eventHashtags= eventHashtags;
+  this.eventLocation= eventLocation;
 
-    let storageRef = firebase.storage().ref();
-    // Create a timestamp as filename
-    const filename = Math.floor(Date.now() / 1000);
+  let storageRef = firebase.storage().ref();
+  // Create a timestamp as filename
+  const filename = Math.floor(Date.now() / 1000);
 
-    // Create a reference to 'images/todays-date.jpg'
-    const imageRef = storageRef.child(`images/${filename}.jpg`);
-     imageRef.putString(this.postPicture, firebase.storage.StringFormat.DATA_URL).then((snapshot)=> {
-           this.posts.push({
-            name: eventLocation,
-            caption: eventCaption,
-            hashtags: eventHashtags,
-            //photo: this.postPicture,
-            photo: snapshot.downloadURL,
-            userType: this.profile.userType,
-            uid: this.currentUser.uid,
-            userName: this.profile.userName
-          });
-       this.showSuccesfulUploadAlert();
-       this.navCtrl.setRoot('TabsPage');
+  // Create a reference to 'images/todays-date.jpg'
+  const imageRef = storageRef.child(`images/${filename}.jpg`);
+    imageRef.putString(this.postPicture, firebase.storage.StringFormat.DATA_URL).then((snapshot)=> {
+          this.posts.push({
+          name: eventLocation,
+          caption: eventCaption,
+          hashtags: eventHashtags,
+          //photo: this.postPicture,
+          photo: snapshot.downloadURL,
+          userType: this.profile.userType,
+          uid: this.currentUser.uid,
+          userName: this.profile.userName
+        });
+      this.showSuccesfulUploadAlert();
+      this.navCtrl.setRoot('TabsPage');
 
-      //  nav.popToRoot() 
-       //this.navCtrl.popToRoot();
-     // Do something here when the data is succesfully uploaded!
+    //  nav.popToRoot() 
+      //this.navCtrl.popToRoot();
+    // Do something here when the data is succesfully uploaded!
     });
   }
 

@@ -6,6 +6,7 @@ import { Component, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { User } from 'firebase/app';
 import { Camera } from '@ionic-native/camera';
+import firebase from 'firebase';
 
 @Component({
   selector: 'edit-profile-form-with-existing-profile',
@@ -35,11 +36,11 @@ export class EditProfileFormWithExistingProfileComponent implements OnDestroy{
     let storageRef = firebase.storage().ref();
     const filename = Math.floor(Date.now() / 1000);
     const imageRef = storageRef.child(`profileImgs/${filename}.jpg`);
-    let photoRef = imageRef.putString(this.postPicture, firebase.storage.StringFormat.DATA_URL);
+    let photoRef = imageRef.putString(this.postPicture, firebase.storage.StringFormat.DATA_URL).snapshot;
 
     if (this.authenticatedUser){
       this.profile.email = this.authenticatedUser.email;
-      this.profile.profilePhoto = photoRef.snapshot.downloadURL;
+      this.profile.profilePhoto = photoRef.downloadURL;
       const result = await this.data.saveProfile(this.authenticatedUser, this.profile);
       this.saveProfileResult.emit(result);
     }

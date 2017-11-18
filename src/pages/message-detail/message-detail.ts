@@ -50,7 +50,7 @@ export class MessageDetailPage {
       userName: this.receiverProfile.profile.userName
     });
     this.receiverMessageRef.push({
-      mesage: this.message,
+      message: this.message,
       userName: this.profile.userName
     });
   }

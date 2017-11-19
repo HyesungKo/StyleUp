@@ -10,7 +10,7 @@ import firebase from 'firebase';
 export class InboxPage {
 
   public inboxType = 'messages';
-  public messageList = [];
+  public chatList = [];
   public profileList = [];
 
   private currentUser: string;
@@ -28,29 +28,37 @@ export class InboxPage {
   ionViewDidEnter(){
 
     this.userMessageRef.on('value', snapshot => {
-      let messageList = [];
+      let chatList = [];
       snapshot.forEach( element => {
-        messageList.push(element.val());
+        chatList.push(element.key);
         return false;
       });
-      this.messageList = messageList;
+      this.chatList = chatList;      
     });
 
     this.profileRef.on('value', snap =>{
       let profileList = [];
       snap.forEach( element => {
-        console.log(element.key);
         if(this.currentUser !== element.key){
           profileList.push({
             profile: element.val(),
             key: element.key
           });
         }
-        console.log(element.val());
         return false;
       });
       this.profileList = profileList;
     });
+  }
+
+  goToMessageDetailFromMessageList(userName){
+    let profile: any;
+    this.profileList.forEach( element => {
+      if (element.profile.userName === userName){
+        profile = element;
+      }
+    });
+    this.goToMessageDetail(profile);
   }
 
   goToMessageDetail(profilekey) {
@@ -71,7 +79,7 @@ export class InboxPage {
       let val = ev.target.value;
       
       if (val && val.trim() !== '') {
-        this.messageList = this.messageList.filter(function(item) {
+        this.chatList = this.chatList.filter(function(item) {
           return item.userName.toLowerCase().includes(val.toLowerCase());
         });
       }

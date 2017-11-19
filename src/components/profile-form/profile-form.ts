@@ -11,8 +11,8 @@ import { LoadingController, Loading, NavController } from 'ionic-angular';
 })
 export class ProfileFormComponent{
 
-  userProfile: Profile;
-  loader: Loading;
+  public userProfile: Profile;
+  public loader: Loading;
 
   constructor(private loading: LoadingController, private data: DataProvider, private auth: AuthProvider, private navCtrl: NavController){
     this.loader = this.loading.create({

@@ -1,7 +1,7 @@
 <div class="profile-view__image-container" >
   <a (click)="takePicture()">
     <img  *ngIf="postPicture" class="profile-view__image" [src]="postPicture" alt="profile">
-    <img  *ngIf="!postPicture" class="profile-view__image" [src]="profile.profilePhoto? profile.profilePhoto : defaultProfile" alt="profile">
+    <img  *ngIf="!postPicture" class="profile-view__image" [src]="profile.avatar" alt="profile">
   </a>
 </div>
 

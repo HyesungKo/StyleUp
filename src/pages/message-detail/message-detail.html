@@ -18,7 +18,7 @@
       <ion-list>
         <ion-item *ngFor="let message of messageList">
           <ion-avatar item-left>
-            <img src="assets/img/profile-placeholder.png" alt="avatar">
+            <img [src]="message.owner? profile.avatar: receiverProfile.profile.avatar" alt="avatar">
           </ion-avatar>
           <h2>{{message.message}}</h2>
 

@@ -79,10 +79,6 @@ export class EventCreatePage {
         });
       this.showSuccesfulUploadAlert();
       this.navCtrl.setRoot('TabsPage');
-
-    //  nav.popToRoot() 
-      //this.navCtrl.popToRoot();
-    // Do something here when the data is succesfully uploaded!
     });
   }
 

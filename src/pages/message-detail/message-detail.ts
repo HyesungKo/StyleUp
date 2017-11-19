@@ -24,11 +24,11 @@ export class MessageDetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private data: DataProvider) {
     this.receiverProfile = this.navParams.get('profilekey');
     this.currentUser = firebase.auth().currentUser;
-    this.senderMessageRef = firebase.database().ref(`profiles/${this.currentUser.uid}/messages`);
-    this.receiverMessageRef = firebase.database().ref(`profiles/${this.receiverProfile.key}/messages`);
     this.data.getProfile(this.currentUser).subscribe(profile => {
       this.profile = <Profile>profile;
     });
+    this.senderMessageRef = firebase.database().ref(`profiles/${this.currentUser.uid}/messages/${this.receiverProfile.profile.userName}`);
+    this.receiverMessageRef = firebase.database().ref(`profiles/${this.receiverProfile.key}/messages/${this.profile.userName}`);
   }
 
   ionViewDidLoad() {
@@ -45,20 +45,21 @@ export class MessageDetailPage {
   }
 
   sendMessage(){
-    this.senderMessageRef.push({
-      message: this.message,
-      userName: this.receiverProfile.profile.userName,
-      messageOwner: true,
-      time: new Date().toISOString()
-    });
-    console.log(new Date().toISOString());
-    
-    this.receiverMessageRef.push({
-      message: this.message,
-      userName: this.profile.userName,
-      messageOwner: false,
-      time: new Date().toISOString() 
-    });
+    if(this.message){
+      this.senderMessageRef.push({
+        message: this.message,
+        userName: this.receiverProfile.profile.userName,
+        messageOwner: true,
+        time: new Date().toISOString()
+      });
+      console.log(new Date().toISOString());
+      
+      this.receiverMessageRef.push({
+        message: this.message,
+        userName: this.profile.userName,
+        messageOwner: false,
+        time: new Date().toISOString() 
+      });
+    } 
   }
-
 }

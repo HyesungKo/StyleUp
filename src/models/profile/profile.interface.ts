@@ -6,5 +6,4 @@ export interface Profile {
     email: string;
     dateOfBirth: Date;
     userType: string;
-    profilePhoto: string;
 }

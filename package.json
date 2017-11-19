@@ -24,6 +24,7 @@
     "@ionic-native/core": "3.12.1",
     "@ionic-native/email-composer": "^4.2.1",
     "@ionic-native/geolocation": "^4.4.2",
+    "@ionic-native/google-maps": "^4.4.2",
     "@ionic-native/native-geocoder": "^4.4.2",
     "@ionic-native/splash-screen": "3.12.1",
     "@ionic-native/status-bar": "3.12.1",
@@ -32,6 +33,7 @@
     "cordova-plugin-camera": "^2.4.1",
     "cordova-plugin-email-composer": "^0.8.7",
     "cordova-plugin-geolocation": "^3.0.0",
+    "cordova-plugin-googlemaps": "^2.1.1",
     "cordova-plugin-nativegeocoder": "^2.0.4",
     "firebase": "^4.3.0",
     "ionic-angular": "3.6.0",
@@ -58,7 +60,11 @@
       "cordova-plugin-camera": {},
       "cordova-plugin-email-composer": {},
       "cordova-plugin-geolocation": {},
-      "cordova-plugin-nativegeocoder": {}
+      "cordova-plugin-nativegeocoder": {},
+      "cordova-plugin-googlemaps": {
+        "API_KEY_FOR_ANDROID": "AIzaSyDywaHintttiBvMx9hAH_dgV3uRfJMctqU",
+        "API_KEY_FOR_IOS": "AIzaSyA_9HodLQ5tcSdkie6V9cQYO-qdAIt_3wc"
+      }
     }
   }
 }

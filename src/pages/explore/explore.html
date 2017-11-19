@@ -6,9 +6,9 @@
       </ion-title>
     </ion-navbar>
 
-    <ion-searchbar placeHoler="filter" (ionInput)="filterPost($event)"> </ion-searchbar>
+    <ion-searchbar placeholder="Filter by Hashtag" (ionInput)="filterPost($event)"> </ion-searchbar>
     
-    <div style="text-align: center;"><ion-icon name="md-pin"> {{currentCity}}</ion-icon></div>
+    <div style="text-align: center;"><ion-icon name="md-pin" (click)="openLocationModal()"> Current Location</ion-icon></div>
   
     <ion-segment [(ngModel)]="postType">
       <ion-segment-button value="standard">
@@ -51,5 +51,3 @@
       </ion-grid>
     </div>
   </ion-content>
-
-<script src="http://maps.google.com/maps/api/js?key=AIzaSyA08OkLA-rf3vxr3qL5yL0QZXOPd_4FpXM"></script>

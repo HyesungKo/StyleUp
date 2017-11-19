@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, IonicPage, ModalController } from 'ionic-angular';
 import firebase from 'firebase';
 import { Geolocation, GeolocationOptions, Geoposition, PositionError } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/native-geocoder';
@@ -10,6 +10,7 @@ import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/nativ
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
+
 
 @IonicPage()
 @Component({
@@ -25,9 +26,9 @@ export class ExplorePage {
   options: GeolocationOptions;
   currentPos: Geoposition;
   currentCity: string;
+  
 
-
-  constructor(public navCtrl: NavController, private geolocation: Geolocation, private geocoder: NativeGeocoder) {
+  constructor(public navCtrl: NavController, private modal: ModalController, private geolocation: Geolocation, private geocoder: NativeGeocoder) {
     this.posts = firebase.database().ref(`posts`);
   }
 
@@ -69,7 +70,6 @@ export class ExplorePage {
 
   doRefresh(refresher) {
     this.ionViewDidEnter();
-    
     refresher.complete();
   }
 
@@ -104,18 +104,16 @@ export class ExplorePage {
     };
     this.geolocation.getCurrentPosition(this.options).then((pos: Geoposition) => {
       this.currentPos = pos;
-      this.getCity(pos);
       console.log(pos);
     }, (err: PositionError) => {
       console.log("error : " + err.message);
     });
   }
   
-  getCity(pos) {
-    this.geocoder.reverseGeocode(pos.coords.latitude, pos.coords.longitude).then((res: NativeGeocoderReverseResult) => {
-      let city = res.locality;
-      this.currentCity = city;
-      console.log("city: " + this.currentCity);
-    });
+  openLocationModal() {
+    const myModal = this.modal.create('LocationPage');
+    myModal.present();
+
   }
+
 }

@@ -16,6 +16,7 @@ import { FormsModule } from "@angular/forms";
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
+import { GoogleMaps } from '@ionic-native/google-maps';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder';
     EventProvider,
     Camera,
     Geolocation,
-    NativeGeocoder
+    NativeGeocoder,
+    GoogleMaps
   ]
 })
 export class AppModule {}

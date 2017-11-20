@@ -1,7 +1,7 @@
 import { DataProvider } from './../../providers/data/data.service';
 //import { EventProvider } from './../../providers/event/event';
 import { Component } from '@angular/core';
-import { NavController, IonicPage, AlertController } from 'ionic-angular';
+import { NavController, IonicPage, AlertController, Modal, ModalController } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 import firebase from 'firebase';
 import { User } from 'firebase/app';
@@ -14,7 +14,7 @@ import { Profile } from '../../models/profile/profile.interface';
 })
 export class EventCreatePage {
   postPicture: string;
-  eventLocation: string;
+  eventLocation: any = 'Select a Location'; //edited for new location handling
   eventCaption: string;
   eventHashtags: string;
 
@@ -24,7 +24,7 @@ export class EventCreatePage {
   public posts: firebase.database.Reference;
 
   constructor(public navCtrl: NavController/*, public eventData: EventProvider*/, public cameraPlugin: Camera,
-   alertCtrl: AlertController, private data: DataProvider) {
+   alertCtrl: AlertController, private data: DataProvider, private modal: ModalController,) {
     this.currentUser = firebase.auth().currentUser;
     this.data.getProfile(this.currentUser).subscribe(profile => {
       this.profile = <Profile>profile;
@@ -35,6 +35,7 @@ export class EventCreatePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EventCreatePage');
+    console.log(this.eventLocation);
   }
 
 
@@ -105,6 +106,14 @@ export class EventCreatePage {
     return this.posts.child(eventId);
   }
 
+  //Added for location handling
+  openLocationModal() {
+    const myModal = this.modal.create('LocationPage', { city: this.eventLocation});
+    myModal.present();
 
+    myModal.onDidDismiss((item) => {
+      this.eventLocation = item.description;
+    });
+  }
 
 }

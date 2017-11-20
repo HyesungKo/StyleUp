@@ -5,10 +5,8 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-item>
-    <ion-label stacked>Location</ion-label>
-    <ion-input [(ngModel)]="eventLocation" type="text" placeholder="eventLocation"></ion-input>
-  </ion-item>
+  
+    <button ion-item *ngIf="eventLocation" (click)="openLocationModal()">{{ eventLocation }}</button>
 
   <ion-item>
     <ion-label stacked>Caption</ion-label>

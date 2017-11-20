@@ -21,6 +21,9 @@ export class LocationPage implements OnInit {
   autocompInput: any;
   autocompService: any;
   //placesService: any;
+  retSame: any = {
+    description: ''
+  };
 
   constructor(private navParams: NavParams, private view: ViewController) {
   }
@@ -32,11 +35,12 @@ export class LocationPage implements OnInit {
   }
 
   closeModal() {
-    this.view.dismiss();
+    this.view.dismiss(this.retSame);
   }
 
   ionViewDidLoad() {
-    console.log('LocationPage loaded');
+    this.retSame.description = this.navParams.get('city');
+    console.log(this.retSame.description);
   }
 
   chooseItem(item: any) {

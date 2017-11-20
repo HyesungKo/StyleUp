@@ -1,24 +1,18 @@
 
 <ion-header>
     <ion-navbar>
-      <ion-title>
-        Explore
-      </ion-title>
+      <ion-title *ngIf="currentCity">{{currentCity}}</ion-title>
+      <button style="float: right;" ion-button icon-only clear="true" (click)="openLocationModal()">
+          <ion-icon name="md-pin"></ion-icon>
+      </button>
     </ion-navbar>
 
     <ion-searchbar placeholder="Filter by Hashtag" (ionInput)="filterPost($event)"> </ion-searchbar>
-    
-    <div style="text-align: center;"><ion-icon name="md-pin" (click)="openLocationModal()"> Current Location</ion-icon></div>
-  
+      
     <ion-segment [(ngModel)]="postType">
-      <ion-segment-button value="standard">
-        Users
-      </ion-segment-button>
-      <ion-segment-button value="boutique">
-        Boutiques
-      </ion-segment-button>
+      <ion-segment-button value="standard">Users</ion-segment-button>
+      <ion-segment-button value="boutique">Boutiques</ion-segment-button>
     </ion-segment>
-    
   </ion-header>
   
   <ion-content no-padding>

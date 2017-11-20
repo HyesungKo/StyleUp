@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage, ModalController } from 'ionic-angular';
+import { NavController, NavParams, IonicPage, Modal, ModalController } from 'ionic-angular';
 import firebase from 'firebase';
 import { Geolocation, GeolocationOptions, Geoposition, PositionError } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/native-geocoder';
@@ -25,8 +25,8 @@ export class ExplorePage {
 
   options: GeolocationOptions;
   currentPos: Geoposition;
-  currentCity: string;
-  
+  currentCity: any = 'Current Location';
+
 
   constructor(public navCtrl: NavController, private modal: ModalController, private geolocation: Geolocation, private geocoder: NativeGeocoder) {
     this.posts = firebase.database().ref(`posts`);
@@ -40,24 +40,46 @@ export class ExplorePage {
       let normalList = [];
       let boutiqueList = [];
       snapshot.forEach(snap => {
-        if (snap.val().userType === 'boutique') {
-          boutiqueList.push({
-            id: snap.key,
-            eventLocation: snap.val().name,
-            photo: snap.val().photo,
-            eventCaption: snap.val().caption,
-            eventHashtag: snap.val().hashtags,
-            userType: snap.val().userType
-          });
+        if (this.currentCity !== 'Current Location' && snap.val.name === this.currentCity) {
+          if (snap.val().userType === 'boutique') {
+            boutiqueList.push({
+              id: snap.key,
+              eventLocation: snap.val().name,
+              photo: snap.val().photo,
+              eventCaption: snap.val().caption,
+              eventHashtag: snap.val().hashtags,
+              userType: snap.val().userType
+            });
+          } else {
+            normalList.push({
+              id: snap.key,
+              eventLocation: snap.val().name,
+              photo: snap.val().photo,
+              eventCaption: snap.val().caption,
+              eventHashtag: snap.val().hashtags,
+              userType: snap.val().userType
+            });
+          }
         } else {
-          normalList.push({
-            id: snap.key,
-            eventLocation: snap.val().name,
-            photo: snap.val().photo,
-            eventCaption: snap.val().caption,
-            eventHashtag: snap.val().hashtags,
-            userType: snap.val().userType
-          });
+          if (snap.val().userType === 'boutique') {
+            boutiqueList.push({
+              id: snap.key,
+              eventLocation: snap.val().name,
+              photo: snap.val().photo,
+              eventCaption: snap.val().caption,
+              eventHashtag: snap.val().hashtags,
+              userType: snap.val().userType
+            });
+          } else {
+            normalList.push({
+              id: snap.key,
+              eventLocation: snap.val().name,
+              photo: snap.val().photo,
+              eventCaption: snap.val().caption,
+              eventHashtag: snap.val().hashtags,
+              userType: snap.val().userType
+            });
+          }
         }
         return false;
       });
@@ -68,10 +90,10 @@ export class ExplorePage {
     console.log('ionViewDidLoad ExplorePage');
   }
 
-  doRefresh(refresher) {
+  /**doRefresh(refresher) {
     this.ionViewDidEnter();
     refresher.complete();
-  }
+  }*///possible code for pull down to refresh
 
   goToEventDetail(eventId) {
     this.navCtrl.push('EventDetailPage', { eventId: eventId });
@@ -109,11 +131,15 @@ export class ExplorePage {
       console.log("error : " + err.message);
     });
   }
-  
+
   openLocationModal() {
-    const myModal = this.modal.create('LocationPage');
+    const myModal = this.modal.create('LocationPage', { city: this.currentCity });
     myModal.present();
 
+    myModal.onDidDismiss((item) => {
+      this.currentCity = item.description;
+      this.ionViewDidEnter();      
+    });
   }
 
 }

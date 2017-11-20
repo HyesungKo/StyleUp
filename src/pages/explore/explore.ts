@@ -35,12 +35,14 @@ export class ExplorePage {
   ionViewDidEnter() {
     //this.doRefresh(0);
     this.getUserPosition();
+    console.log(this.currentCity);
+    
 
     this.posts.on('value', snapshot => {
       let normalList = [];
       let boutiqueList = [];
       snapshot.forEach(snap => {
-        if (this.currentCity !== 'Current Location' && snap.val.name === this.currentCity) {
+        if (snap.val().name === this.currentCity || this.currentCity === 'Current Location') {
           if (snap.val().userType === 'boutique') {
             boutiqueList.push({
               id: snap.key,
@@ -60,27 +62,7 @@ export class ExplorePage {
               userType: snap.val().userType
             });
           }
-        } else {
-          if (snap.val().userType === 'boutique') {
-            boutiqueList.push({
-              id: snap.key,
-              eventLocation: snap.val().name,
-              photo: snap.val().photo,
-              eventCaption: snap.val().caption,
-              eventHashtag: snap.val().hashtags,
-              userType: snap.val().userType
-            });
-          } else {
-            normalList.push({
-              id: snap.key,
-              eventLocation: snap.val().name,
-              photo: snap.val().photo,
-              eventCaption: snap.val().caption,
-              eventHashtag: snap.val().hashtags,
-              userType: snap.val().userType
-            });
-          }
-        }
+        } 
         return false;
       });
       this.normalList = normalList.reverse();

@@ -24,6 +24,9 @@ export class LocationPage implements OnInit {
   retSame: any = {
     description: ''
   };
+  backToCurrent: any = {
+    description: 'Current Location'
+  };
 
   constructor(private navParams: NavParams, private view: ViewController) {
   }

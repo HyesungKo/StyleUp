@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-  <img src="assets/img/logo.jpg" height="300" alt="Logo">
+  <img [src]="logoUrl" height="300" alt="Logo">
   <login-form (loginStatus)="login($event)"></login-form>
   <button ion-button block color="danger" clear align="center" (click)="navigateToResetPasswordPage()">Forget Your Password?</button>
 </ion-content>

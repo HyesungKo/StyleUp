@@ -19,6 +19,8 @@ export class EditProfileFormComponent implements OnDestroy{
   profile = {} as Profile;
   public postPicture: string;
   public defaultProfile: string;
+  private userNameList = [];
+  private profileRef: firebase.database.Reference;
 
   @Output() saveProfileResult: EventEmitter<Boolean>;
 
@@ -27,9 +29,20 @@ export class EditProfileFormComponent implements OnDestroy{
     this.saveProfileResult = new EventEmitter<Boolean>();
     this.authenticatedUser$ = this.auth.getAuthenticatedUser().subscribe((user: User) => {
       this.authenticatedUser = user;
-      /* this.data.getProfile(this.authenticatedUser).subscribe(profile => {
-        this.profile = <Profile>profile;
-      }); */
+    });
+    this.profileRef = firebase.database().ref(`profiles`);
+  }
+
+  ionViewDidLoad(){
+    this.profileRef.on('value', profiles => {
+      let nameList = [];
+        profiles.forEach( profile => {
+        nameList.push(profile.val().userName);
+        return false;
+      });
+      this.userNameList = nameList;
+      console.log(this.userNameList);
+      
     });
   }
 

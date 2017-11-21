@@ -19,12 +19,15 @@ export class EditProfileFormWithExistingProfileComponent implements OnDestroy{
   profile = {} as Profile;
   public postPicture: string;
   public defaultProfile: string;
+  private userNameList = [];
+  private profileRef: firebase.database.Reference;
 
   @Output() saveProfileResult: EventEmitter<Boolean>;
 
   constructor(private data: DataProvider, private auth: AuthProvider, private navCtrl: NavController, private cameraPlugin: Camera) {
     this.defaultProfile = "assets/img/profile-placeholder.png";
     this.saveProfileResult = new EventEmitter<Boolean>();
+    this.profileRef = firebase.database().ref(`profiles`);
     this.authenticatedUser$ = this.auth.getAuthenticatedUser().subscribe((user: User) => {
       this.authenticatedUser = user;
       this.data.getProfile(this.authenticatedUser).subscribe(profile => {
@@ -33,6 +36,17 @@ export class EditProfileFormWithExistingProfileComponent implements OnDestroy{
     });
   }
 
+  ionViewDidenter(){
+    this.profileRef.on('value', profiles => {
+      let nameList = [];
+      profiles.forEach( profile => {
+      nameList.push(profile.val().userName);
+      return false;
+      });
+      this.userNameList = nameList;
+      console.log(this.userNameList);
+    });
+  }
   saveProfile() {
     this.profile.email = this.authenticatedUser.email;
     let storageRef = firebase.storage().ref();

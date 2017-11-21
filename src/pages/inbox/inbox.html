@@ -8,6 +8,9 @@
 
   <ion-navbar>
     <ion-title>Inbox</ion-title>
+
+    <button ion-button float-right clear *ngIf="!delete"  (click)="toggle()">Edit</button>
+    <button ion-button float-right clear *ngIf="delete"  (click)="toggle()">Done</button>
   </ion-navbar>
 
 </ion-header>
@@ -41,12 +44,15 @@
         </ion-list>
       
         <ion-list *ngSwitchCase="'messages'">
-            <ion-item *ngFor="let user of chatList" (click)="goToMessageDetailFromMessageList(user)">
-                <ion-avatar item-left>
-                </ion-avatar>
-                <h2>{{user}}</h2>
-                <p></p>
+            <ion-item *ngFor="let user of chatList">
+              <ion-avatar item-left>
+              </ion-avatar>
+              <h2 (click)="goToMessageDetailFromMessageList(user)">{{user}}</h2>
+              <button item-right ion-button clear *ngIf="delete" (click)="deleteMessage(user)" >
+                  <ion-icon name="close-circle"></ion-icon>
+              </button>
               </ion-item>
+              
         </ion-list>
       </div>
 </ion-content>

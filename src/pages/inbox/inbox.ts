@@ -1,3 +1,4 @@
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import firebase from 'firebase';
@@ -9,6 +10,7 @@ import firebase from 'firebase';
 })
 export class InboxPage {
 
+  public delete = false;
   public inboxType = 'messages';
   public chatList = [];
   public profileList = [];
@@ -19,7 +21,7 @@ export class InboxPage {
   private receiverMessageRef: firebase.database.Reference;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCrl: AlertController) {
     this.currentUser = firebase.auth().currentUser.uid;
     this.profileRef = firebase.database().ref(`profiles`);
     this.userMessageRef = firebase.database().ref(`profiles/${this.currentUser}/messages`)
@@ -65,6 +67,14 @@ export class InboxPage {
     this.navCtrl.push('MessageDetailPage', {profilekey: profilekey});
   }
 
+  toggle(){
+    if (this.delete === false){
+      this.delete = true;
+    } else {
+      this.delete = false;
+    }
+  }
+
   filterPost(ev: any) {
     this.ionViewDidEnter();
     if(this.inboxType === 'users'){
@@ -72,7 +82,7 @@ export class InboxPage {
   
       if (val && val.trim() !== '') {
         this.profileList = this.profileList.filter(function(item) {
-          return item.userName.toLowerCase().includes(val.toLowerCase());
+          return item.profile.userName.toLowerCase().includes(val.toLowerCase());
         });
       }
     } else {
@@ -80,9 +90,29 @@ export class InboxPage {
       
       if (val && val.trim() !== '') {
         this.chatList = this.chatList.filter(function(item) {
-          return item.userName.toLowerCase().includes(val.toLowerCase());
+          return item.profile.userName.toLowerCase().includes(val.toLowerCase());
         });
       }
     }
+  }
+
+  deleteMessage(user){
+    let confirm = this.alertCrl.create({
+      title: 'Do you want to leave this Chat?',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+            this.userMessageRef.child(user).remove();
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 }

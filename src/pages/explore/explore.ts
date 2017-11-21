@@ -55,7 +55,7 @@ export class ExplorePage {
           });
         }
        
-      return false;
+        return false;
       });
       this.standardList = standardList;
       this.boutiqueList = boutiqueList;

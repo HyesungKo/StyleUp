@@ -22,11 +22,6 @@ export class EditPostPage {
     this.currentPostRef = firebase.database().ref(`posts/${this.currentPost.id}`);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EditPostPage');
-  }
-
-
   updatePost(location : string, caption : string, hashtags: string) {
     this.currentPostRef.update({
       "name" : location,

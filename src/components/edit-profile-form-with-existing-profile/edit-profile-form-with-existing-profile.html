@@ -1,0 +1,30 @@
+<div class="profile-view__image-container" >
+  <a (click)="takePicture()">
+    <img  *ngIf="postPicture" class="profile-view__image" [src]="postPicture" alt="profile">
+    <img  *ngIf="!postPicture" class="profile-view__image" [src]="profile.avatar" alt="profile">
+  </a>
+</div>
+
+<ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label floating>User Name</ion-label>
+        <ion-input type="text" [value]="profile.userName" [(ngModel)]="profile.userName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>First Name</ion-label>
+        <ion-input type="text" [value]="profile.firstName" [(ngModel)]="profile.firstName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Last Name</ion-label>
+        <ion-input type="text" [value]="profile.lastName" [(ngModel)]="profile.lastName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Date of Birth</ion-label>
+        <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="profile.dateOfBirth"></ion-datetime>
+      </ion-item>  
+    </ion-card-content>
+  </ion-card>
+  
+  
+  <button style="float:right" ion-button (click)="saveProfile()">Save</button>

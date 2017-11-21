@@ -6,8 +6,8 @@
 
 <ion-content padding>
   <ion-item>
-    <ion-label stacked>Title</ion-label>
-    <ion-input [(ngModel)]="eventName" type="text" placeholder="Title?"></ion-input>
+    <ion-label stacked>Location</ion-label>
+    <ion-input [(ngModel)]="eventLocation" type="text" placeholder="eventLocation"></ion-input>
   </ion-item>
 
   <ion-item>
@@ -19,15 +19,13 @@
     <ion-label stacked>Hashtags</ion-label>
     <ion-input [(ngModel)]="eventHashtags" type="text" placeholder="Hashtags"></ion-input>
   </ion-item>
+  
+  <ion-item>
+        <button ion-button color="primary" (click)="takePicture()">Lets take a picture!</button>
+  </ion-item>
+  <img [src]="postPicture"  *ngIf="postPicture"/>
 
-<ion-item>
-         <button ion-button color="primary" block (click)="takePicture()">
-          Take a Picture
-        </button>
-</ion-item>
-<img [src]="postPicture"  *ngIf="postPicture"/>
-
-  <button ion-button block (click)="createEvent(eventName, eventCaption, eventHashtags)" *ngIf="postPicture">
-    Create Event
+  <button ion-button block (click)="upload(eventLocation,eventCaption, eventHashtags)" *ngIf="postPicture">
+    Share post
   </button>
 </ion-content>

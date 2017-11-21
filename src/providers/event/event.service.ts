@@ -3,12 +3,6 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import firebase from 'firebase';
 
-/*
-  Generated class for the EventProvider provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular DI.
-*/
 @Injectable()
 export class EventProvider {
 
@@ -20,7 +14,6 @@ export class EventProvider {
     this.currentUser = firebase.auth().currentUser.uid;
     this.eventList = firebase.database().ref(`userProfile/${this.currentUser}/eventList`);
     this.profilePictureRef = firebase.storage().ref('/userPosts/');
-
   }
 
   getEventList(): firebase.database.Reference {
@@ -32,7 +25,7 @@ export class EventProvider {
   }
 
   createEvent(eventName: string, eventCaption: string,
-    eventHashtags: string, guestPicture: any): firebase.Promise<any> {
+    eventHashtags: string,eventZipcode:string, guestPicture: any): firebase.Promise<any> {
    const filename = Math.floor(Date.now() / 1000);
 
    return this.profilePictureRef.child(`images/${filename}.png`)
@@ -43,6 +36,7 @@ export class EventProvider {
             name: eventName,
             caption: eventCaption,
             hashtags: eventHashtags,
+            zipcode: eventZipcode,
             photo: savedPicture.downloadURL,
 
           });

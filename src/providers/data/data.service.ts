@@ -2,6 +2,7 @@ import { Profile } from './../../models/profile/profile.interface';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import { User } from 'firebase/app';
+import "rxjs/add/operator/take";
 
 @Injectable()
 export class DataProvider {
@@ -12,16 +13,25 @@ export class DataProvider {
   }
 
   async saveProfile(user: User, profile: Profile) {
-    this.profileObject = this.database.object(`/profiles/${user.uid}`)
-  
+    this.profileObject = this.database.object(`/profiles/${user.uid}`);
+
+    console.log(profile);
+    
     try {
       await this.profileObject.set(profile);
       return true;
-    } catch (e) {
+      
+    } catch (e) {      
       console.error(e);
       return false;
     }
+  }
+
+  getProfile(user: User) {
+    this.profileObject = this.database.object(`/profiles/${user.uid}`) 
+    console.log(this.profileObject.take(1));
     
+    return this.profileObject.take(1);
   }
 
 }

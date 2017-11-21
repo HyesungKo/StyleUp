@@ -1,27 +1,36 @@
-import { EventProvider } from './../../providers/event/event';
+  import { EventCreatePage } from '../event-create/event-create';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, IonicPage } from 'ionic-angular';
+import firebase from 'firebase';
+import { User } from 'firebase/app';
 
+@IonicPage()
 @Component({
   selector: 'page-event-detail',
   templateUrl: 'event-detail.html',
 })
 export class EventDetailPage {
-  currentEvent: any;
+  public currentPost: any;
+  private posts: firebase.database.Reference;
+  public currentUser: string;
+  public owner: boolean;
 
-  
-  constructor(public nav: NavController, public navParams: NavParams, 
-    public eventData: EventProvider) {}
-
-  ionViewDidEnter(){
-    this.eventData.getEventDetail(this.navParams.get('eventId')).on('value', snapshot => {
-      this.currentEvent = snapshot.val();
-      this.currentEvent.id = snapshot.key;
-    });
+  constructor(public navC: NavController, public navParams: NavParams, 
+    ) {
+        this.currentUser = firebase.auth().currentUser.uid;
+        this.posts = firebase.database().ref(`posts`);
+        this.currentPost = this.navParams.get('post');
+        console.log(this.currentPost);
+        
+        this.owner = (this.currentPost.uid === this.currentUser);
+   
   }
 
- 
+  navigateToEditPostPage() {
+    this.navC.push('EditPostPage', {currentPost: this.currentPost});
+  }
 
-
-
+  goToProfile(userName) {
+    this.navC.push('ProfileSearchPage', { userName : this.currentPost.userName })
+  }
 }

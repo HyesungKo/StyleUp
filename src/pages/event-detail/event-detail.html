@@ -1,23 +1,21 @@
 <ion-header>
   <ion-navbar>
-    <ion-title></ion-title>
+    <ion-title *ngIf="currentPost">{{currentPost.caption}}</ion-title>
+    <button ion-button float-right clear color="secondary" *ngIf="owner" (click)="navigateToEditPostPage()">Edit</button>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <ion-row padding>
-    
-
   </ion-row>
-
-  <ion-card>
-    <ion-card-header>
-      {{currentEvent?.name}}
+  <ion-card *ngIf="currentPost">
+    <ion-card-header >
+      {{currentPost.location}}
     </ion-card-header>
     <ion-card-content>
-      <p><img src="{{currentEvent?.photo}}"></p>
-      <h1 align="center"> {{currentEvent?.caption}} </h1>
-      <h1 align="center"> {{currentEvent?.hashtags}} </h1>
+     <p><img src="{{currentPost.photo}}"></p>
+      <h1 align="center"> {{currentPost.hashtags}} </h1>
+      <button ion-button clear block large center (click)="goToProfile(currentPost.userName)"> {{currentPost.userName}} </button>
     </ion-card-content>
   </ion-card>
 

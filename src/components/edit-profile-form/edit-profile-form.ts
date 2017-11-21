@@ -1,43 +1,106 @@
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 import { NavController } from 'ionic-angular';
 import { AuthProvider } from './../../providers/auth/auth.service';
 import { DataProvider } from './../../providers/data/data.service';
 import { Profile } from './../../models/profile/profile.interface';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { User } from 'firebase/app';
+import { Camera } from '@ionic-native/camera';
+import firebase from 'firebase';
 
-/**
- * Generated class for the EditProfileFormComponent component.
- *
- * See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
- * for more info on Angular Components.
- */
 @Component({
   selector: 'edit-profile-form',
   templateUrl: 'edit-profile-form.html'
 })
 export class EditProfileFormComponent implements OnDestroy{
   
-  ngOnDestroy(): void {
-    this.authenticatedUser$.unsubscribe();
-  }
-
   private authenticatedUser$: Subscription;
   private authenticatedUser: User;
   profile = {} as Profile;
+  public postPicture: string;
+  public defaultProfile: string;
+  private userNameList = [];
+  private profileRef: firebase.database.Reference;
 
-  constructor(private data: DataProvider, private auth: AuthProvider, private navCtrl: NavController) {
+  @Output() saveProfileResult: EventEmitter<Boolean>;
+
+  constructor(private data: DataProvider, private auth: AuthProvider, private navCtrl: NavController, private cameraPlugin: Camera, private alertCtl: AlertController) {
+    this.defaultProfile = "assets/img/profile-placeholder.png";
+    this.saveProfileResult = new EventEmitter<Boolean>();
     this.authenticatedUser$ = this.auth.getAuthenticatedUser().subscribe((user: User) => {
       this.authenticatedUser = user;
     });
+    this.profileRef = firebase.database().ref(`profiles`);
   }
 
-  async saveProfile() {
-    if (this.authenticatedUser){
+  ionViewDidLoad(){
+    this.profileRef.on('value', profiles => {
+      let nameList = [];
+      profiles.forEach( profile => {
+        nameList.push(profile.val().userName);
+        return false;
+      });
+      this.userNameList = nameList;
+      console.log(this.userNameList);
+    });
+  }
+
+  saveProfile() {
+    if (this.userNameList.indexOf(this.profile.userName.toLocaleLowerCase().trim()) > -1){
+       this.showUsernameAlert();
+    } else { 
       this.profile.email = this.authenticatedUser.email;
-      const result = await this.data.saveProfile(this.authenticatedUser, this.profile);
-      console.log(result);
+      let storageRef = firebase.storage().ref();
+      const filename = Math.floor(Date.now() / 1000);
+      const imageRef = storageRef.child(`profileImgs/${filename}.jpg`)
+      var result: any;
+      if(this.postPicture) {
+        imageRef.putString(this.postPicture, firebase.storage.StringFormat.DATA_URL).then((snapshot) => {
+          this.profile.avatar = snapshot.downloadURL;
+          console.log(snapshot.downloadURL);
+          console.log(this.profile.avatar);
+          result = this.data.saveProfile(this.authenticatedUser, this.profile);
+          this.saveProfileResult.emit(result);
+        });
+  
+      } else {
+        this.profile.avatar = "https://firebasestorage.googleapis.com/v0/b/sp-login-94206.appspot.com/o/profileImgs%2Fprofile-placeholder.png?alt=media&token=555e5017-a4bf-4b89-af6a-4ccd055e2f25";
+        console.log(this.profile.avatar);
+        result = this.data.saveProfile(this.authenticatedUser, this.profile);
+        this.saveProfileResult.emit(result);
+      }
     }
-    this.navCtrl.setRoot('ProfilePage');
+  }
+
+  takePicture(){
+    this.cameraPlugin.getPicture({
+      quality : 95,
+      destinationType : this.cameraPlugin.DestinationType.DATA_URL,
+      sourceType : this.cameraPlugin.PictureSourceType.CAMERA,
+      allowEdit : true,
+      encodingType: this.cameraPlugin.EncodingType.PNG,
+      targetWidth: 500,
+      targetHeight: 500,
+      saveToPhotoAlbum: true
+    }).then(imageData => {
+      this.postPicture = 'data:image/jpeg;base64,'+ imageData;
+    }, error => {
+      console.log("ERROR -> " + JSON.stringify(error));
+    });
+  }
+
+  showUsernameAlert() {
+    let alert = this.alertCtl.create({
+      title: 'Unique Username Required!',
+      subTitle: 'The user name is already taken',
+      buttons: ['OK']
+    });
+    alert.present();
+    this.profile.userName = "";
+  }
+
+  ngOnDestroy(): void {
+    this.authenticatedUser$.unsubscribe();
   }
 }

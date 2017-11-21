@@ -8,19 +8,51 @@
 
   <ion-navbar>
     <ion-title>Inbox</ion-title>
+
+    <button ion-button float-right clear *ngIf="!delete"  (click)="toggle()">Edit</button>
+    <button ion-button float-right clear *ngIf="delete"  (click)="toggle()">Done</button>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let message of messageList">
-      <ion-avatar item-left>
-        <img [src]="message.user.avatar" alt="Avatar">
-      </ion-avatar>
-      <h2>{{message.user.firstName}} {{message.user.lastName}}</h2>
-      <p>{{message.lastMessage}}</p>
-    </ion-item>
-  </ion-list>
+
+    <div padding>
+        <ion-segment [(ngModel)]="inboxType">
+          <ion-segment-button value="users">
+            Users
+          </ion-segment-button>
+          <ion-segment-button value="messages">
+            Messages
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+
+      <ion-searchbar placeHoler="filter" (ionInput)="filterPost($event)"></ion-searchbar>
+      
+      <div [ngSwitch]="inboxType">
+        
+        <ion-list *ngSwitchCase="'users'">
+          <ion-item *ngFor="let profile of profileList" (click)="goToMessageDetail(profile)">
+            <ion-avatar item-left>
+              <img [src]="profile.profile.avatar" alt="avatar">
+            </ion-avatar>
+            <h2>{{profile.profile.userName}}</h2>
+            <p>{{profile.profile.userType}}</p>
+          </ion-item>
+        </ion-list>
+      
+        <ion-list *ngSwitchCase="'messages'">
+            <ion-item *ngFor="let user of chatList">
+              <ion-avatar item-left>
+              </ion-avatar>
+              <h2 (click)="goToMessageDetailFromMessageList(user)">{{user}}</h2>
+              <button item-right ion-button clear *ngIf="delete" (click)="deleteMessage(user)" >
+                  <ion-icon name="close-circle"></ion-icon>
+              </button>
+              </ion-item>
+              
+        </ion-list>
+      </div>
 </ion-content>

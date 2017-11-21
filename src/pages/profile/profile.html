@@ -1,18 +1,29 @@
-<!--
-  Generated template for the ProfilePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
     <ion-title>Profile</ion-title>
+    <button ion-button style="float: right" clear small color="secondary" (click)="navigateToEditProfile()">Edit</button>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <profile-form></profile-form>
 
+
+  <ion-grid *ngIf="myPosts">
+    <ion-card>
+      <ion-row>
+        <ion-label>Your Posts</ion-label>
+      </ion-row>
+      <ion-row>
+          <ion-col class="min-padding" col-4 *ngFor="let post of myPosts" (click)="goToEventDetail(post)">
+            <img src='{{post?.photo}}' style="width:auto;height:auto;" />
+          </ion-col>
+        </ion-row>
+    </ion-card>
+  </ion-grid>
+  <button ion-button block (click)="signOut()">Logout</button>
 </ion-content>
+

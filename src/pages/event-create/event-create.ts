@@ -74,7 +74,9 @@ export class EventCreatePage {
           photo: snapshot.downloadURL,
           userType: this.profile.userType,
           uid: this.currentUser.uid,
-          userName: this.profile.userName
+          userName: this.profile.userName,
+          thumbUp: 0,
+          thumbDown: 0
         });
       this.showSuccesfulUploadAlert();
       this.navCtrl.setRoot('TabsPage');

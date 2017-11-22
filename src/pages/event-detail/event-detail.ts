@@ -1,4 +1,4 @@
-  import { EventCreatePage } from '../event-create/event-create';
+import { EventCreatePage } from '../event-create/event-create';
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import firebase from 'firebase';
@@ -15,19 +15,82 @@ export class EventDetailPage {
   public currentUser: string;
   public owner: boolean;
 
-  constructor(public navC: NavController, public navParams: NavParams, 
-    ) {
-        this.currentUser = firebase.auth().currentUser.uid;
-        this.posts = firebase.database().ref(`posts`);
-        this.currentPost = this.navParams.get('post');
-        console.log(this.currentPost);
-        
-        this.owner = (this.currentPost.uid === this.currentUser);
-   
+  private likedPostsRef: firebase.database.Reference;
+  private dislikedPostsRef: firebase.database.Reference;
+  private likedPostList = [];
+  private dislikedPostList = [];
+
+  constructor(public navC: NavController, public navParams: NavParams) {
+    this.currentUser = firebase.auth().currentUser.uid;
+    this.posts = firebase.database().ref(`posts`);
+    this.currentPost = this.navParams.get('post');
+    console.log(this.currentPost);
+    this.likedPostsRef = firebase.database().ref(`profiles/${this.currentUser}/likedPosts`);
+    this.dislikedPostsRef = firebase.database().ref(`profiles/${this.currentUser}/dislikedPosts`);
+    
+    this.owner = (this.currentPost.uid === this.currentUser);
+  }
+
+  ionViewDidEnter(){
+    this.likedPostsRef.on('value', posts => {
+      let list = [];
+      posts.forEach( post => {
+          list.push(post.val().key);
+        return false;
+      });
+      this.likedPostList = list;
+    });
+    this.dislikedPostsRef.on('value', posts => {
+      let list = [];
+      posts.forEach( post => {
+          list.push(post.val().key);
+        return false;
+      });
+      this.dislikedPostList = list;
+    });
   }
 
   navigateToEditPostPage() {
     this.navC.push('EditPostPage', {currentPost: this.currentPost});
+  }
+
+  toggleUp(){
+    if(this.likedPostList.indexOf(this.currentPost.id) > -1) {
+      this.currentPost.thumbUp++;
+      this.likedPostsRef.push({
+        key: this.currentPost.id
+      });
+    } else {
+      this.currentPost.thumbUp--;
+      this.likedPostsRef.on('value', likedPosts => {
+        likedPosts.forEach( post => {
+          if(post.val().key === this.currentPost.id){
+            post.ref.remove();
+          }
+          return false;
+        });
+      });
+    }
+    
+  }
+
+  toggleDown(){
+    if(this.dislikedPostList.indexOf(this.currentPost.id) > -1) {
+      this.currentPost.thumbDown++;
+      this.dislikedPostsRef.push({
+        key: this.currentPost.id
+      });
+    } else {
+      this.currentPost.thumbUp--;
+      this.dislikedPostsRef.on('value', dislikedPosts => {
+        dislikedPosts.forEach( post => {
+          if(post.val().key === this.currentPost.id){
+            post.ref.remove();
+          }
+          return false;
+        });
+      });
+    }
   }
 
   goToProfile(userName) {

@@ -13,9 +13,17 @@
       {{currentPost.location}}
     </ion-card-header>
     <ion-card-content>
-     <p><img src="{{currentPost.photo}}"></p>
-      <h1 align="center"> {{currentPost.hashtags}} </h1>
-      <button ion-button clear block large center (click)="goToProfile(currentPost.userName)"> {{currentPost.userName}} </button>
+     <p><img src="{{currentPost.photo}}"></p>>
+    <button float-left ion-button outline>
+      <ion-icon name="thumbs-down"></ion-icon>
+      <p>{{currentPost.thumbDown}}</p>
+    </button>
+    <button ion-button outline float-right>
+      <ion-icon name="thumbs-up"></ion-icon>
+      <p>{{currentPost.thumbUp}}</p>
+    </button>
+    <h1 align="center"><br/>{{currentPost.hashtags}}</h1>
+    <button ion-button clear large block (click)="goToProfile(currentPost.userName)">{{currentPost.userName}}</button>
     </ion-card-content>
   </ion-card>
 

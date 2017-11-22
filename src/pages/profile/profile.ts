@@ -16,11 +16,23 @@ export class ProfilePage implements OnDestroy{
   private currentUserUid: string;
   private authenticatedUser$: Subscription;
   private authenticatedUser: User;
+  private likedPostRef: firebase.database.Reference;
+  private likedPostKeys = [];
+  public likedPostList = [];
 
   constructor(private navCtrl: NavController, private auth: AuthProvider){
     this.posts = firebase.database().ref('posts');
     this.authenticatedUser$ = this.auth.getAuthenticatedUser().subscribe((user: User) => {
       this.currentUserUid = user.uid;
+      this.likedPostRef = firebase.database().ref(`profiles/${this.currentUserUid}/likedPosts`);
+      this.likedPostRef.on('value', posts => {
+        let list = [];
+        posts.forEach( post => {
+          list.push(post.val().key);
+          return false;
+        });
+        this.likedPostKeys = list;
+      });
     });
   }
 
@@ -31,6 +43,8 @@ export class ProfilePage implements OnDestroy{
   ionViewDidEnter(){
    this.posts.on('value', snapshot => {
      let postList = [];
+     let likedPostList = [];
+     
      snapshot.forEach( snap => {
        if (snap.val().uid === this.currentUserUid) {         
          postList.push({
@@ -41,13 +55,32 @@ export class ProfilePage implements OnDestroy{
           hashtags: snap.val().hashtags,
           userType: snap.val().userType,
           userName: snap.val().userName,
-          uid: snap.val().uid
+          uid: snap.val().uid,
+          thumbUp: snap.val().thumbUp,
+          thumbDown: snap.val().thumbDown
          });
        }
        return false;
      });
+     snapshot.forEach (snap => {
+       if(this.likedPostKeys.indexOf(snap.key) > -1){
+         likedPostList.push({
+          id: snap.key,
+          location: snap.val().name,
+          photo: snap.val().photo,
+          caption: snap.val().caption,
+          hashtags: snap.val().hashtags,
+          userType: snap.val().userType,
+          userName: snap.val().userName,
+          uid: snap.val().uid,
+          thumbUp: snap.val().thumbUp,
+          thumbDown: snap.val().thumbDown
+         })
+       }
+       return false;
+     });
      this.myPosts = postList;
-     
+     this.likedPostList = likedPostList;
    });
   }
 

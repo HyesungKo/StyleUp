@@ -12,13 +12,23 @@
   <profile-form></profile-form>
 
 
-  <ion-grid *ngIf="myPosts">
+  <ion-grid>
     <ion-card>
       <ion-row>
         <ion-label>Your Posts</ion-label>
       </ion-row>
       <ion-row>
           <ion-col class="min-padding" col-4 *ngFor="let post of myPosts" (click)="goToEventDetail(post)">
+            <img src='{{post?.photo}}' style="width:auto;height:auto;" />
+          </ion-col>
+        </ion-row>
+    </ion-card>
+    <ion-card>
+      <ion-row>
+        <ion-label>Liked Posts</ion-label>
+      </ion-row>
+      <ion-row>
+          <ion-col class="min-padding" col-4 *ngFor="let post of likedPostList" (click)="goToEventDetail(post)">
             <img src='{{post?.photo}}' style="width:auto;height:auto;" />
           </ion-col>
         </ion-row>

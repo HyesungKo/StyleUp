@@ -15,6 +15,7 @@ export class EventDetailPage {
   public currentUser: string;
   public owner: boolean;
 
+  private currentPostRef: firebase.database.Reference;
   private likedPostsRef: firebase.database.Reference;
   private dislikedPostsRef: firebase.database.Reference;
   private likedPostList = [];
@@ -24,14 +25,13 @@ export class EventDetailPage {
     this.currentUser = firebase.auth().currentUser.uid;
     this.posts = firebase.database().ref(`posts`);
     this.currentPost = this.navParams.get('post');
-    console.log(this.currentPost);
     this.likedPostsRef = firebase.database().ref(`profiles/${this.currentUser}/likedPosts`);
     this.dislikedPostsRef = firebase.database().ref(`profiles/${this.currentUser}/dislikedPosts`);
-    
+    this.currentPostRef = firebase.database().ref(`posts/${this.currentPost.id}`);
     this.owner = (this.currentPost.uid === this.currentUser);
   }
 
-  ionViewDidEnter(){
+  ionViewDidLoad(){
     this.likedPostsRef.on('value', posts => {
       let list = [];
       posts.forEach( post => {
@@ -54,41 +54,52 @@ export class EventDetailPage {
     this.navC.push('EditPostPage', {currentPost: this.currentPost});
   }
 
-  toggleUp(){
+  toggleUp(currentPost){
     if(this.likedPostList.indexOf(this.currentPost.id) > -1) {
-      this.currentPost.thumbUp++;
-      this.likedPostsRef.push({
-        key: this.currentPost.id
+      currentPost.thumbUp = currentPost.thumbUp - 1;      
+      this.currentPostRef.update({
+        "thumbUp": currentPost.thumbUp
       });
-    } else {
-      this.currentPost.thumbUp--;
       this.likedPostsRef.on('value', likedPosts => {
         likedPosts.forEach( post => {
-          if(post.val().key === this.currentPost.id){
+          if(post.val().key === currentPost.id){
             post.ref.remove();
           }
           return false;
         });
-      });
-    }
-    
-  }
-
-  toggleDown(){
-    if(this.dislikedPostList.indexOf(this.currentPost.id) > -1) {
-      this.currentPost.thumbDown++;
-      this.dislikedPostsRef.push({
-        key: this.currentPost.id
       });
     } else {
-      this.currentPost.thumbUp--;
+      currentPost.thumbUp = currentPost.thumbUp + 1;      
+      this.currentPostRef.update({
+        "thumbUp": currentPost.thumbUp
+      });
+      this.likedPostsRef.push({
+        key: currentPost.id
+      });
+    }
+  }
+
+  toggleDown(currentPost){
+    if(this.dislikedPostList.indexOf(this.currentPost.id) > -1) {
+      currentPost.thumbDown = currentPost.thumbDown - 1;
+      this.currentPostRef.update({
+        "thumbDown": currentPost.thumbDown
+      });
       this.dislikedPostsRef.on('value', dislikedPosts => {
         dislikedPosts.forEach( post => {
-          if(post.val().key === this.currentPost.id){
+          if(post.val().key === currentPost.id){
             post.ref.remove();
           }
           return false;
         });
+      });
+    } else {
+      currentPost.thumbDown = currentPost.thumbDown + 1;
+      this.currentPostRef.update({
+        "thumbDown": currentPost.thumbDown
+      });
+      this.dislikedPostsRef.push({
+        key: currentPost.id
       });
     }
   }

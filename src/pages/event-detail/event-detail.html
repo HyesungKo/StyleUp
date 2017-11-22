@@ -13,12 +13,12 @@
       {{currentPost.location}}
     </ion-card-header>
     <ion-card-content>
-     <p><img src="{{currentPost.photo}}"></p>>
-    <button float-left ion-button outline>
+     <p><img src="{{currentPost.photo}}"></p>
+    <button float-left ion-button outline (click)="toggleDown(currentPost)">
       <ion-icon name="thumbs-down"></ion-icon>
       <p>{{currentPost.thumbDown}}</p>
     </button>
-    <button ion-button outline float-right>
+    <button float-right ion-button outline (click)="toggleUp(currentPost)">
       <ion-icon name="thumbs-up"></ion-icon>
       <p>{{currentPost.thumbUp}}</p>
     </button>

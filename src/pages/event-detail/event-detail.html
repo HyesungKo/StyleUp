@@ -5,7 +5,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content on-swipe-right="onSwipeRight()" on-swipe-left="onSwipeLeft()">
+<ion-content>
   <ion-row padding>
   </ion-row>
   <ion-card *ngIf="currentPost">
@@ -24,5 +24,16 @@
     <button ion-button clear large block (click)="goToProfile(currentPost.userName)">{{currentPost.userName}}</button>
     </ion-card-content>
   </ion-card>
+  <ion-card *ngIf="similarPost.length !== 0">
+    <ion-row>
+      <ion-label padding-left>Posts you might like</ion-label>
+    </ion-row>
+    <ion-row padding-left padding-right padding-bottom>
+      <ion-col class="min-padding" col-4 *ngFor="let post of similarPost" (click)="goToEventDetail(post)">
+        <img src='{{post?.photo}}' style="width:auto;height:auto;" />
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>
 
   

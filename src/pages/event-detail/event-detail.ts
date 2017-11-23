@@ -10,13 +10,12 @@ import { User } from 'firebase/app';
   templateUrl: 'event-detail.html',
 })
 export class EventDetailPage {
-  public currentPostId: string;
   public currentPost: any;
   public currentIndex: number;
-  public postList = [];
   private posts: firebase.database.Reference;
   public currentUser: string;
   public owner: boolean;
+  public similarPost = [];
 
   private currentPostRef: firebase.database.Reference;
   private likedPostsRef: firebase.database.Reference;
@@ -27,22 +26,15 @@ export class EventDetailPage {
   constructor(public navC: NavController, public navParams: NavParams) {
     this.currentUser = firebase.auth().currentUser.uid;
     this.posts = firebase.database().ref(`posts`);
-    this.currentPostId = this.navParams.get('postId');
-    this.postList = this.navParams.get('postList');
-    this.postList.forEach( post => {
-      if(post.id === this.currentPostId){
-        this.currentPost = post;
-        this.currentIndex = this.postList.indexOf(this.currentPost);
-        this.owner = (this.currentPost.uid === this.currentUser);
-        
-      }
-    });
+    this.currentPost = this.navParams.get('post');
     this.likedPostsRef = firebase.database().ref(`profiles/${this.currentUser}/likedPosts`);
     this.dislikedPostsRef = firebase.database().ref(`profiles/${this.currentUser}/dislikedPosts`);
-    this.currentPostRef = firebase.database().ref(`posts/${this.currentPostId}`);
+    this.currentPostRef = firebase.database().ref(`posts/${this.currentPost.id}`);
+    this.owner = (this.currentPost.uid === this.currentUser);
   }
 
   ionViewDidLoad(){
+
     this.likedPostsRef.on('value', posts => {
       let list = [];
       posts.forEach( post => {
@@ -58,6 +50,34 @@ export class EventDetailPage {
         return false;
       });
       this.dislikedPostList = list;
+    });
+    this.posts.on('value', posts => {
+      let list = [];
+      let hashtagList = this.currentPost.hashtags.match(/#\S+/g);
+      if (!(hashtagList === null)){
+        posts.forEach( post => {
+          hashtagList.forEach( hashtag => {
+            if( post.key !== this.currentPost.id ) {
+              if( post.val().hashtags.toLowerCase().includes(hashtag.toLowerCase())) {
+                list.push({
+                  id: post.key,
+                  location: post.val().name,
+                  photo: post.val().photo,
+                  caption: post.val().caption,
+                  hashtags: post.val().hashtags,
+                  userType: post.val().userType,
+                  userName: post.val().userName,
+                  uid: post.val().uid,
+                  thumbUp: post.val().thumbUp,
+                  thumbDown: post.val().thumbDown
+                });
+              } 
+            }
+          });
+          return false;
+        });
+      }
+      this.similarPost = list;
     });
   }
 
@@ -115,13 +135,17 @@ export class EventDetailPage {
     }
   }
 
+  goToEventDetail(post){
+    this.navC.push('EventDetailPage', { post : post });
+  }
+/* 
   onSwipeRight() {
     this.navC.push('EventDetailPage', { postId : this.postList[this.currentIndex - 1].id, postList: this.postList});
   }
 
   onSwipeLeft() {
     this.navC.push('EventDetailPage', { postId : this.postList[this.currentIndex + 1].id, postList: this.postList});
-  }
+  } */
 
   goToProfile(userName) {
     this.navC.push('ProfileSearchPage', { userName : this.currentPost.userName })

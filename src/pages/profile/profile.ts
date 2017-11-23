@@ -80,7 +80,6 @@ export class ProfilePage implements OnDestroy{
      });
      this.myPosts = postList;
      this.likedPostList = likedPostList;
-     console.log(this.likedPostList);
      
    });
   }

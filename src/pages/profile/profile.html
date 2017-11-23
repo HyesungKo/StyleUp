@@ -18,7 +18,7 @@
         <ion-label padding-left>Your Posts</ion-label>
       </ion-row>
       <ion-row padding-left padding-right padding-bottom *ngIf="myPosts.length !== 0">
-        <ion-col class="min-padding" col-4 *ngFor="let post of myPosts" (click)="goToEventDetail(post)">
+        <ion-col class="min-padding" col-4 *ngFor="let post of myPosts" (click)="goToEventDetail(post.id, myPosts)">
           <img src='{{post?.photo}}' style="width:auto;height:auto;" />
         </ion-col>
       </ion-row>

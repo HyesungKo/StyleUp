@@ -60,8 +60,8 @@ export class ExplorePage {
     });
   }
 
-  goToEventDetail(postId, postList){
-    this.navCtrl.push('EventDetailPage', { postId : postId, postList: postList });
+  goToEventDetail(post){
+    this.navCtrl.push('EventDetailPage', { post : post });
   }
 
   

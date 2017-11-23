@@ -10,7 +10,7 @@ import { User } from 'firebase/app';
   templateUrl: 'profile.html',
 })
 export class ProfilePage implements OnDestroy{
-  public myPosts: any;
+  public myPosts = [];
   private posts: firebase.database.Reference;
   private currentUserUid: string;
   private authenticatedUser$: Subscription;
@@ -80,6 +80,8 @@ export class ProfilePage implements OnDestroy{
      });
      this.myPosts = postList;
      this.likedPostList = likedPostList;
+     console.log(this.likedPostList);
+     
    });
   }
 
@@ -88,11 +90,11 @@ export class ProfilePage implements OnDestroy{
   }
 
   signOut() {
-    this.auth.signOut();
     this.app.getRootNav().setRoot('LoginPage');
+    this.auth.signOut();
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy(): void {    
     this.authenticatedUser$.unsubscribe();
   }
 }

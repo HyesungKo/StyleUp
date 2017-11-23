@@ -26,6 +26,13 @@
           <ion-row>
               <ion-col class="min-padding" col-4 *ngFor="let post of standardList" (click)="goToEventDetail(post)">
                 <img src='{{post?.photo}}' style="width:auto;height:auto;" />
+                
+                  <button ion-button icon-only clear small float-left>
+                    <ion-icon name="thumbs-down">{{post.thumbDown}}</ion-icon>
+                  </button>
+                  <button ion-button small clear float-right icon-only>
+                    <ion-icon name="thumbs-up">{{post.thumbUp}}</ion-icon>
+                  </button>
               </ion-col>
             </ion-row>
       </ion-grid>

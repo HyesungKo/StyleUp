@@ -15,12 +15,10 @@
     <ion-card-content>
      <p><img src="{{currentPost.photo}}"></p>
     <button float-left ion-button outline (click)="toggleDown(currentPost)">
-      <ion-icon name="thumbs-down"></ion-icon>
-      <p>{{currentPost.thumbDown}}</p>
+      <ion-icon name="thumbs-down">{{currentPost.thumbDown}}</ion-icon>
     </button>
     <button float-right ion-button outline (click)="toggleUp(currentPost)">
-      <ion-icon name="thumbs-up"></ion-icon>
-      <p>{{currentPost.thumbUp}}</p>
+      <ion-icon name="thumbs-up">{{currentPost.thumbUp}}</ion-icon>
     </button>
     <h1 align="center"><br/>{{currentPost.hashtags}}</h1>
     <button ion-button clear large block (click)="goToProfile(currentPost.userName)">{{currentPost.userName}}</button>

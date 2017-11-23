@@ -43,22 +43,26 @@ export class EditProfileFormWithExistingProfileComponent implements OnDestroy{
   }
 
   saveProfile() {
-    this.profile.email = this.authenticatedUser.email;
-    let storageRef = firebase.storage().ref();
-    const filename = Math.floor(Date.now() / 1000);
-    const imageRef = storageRef.child(`profileImgs/${filename}.jpg`)
-    var result: any;
-    if(this.postPicture) {
-      imageRef.putString(this.postPicture, firebase.storage.StringFormat.DATA_URL).then((snapshot) => {
-        this.profile.avatar = snapshot.downloadURL;
-        console.log(snapshot.downloadURL);
-        console.log(this.profile.avatar);
+    if (!this.profile.location){
+      this.showLocationAlert();
+    } else{
+      this.profile.email = this.authenticatedUser.email;
+      let storageRef = firebase.storage().ref();
+      const filename = Math.floor(Date.now() / 1000);
+      const imageRef = storageRef.child(`profileImgs/${filename}.jpg`)
+      var result: any;
+      if(this.postPicture) {
+        imageRef.putString(this.postPicture, firebase.storage.StringFormat.DATA_URL).then((snapshot) => {
+          this.profile.avatar = snapshot.downloadURL;
+          console.log(snapshot.downloadURL);
+          console.log(this.profile.avatar);
+          result = this.data.saveProfile(this.authenticatedUser, this.profile);
+          this.saveProfileResult.emit(result);
+        });
+      } else {
         result = this.data.saveProfile(this.authenticatedUser, this.profile);
         this.saveProfileResult.emit(result);
-      });
-    } else {
-      result = this.data.saveProfile(this.authenticatedUser, this.profile);
-      this.saveProfileResult.emit(result);
+      }
     }
   }
 
@@ -79,14 +83,13 @@ export class EditProfileFormWithExistingProfileComponent implements OnDestroy{
     });
   }
 
-  showUsernameAlert() {
+  showLocationAlert() {
     let alert = this.alertCtl.create({
-      title: 'Unique Username Required!',
-      subTitle: 'The user name is already taken',
+      title: 'Location is Required!',
+      subTitle: 'Location must be filled',
       buttons: ['OK']
     });
     alert.present();
-    this.profile.userName = "";
   }
 
   ngOnDestroy(): void {

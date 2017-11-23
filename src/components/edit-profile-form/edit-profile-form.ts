@@ -50,10 +50,10 @@ export class EditProfileFormComponent implements OnDestroy{
   saveProfile() {
     if (!this.profile.userName){
       this.showEmptyUsernameAlert();
-    } else if (!this.profile.location) {
-      this.showLocationAlert();
     } else if (this.userNameList.indexOf(this.profile.userName.toLowerCase().trim()) > -1){
       this.showUsernameAlert();
+    } else if (!this.profile.location) {
+      this.showLocationAlert();
     } else { 
       this.profile.email = this.authenticatedUser.email;
       let storageRef = firebase.storage().ref();
@@ -100,7 +100,7 @@ export class EditProfileFormComponent implements OnDestroy{
       subTitle: 'The user name is already taken',
       buttons: ['OK']
     });
-    aleUnique Username rt.present();
+    alert.present();
     this.profile.userName = "";
   }
 
@@ -111,7 +111,6 @@ export class EditProfileFormComponent implements OnDestroy{
       buttons: ['OK']
     });
     alert.present();
-    this.profile.userName = "";
   }
 
   ngOnDestroy(): void {

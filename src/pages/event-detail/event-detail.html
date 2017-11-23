@@ -1,25 +1,39 @@
 <ion-header>
   <ion-navbar>
-    <ion-title *ngIf="currentEvent">{{currentEvent.caption}}</ion-title>
-    <button ion-button style="float: right" clear edit color="secondary" (click)="navigateToEditPostPage()">Edit</button>
+    <ion-title *ngIf="currentPost">{{currentPost.caption}}</ion-title>
+    <button ion-button float-right clear color="secondary" *ngIf="owner" (click)="navigateToEditPostPage()">Edit</button>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <ion-row padding>
-    
-
   </ion-row>
-
-  <ion-card *ngIf="currentEvent">
+  <ion-card *ngIf="currentPost">
     <ion-card-header >
-      {{currentEvent.eventLocation}}
+      {{currentPost.location}}
     </ion-card-header>
     <ion-card-content>
-     <p><img src="{{currentEvent.photo}}"></p>
-      <h1 align="center"> {{currentEvent.hashtags}} </h1>
-      <h2 align="center"> {{currentEvent.userName}} </h2>
+     <img src="{{currentPost.photo}}"/>
+    <button float-left ion-button outline (click)="toggleDown(currentPost)" color="danger">
+      <ion-icon name="thumbs-down">{{currentPost.thumbDown}}</ion-icon>
+    </button>
+    <button float-right ion-button outline (click)="toggleUp(currentPost)" color="primary">
+      <ion-icon name="thumbs-up">{{currentPost.thumbUp}}</ion-icon>
+    </button>
+    <h1 align="center"><br/>{{currentPost.hashtags}}</h1>
+    <button ion-button clear large block (click)="goToProfile(currentPost.userName)">{{currentPost.userName}}</button>
     </ion-card-content>
   </ion-card>
+  <ion-card *ngIf="similarPost.length !== 0">
+    <ion-row>
+      <ion-label padding-left>Posts you might like</ion-label>
+    </ion-row>
+    <ion-row padding-left padding-right padding-bottom>
+      <ion-col class="min-padding" col-4 *ngFor="let post of similarPost" (click)="goToEventDetail(post)">
+        <img src='{{post?.photo}}' style="width:auto;height:auto;" />
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>
 
   

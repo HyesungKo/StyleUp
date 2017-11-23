@@ -13,7 +13,7 @@ import { DataProvider } from '../providers/data/data.service';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { EventProvider } from '../providers/event/event.service';
 import { FormsModule } from "@angular/forms";
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+//import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { GoogleMaps } from '@ionic-native/google-maps';
@@ -28,8 +28,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
     AngularFireModule.initializeApp(FIREBASE_CONFIGURE),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    FormsModule,
-    Ng2SearchPipeModule
+    FormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

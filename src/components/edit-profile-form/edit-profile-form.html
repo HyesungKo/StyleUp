@@ -1,3 +1,8 @@
+<div class="profile-view__image-container">
+  <img (click)="takePicture()" *ngIf="postPicture" class="profile-view__image" [src]="postPicture" alt="profile">
+  <img (click)="takePicture()" *ngIf="!postPicture" class="profile-view__image" [src]="defaultProfilePicture" alt="profile">
+</div>
+
 <ion-card>
   <ion-card-content>
     <ion-item>
@@ -21,8 +26,8 @@
         User Type
       </ion-list-header>
       <ion-item>
-        <ion-label>Normal</ion-label>
-        <ion-radio value="normal" checked="true"></ion-radio>
+        <ion-label>Standard</ion-label>
+        <ion-radio value="standard"></ion-radio>
       </ion-item>
       <ion-item>
         <ion-label>Boutique</ion-label>

@@ -1,9 +1,3 @@
-<!--
-  Generated template for the ProfilePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -18,18 +12,35 @@
   <profile-form></profile-form>
 
 
-  <ion-grid *ngIf="myPosts">
+  <ion-grid>
     <ion-card>
       <ion-row>
-        <ion-label>Your Posts</ion-label>
+        <ion-label padding-left>Your Posts</ion-label>
       </ion-row>
+      <ion-row padding-left padding-right padding-bottom *ngIf="myPosts.length !== 0">
+        <ion-col class="min-padding" col-4 *ngFor="let post of myPosts" (click)="goToEventDetail(post.id, myPosts)">
+          <img src='{{post?.photo}}' style="width:auto;height:auto;" />
+        </ion-col>
+      </ion-row>
+      <ion-row padding-left *ngIf="myPosts.length === 0">
+        <p>You didn't post yet.</p>
+      </ion-row>
+    </ion-card>
+    <ion-card >
       <ion-row>
-          <ion-col class="min-padding" col-4 *ngFor="let post of myPosts" (click)="goToEventDetail(post?.id)">
-            <img src='{{post?.photo}}' style="width:auto;height:auto;" />
-          </ion-col>
+        <ion-label padding-left>Liked Posts</ion-label>
+      </ion-row>
+      <ion-row padding-left padding-right padding-bottom *ngIf="likedPostList.length !== 0">
+        <ion-col class="min-padding" col-4 *ngFor="let post of likedPostList" (click)="goToEventDetail(post)">
+          <img src='{{post?.photo}}' style="width:auto;height:auto;" />
+        </ion-col>
+      </ion-row>
+      <ion-row padding-left *ngIf="likedPostList.length === 0">
+          <p>You don't have any thumbed up post yet.</p>
         </ion-row>
     </ion-card>
+    <button ion-button block color="danger" clear (click)="signOut()">Sign Out</button>
   </ion-grid>
-  <button ion-button block (click)="signOut()">Logout</button>
+  
 </ion-content>
 

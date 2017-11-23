@@ -1,12 +1,18 @@
 <ion-header>
-
   <ion-navbar>
-    <ion-title>Channel</ion-title>
+    <ion-title>Followers Posts</ion-title>
   </ion-navbar>
-
 </ion-header>
 
+<ion-content no-padding>
+  <ion-searchbar placeHoler="filter" (ionInput)="filterPost($event)">
+</ion-searchbar>
 
-<ion-content padding>
-
+  <ion-grid>
+      <ion-row>
+          <ion-col class="min-padding" col-4 *ngFor="let post of followingUsersPosts" (click)="goToEventDetail(post)">
+            <img src='{{post?.photo}}' style="width:auto;height:auto;" />
+          </ion-col>
+        </ion-row>
+  </ion-grid>
 </ion-content>

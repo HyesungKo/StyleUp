@@ -1,0 +1,47 @@
+<ion-header>
+  
+    <ion-navbar>
+      <ion-title>Profile</ion-title>
+ </ion-navbar>
+  
+  </ion-header>
+  
+  
+  <ion-content>
+    <div class="profile-view__image-container">
+      <img class="profile-view__image" src="assets/img/profile-placeholder.png" alt="profile">
+    </div>
+    <div class="btn-wrapper">
+      <button ion-button *ngIf="isFollowing(profile, followingUsers)" (click)="unfollowUser(profile)">following</button>
+      <button ion-button *ngIf="!isFollowing(profile, followingUsers)" (click)="followUser(profile)">follow</button>      
+    </div>
+    
+    <div *ngIf="profile">
+      <ion-card>
+        <ion-card-content>
+          <ion-item>
+            <ion-label floating>User Name</ion-label>
+            <ion-input [value]="profile.userName" [readonly]="true"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>User Type</ion-label>
+            <ion-input [value]="profile.userType" [readonly]="true"></ion-input>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </div>   
+    <ion-grid *ngIf="userPosts">
+      <ion-card>
+        <ion-row>
+          <ion-label>{{profile.userName}}'s Posts</ion-label>
+        </ion-row>
+        <ion-row>
+            <ion-col class="min-padding" col-4 *ngFor="let post of userPosts" (click)="goToEventDetail(post)">
+              <img src='{{post?.photo}}' style="width:auto;height:auto;" />
+            </ion-col>
+          </ion-row>
+      </ion-card>
+    </ion-grid>
+  </ion-content>
+  
+  

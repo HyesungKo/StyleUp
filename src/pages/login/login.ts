@@ -11,8 +11,11 @@ import { User } from 'firebase/app';
 })
 export class LoginPage {
 
+  public logoUrl: string;
+
   constructor(private navCtrl: NavController, private navParams: NavParams,
   private toast:ToastController, private data: DataProvider) {
+    this.logoUrl = "https://firebasestorage.googleapis.com/v0/b/sp-login-94206.appspot.com/o/logo%2Flogo.jpg?alt=media&token=ddfebc6d-9244-49bd-af57-586af1a93007";
   }
 
   login(event: LoginResponse) {

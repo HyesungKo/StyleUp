@@ -9,18 +9,15 @@ import { LoadingController, Loading, NavController } from 'ionic-angular';
   selector: 'profile-form',
   templateUrl: 'profile-form.html'
 })
-export class ProfileFormComponent implements OnInit {
+export class ProfileFormComponent{
 
-  userProfile: Profile;
-  loader: Loading;
+  public userProfile: Profile;
+  public loader: Loading;
 
   constructor(private loading: LoadingController, private data: DataProvider, private auth: AuthProvider, private navCtrl: NavController){
     this.loader = this.loading.create({
       content: 'Loading profile...'
     });
-  }
-
-  ngOnInit(): void {
     this.loader.present();
     this.auth.getAuthenticatedUser().subscribe((user: User) => {
       this.data.getProfile(user).subscribe(profile => {
@@ -30,6 +27,4 @@ export class ProfileFormComponent implements OnInit {
       })
     })
   }
-
-  
 }

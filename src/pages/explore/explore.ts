@@ -3,13 +3,8 @@ import { NavController, NavParams, IonicPage, Modal, ModalController } from 'ion
 import firebase from 'firebase';
 import { Geolocation, GeolocationOptions, Geoposition, PositionError } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/native-geocoder';
+import { User } from 'firebase/app';
 
-/**
- * Generated class for the ExplorePage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 
 declare var google: any;
 
@@ -19,7 +14,7 @@ declare var google: any;
   templateUrl: 'explore.html',
 })
 export class ExplorePage {
-  public normalList: any;
+  public standardList: any;
   public boutiqueList: any;
   public posts: firebase.database.Reference;
   public postType = 'standard';
@@ -45,37 +40,47 @@ export class ExplorePage {
     console.log(this.currentCity);
 
     this.posts.on('value', snapshot => {
-      let normalList = [];
+      let standardList = [];
       let boutiqueList = [];
       snapshot.forEach(snap => {
         if (snap.val().name === this.currentCity || this.currentCity === 'Current Location') {
-          if (snap.val().userType === 'boutique') {
+          if (snap.val().userType === 'standard') {
+            standardList.push({
+              id: snap.key,
+              location: snap.val().name,
+              photo: snap.val().photo,
+              caption: snap.val().caption,
+              hashtags: snap.val().hashtags,
+              userType: snap.val().userType,
+              userName: snap.val().userName,
+              uid: snap.val().uid,
+              thumbUp: snap.val().thumbUp,
+              thumbDown: snap.val().thumbDown
+            });
+          } else if (snap.val().userType === 'boutique') {
             boutiqueList.push({
               id: snap.key,
-              eventLocation: snap.val().name,
+              location: snap.val().name,
               photo: snap.val().photo,
-              eventCaption: snap.val().caption,
-              eventHashtag: snap.val().hashtags,
-              userType: snap.val().userType
-            });
-          } else {
-            normalList.push({
-              id: snap.key,
-              eventLocation: snap.val().name,
-              photo: snap.val().photo,
-              eventCaption: snap.val().caption,
-              eventHashtag: snap.val().hashtags,
-              userType: snap.val().userType
+              caption: snap.val().caption,
+              hashtags: snap.val().hashtags,
+              userType: snap.val().userType,
+              userName: snap.val().userName,
+              uid: snap.val().uid,
+              thumbUp: snap.val().thumbUp,
+              thumbDown: snap.val().thumbDown
             });
           }
         }
         return false;
       });
-      this.normalList = normalList.reverse(); //makes array recent first
-      this.boutiqueList = boutiqueList.reverse(); //makes array recent first
+      this.standardList = standardList.reverse();
+      this.boutiqueList = boutiqueList.reverse();
     });
+  }
 
-    console.log('ionViewDidEnter ExplorePage');
+  goToEventDetail(post){
+    this.navCtrl.push('EventDetailPage', { post : post });
   }
 
   /**doRefresh(refresher) {
@@ -89,26 +94,22 @@ export class ExplorePage {
       let val = ev.target.value;
 
       if (val && val.trim() !== '') {
-        this.normalList = this.normalList.filter(function (item) {
-          return item.eventHashtag.toLowerCase().includes(val.toLowerCase());
+        this.standardList = this.standardList.filter(function(item) {
+          return item.hashtags.toLowerCase().includes(val.toLowerCase());
         });
       }
     } else {
       let val = ev.target.value;
 
       if (val && val.trim() !== '') {
-        this.boutiqueList = this.boutiqueList.filter(function (item) {
-          return item.eventHashtag.toLowerCase().includes(val.toLowerCase());
+        this.boutiqueList = this.boutiqueList.filter(function(item) {
+          return item.hashtags.toLowerCase().includes(val.toLowerCase());
         });
       }
     }
   }
-
-  goToEventDetail(eventId) {
-    this.navCtrl.push('EventDetailPage', { eventId: eventId });
-  }
-
   
+  //opens screen to select location
   openLocationModal() {
     const myModal = this.modal.create('LocationPage', { city: this.currentCity }); //passes current value of location in case user cancels
     myModal.present();

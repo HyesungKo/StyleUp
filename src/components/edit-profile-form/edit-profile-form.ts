@@ -32,6 +32,7 @@ export class EditProfileFormComponent implements OnDestroy{
       this.authenticatedUser = user;
     });
     this.profileRef = firebase.database().ref(`profiles`);
+    this.profile.userType = 'standard';
   }
 
   ionViewDidLoad(){
@@ -47,8 +48,10 @@ export class EditProfileFormComponent implements OnDestroy{
   }
 
   saveProfile() {
-    if (this.userNameList.indexOf(this.profile.userName.toLocaleLowerCase().trim()) > -1){
-       this.showUsernameAlert();
+    if (!this.profile.userName){
+      this.showEmptyUsernameAlert();
+    } else if (this.userNameList.indexOf(this.profile.userName.toLowerCase().trim()) > -1){
+      this.showUsernameAlert();
     } else { 
       this.profile.email = this.authenticatedUser.email;
       let storageRef = firebase.storage().ref();
@@ -92,7 +95,7 @@ export class EditProfileFormComponent implements OnDestroy{
 
   showUsernameAlert() {
     let alert = this.alertCtl.create({
-      title: 'Unique Username Required!',
+      title: 'Unique Username is Required!',
       subTitle: 'The user name is already taken',
       buttons: ['OK']
     });
@@ -102,5 +105,14 @@ export class EditProfileFormComponent implements OnDestroy{
 
   ngOnDestroy(): void {
     this.authenticatedUser$.unsubscribe();
+  }
+
+  showEmptyUsernameAlert() {
+    let alert = this.alertCtl.create({
+      title: 'User Name Required',
+      subTitle: 'User name must not be empty',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 }

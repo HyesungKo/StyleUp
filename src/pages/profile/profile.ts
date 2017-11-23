@@ -1,10 +1,9 @@
 import { Subscription } from 'rxjs/Subscription';
 import { AuthProvider } from './../../providers/auth/auth.service';
 import { Component, OnDestroy } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import firebase from 'firebase';
 import { User } from 'firebase/app';
-
 @IonicPage()
 @Component({
   selector: 'page-profile',
@@ -20,7 +19,7 @@ export class ProfilePage implements OnDestroy{
   private likedPostKeys = [];
   public likedPostList = [];
 
-  constructor(private navCtrl: NavController, private auth: AuthProvider){
+  constructor(private navCtrl: NavController, private auth: AuthProvider, private app: App){
     this.posts = firebase.database().ref('posts');
     this.authenticatedUser$ = this.auth.getAuthenticatedUser().subscribe((user: User) => {
       this.currentUserUid = user.uid;
@@ -90,7 +89,7 @@ export class ProfilePage implements OnDestroy{
 
   signOut() {
     this.auth.signOut();
-    this.navCtrl.setRoot('LoginPage');
+    this.app.getRootNav().setRoot('LoginPage');
   }
 
   ngOnDestroy(): void {

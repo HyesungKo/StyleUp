@@ -21,6 +21,10 @@
         <ion-input [value]="userProfile.lastName" [readonly]="true"></ion-input>
       </ion-item>
       <ion-item>
+        <ion-label floating>Location</ion-label>
+        <ion-input type="text" [value]="userProfile.location" [(ngModel)]="userProfile.location"></ion-input>
+      </ion-item>
+      <ion-item>
         <ion-label floating>Date of Birth</ion-label>
         <ion-input [value]="userProfile.dateOfBirth" [readonly]="true"></ion-input>
       </ion-item>

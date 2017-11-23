@@ -50,6 +50,8 @@ export class EditProfileFormComponent implements OnDestroy{
   saveProfile() {
     if (!this.profile.userName){
       this.showEmptyUsernameAlert();
+    } else if (!this.profile.location) {
+      this.showLocationAlert();
     } else if (this.userNameList.indexOf(this.profile.userName.toLowerCase().trim()) > -1){
       this.showUsernameAlert();
     } else { 
@@ -66,7 +68,6 @@ export class EditProfileFormComponent implements OnDestroy{
           result = this.data.saveProfile(this.authenticatedUser, this.profile);
           this.saveProfileResult.emit(result);
         });
-  
       } else {
         this.profile.avatar = "https://firebasestorage.googleapis.com/v0/b/sp-login-94206.appspot.com/o/profileImgs%2Fprofile-placeholder.png?alt=media&token=fe0933c1-891b-43c9-8ea1-364b7759fa88";
         console.log(this.profile.avatar);
@@ -97,6 +98,16 @@ export class EditProfileFormComponent implements OnDestroy{
     let alert = this.alertCtl.create({
       title: 'Unique Username is Required!',
       subTitle: 'The user name is already taken',
+      buttons: ['OK']
+    });
+    aleUnique Username rt.present();
+    this.profile.userName = "";
+  }
+
+  showLocationAlert() {
+    let alert = this.alertCtl.create({
+      title: 'Location is Required!',
+      subTitle: 'Location must be filled',
       buttons: ['OK']
     });
     alert.present();

@@ -24,7 +24,7 @@ export class EditPostPage {
 
   updatePost(location : string, caption : string, hashtags: string) {
     this.currentPostRef.update({
-      "name" : location,
+      "location" : location,
       "caption" : caption,
       "hashtags" : hashtags
     });

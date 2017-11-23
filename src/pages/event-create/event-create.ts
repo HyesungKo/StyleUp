@@ -14,9 +14,9 @@ import { Profile } from '../../models/profile/profile.interface';
 })
 export class EventCreatePage {
   postPicture: string;
-  eventLocation: string;
-  eventCaption: string;
-  eventHashtags: string;
+  location: string;
+  caption: string;
+  hashtags: string;
 
   alertCtrl: AlertController;
   public currentUser: User;
@@ -54,11 +54,7 @@ export class EventCreatePage {
     });
   }
 
-  upload(eventLocation: string ,eventCaption: string, eventHashtags: string) {
-  this.eventCaption= eventCaption;
-  this.eventHashtags= eventHashtags;
-  this.eventLocation= eventLocation;
-
+  upload(location: string ,caption: string, hashtags: string) {
   let storageRef = firebase.storage().ref();
   // Create a timestamp as filename
   const filename = Math.floor(Date.now() / 1000);
@@ -67,10 +63,9 @@ export class EventCreatePage {
   const imageRef = storageRef.child(`images/${filename}.jpg`);
     imageRef.putString(this.postPicture, firebase.storage.StringFormat.DATA_URL).then((snapshot)=> {
           this.posts.push({
-          name: eventLocation,
-          caption: eventCaption,
-          hashtags: eventHashtags,
-          //photo: this.postPicture,
+          location: location,
+          caption: caption,
+          hashtags: hashtags,
           photo: snapshot.downloadURL,
           userType: this.profile.userType,
           uid: this.currentUser.uid,
@@ -83,7 +78,7 @@ export class EventCreatePage {
     });
   }
 
-   showSuccesfulUploadAlert() {
+  showSuccesfulUploadAlert() {
     let alert = this.alertCtrl.create({
       title: 'Uploaded!',
       subTitle: 'Picture is uploaded to Firebase',
@@ -93,15 +88,8 @@ export class EventCreatePage {
 
     // clear the previous photo data in the variable
     this.postPicture = "";
-    this.eventLocation= null;
-    this.eventCaption= null;
-    this.eventHashtags= null;
+    this.location= null;
+    this.caption= null;
+    this.hashtags= null;
   }
-
-  getEventDetail(eventId): firebase.database.Reference {
-    return this.posts.child(eventId);
-  }
-
-
-
 }

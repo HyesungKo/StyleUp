@@ -7,17 +7,17 @@
 <ion-content padding>
   <ion-item>
     <ion-label stacked>Location</ion-label>
-    <ion-input [(ngModel)]="eventLocation" type="text" placeholder="eventLocation"></ion-input>
+    <ion-input [(ngModel)]="location" type="text" placeholder="Location"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label stacked>Caption</ion-label>
-    <ion-input [(ngModel)]="eventCaption" type="text" placeholder="Caption"></ion-input>
+    <ion-input [(ngModel)]="caption" type="text" placeholder="Caption"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label stacked>Hashtags</ion-label>
-    <ion-input [(ngModel)]="eventHashtags" type="text" placeholder="Hashtags"></ion-input>
+    <ion-input [(ngModel)]="hashtags" type="text" placeholder="Hashtags"></ion-input>
   </ion-item>
   
   <ion-item>
@@ -25,7 +25,7 @@
   </ion-item>
   <img [src]="postPicture"  *ngIf="postPicture"/>
 
-  <button ion-button block (click)="upload(eventLocation,eventCaption, eventHashtags)" *ngIf="postPicture">
+  <button ion-button block (click)="upload(location,caption, hashtags)" *ngIf="postPicture">
     Share post
   </button>
 </ion-content>

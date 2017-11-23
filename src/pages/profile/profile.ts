@@ -48,7 +48,7 @@ export class ProfilePage implements OnDestroy{
        if (snap.val().uid === this.currentUserUid) {         
          postList.push({
           id: snap.key,
-          location: snap.val().name,
+          location: snap.val().location,
           photo: snap.val().photo,
           caption: snap.val().caption,
           hashtags: snap.val().hashtags,
@@ -65,7 +65,7 @@ export class ProfilePage implements OnDestroy{
        if(this.likedPostKeys.indexOf(snap.key) > -1){
          likedPostList.push({
           id: snap.key,
-          location: snap.val().name,
+          location: snap.val().location,
           photo: snap.val().photo,
           caption: snap.val().caption,
           hashtags: snap.val().hashtags,

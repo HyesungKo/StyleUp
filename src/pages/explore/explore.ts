@@ -28,7 +28,7 @@ export class ExplorePage {
         if (snap.val().userType === 'standard'){
           standardList.push({
             id: snap.key,
-            location: snap.val().name,
+            location: snap.val().location,
             photo: snap.val().photo,
             caption: snap.val().caption,
             hashtags: snap.val().hashtags,
@@ -41,7 +41,7 @@ export class ExplorePage {
         } else if (snap.val().userType === 'boutique'){
           boutiqueList.push({
             id: snap.key,
-            location: snap.val().name,
+            location: snap.val().location,
             photo: snap.val().photo,
             caption: snap.val().caption,
             hashtags: snap.val().hashtags,

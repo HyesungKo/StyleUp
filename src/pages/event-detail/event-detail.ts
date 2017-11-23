@@ -63,7 +63,7 @@ export class EventDetailPage {
               if(post.val().hashtags.toLowerCase().includes(hashtagList[i].toLowerCase())){
                 list.push({
                   id: post.key,
-                  location: post.val().name,
+                  location: post.val().location,
                   photo: post.val().photo,
                   caption: post.val().caption,
                   hashtags: post.val().hashtags,

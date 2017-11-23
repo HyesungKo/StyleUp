@@ -33,9 +33,14 @@ export class ExplorePage {
     this.posts = firebase.database().ref(`posts`);
   }
 
+  ionViewDidLoad() {
+    this.getUserPosition();
+  }
+
   ionViewDidEnter() {
     //this.doRefresh(0);
-
+    if(this.currentPos !== undefined && this.currentCity == 'Current Location') {this.getCurrentLocation(this.currentPos);}
+    
     console.log(this.currentPos);
     console.log(this.currentCity);
 
@@ -122,16 +127,18 @@ export class ExplorePage {
 
 
   //current location stuff
-  getUserPosition(): any{
-    console.log('computing now');
+  getUserPosition() {
+    console.log('computing coords now');
     this.geolocation.getCurrentPosition(this.geoOptions).then((pos: Geoposition) => {
-      return pos; //uses ionic native geolocation
+      this.currentPos = pos; //sets current lat-lng using ionic native geolocation
+      console.log(this.currentPos);
     }, (err: PositionError) => {
       console.log("error : " + err.message);
     });
   }
 
   getCurrentLocation(pos) {
+    console.log('computing city now');
     var myLatLng = new google.maps.LatLng({lat: pos.coords.latitude, lng: pos.coords.longitude});
     var geocoder = new google.maps.Geocoder();
     let self = this;

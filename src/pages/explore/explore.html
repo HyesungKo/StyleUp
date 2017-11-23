@@ -1,23 +1,24 @@
-
 <ion-header>
-    <ion-navbar>
-      <ion-title *ngIf="currentCity">{{currentCity}}</ion-title>
-      <button style="float: right;" ion-button icon-only clear="true" (click)="openLocationModal()">
-          <ion-icon name="md-pin"></ion-icon>
+  <ion-navbar>
+    <ion-title *ngIf="currentCity">{{currentCity}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only clear="true" (click)="openLocationModal()">
+        <ion-icon name="md-pin"></ion-icon>
       </button>
-    </ion-navbar>
+    </ion-buttons>
+  </ion-navbar>
 
-    <ion-searchbar placeholder="Filter by Hashtag" (ionInput)="filterPost($event)"> </ion-searchbar>
-      
-    <ion-segment [(ngModel)]="postType">
-      <ion-segment-button value="standard">Users</ion-segment-button>
-      <ion-segment-button value="boutique">Boutiques</ion-segment-button>
-    </ion-segment>
-  </ion-header>
-  
-  <ion-content no-padding>
+  <ion-searchbar placeholder="Filter by Hashtag" (ionInput)="filterPost($event)"> </ion-searchbar>
 
-    <!--
+  <ion-segment [(ngModel)]="postType">
+    <ion-segment-button value="standard">Users</ion-segment-button>
+    <ion-segment-button value="boutique">Boutiques</ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content no-padding>
+
+  <!--
     <ion-refresher (ionRefresh)="doRefresh($event)">
       <ion-refresher-content
         pullingIcon="arrow-dropdown"
@@ -27,36 +28,36 @@
       </ion-refresher-content>
     </ion-refresher>
     -->
-    
-    <div [ngSwitch]="postType">
-      <ion-grid *ngSwitchCase="'standard'">
-          <ion-row>
-              <ion-col class="min-padding" col-4 *ngFor="let post of standardList" (click)="goToEventDetail(post)">
-                <img src='{{post?.photo}}' style="width:auto;height:auto;" />
-                
-                  <button ion-button icon-only clear small float-left color="danger">
-                    <ion-icon name="thumbs-down">{{post.thumbDown}}</ion-icon>
-                  </button>
-                  <button ion-button small clear float-right icon-only color="primary">
-                    <ion-icon name="thumbs-up">{{post.thumbUp}}</ion-icon>
-                  </button>
-              </ion-col>
-            </ion-row>
-      </ion-grid>
-    
-      <ion-grid *ngSwitchCase="'boutique'">
-        <ion-row>
-          <ion-col class="min-padding" col-4 *ngFor="let post of boutiqueList" (click)="goToEventDetail(post)">
-              <img src='{{post?.photo}}' style="width:auto;height:auto;" />
-              
-                <button ion-button icon-only clear small float-left color="danger">
-                  <ion-icon name="thumbs-down">{{post.thumbDown}}</ion-icon>
-                </button>
-                <button ion-button small clear float-right icon-only color="primary">
-                  <ion-icon name="thumbs-up">{{post.thumbUp}}</ion-icon>
-                </button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </div>
-  </ion-content>
+
+  <div [ngSwitch]="postType">
+    <ion-grid *ngSwitchCase="'standard'">
+      <ion-row>
+        <ion-col class="min-padding" col-4 *ngFor="let post of standardList" (click)="goToEventDetail(post)">
+          <img src='{{post?.photo}}' style="width:auto;height:auto;" />
+
+          <button ion-button icon-only clear small float-left color="danger">
+            <ion-icon name="thumbs-down">{{post.thumbDown}}</ion-icon>
+          </button>
+          <button ion-button small clear float-right icon-only color="primary">
+            <ion-icon name="thumbs-up">{{post.thumbUp}}</ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngSwitchCase="'boutique'">
+      <ion-row>
+        <ion-col class="min-padding" col-4 *ngFor="let post of boutiqueList" (click)="goToEventDetail(post)">
+          <img src='{{post?.photo}}' style="width:auto;height:auto;" />
+
+          <button ion-button icon-only clear small float-left color="danger">
+            <ion-icon name="thumbs-down">{{post.thumbDown}}</ion-icon>
+          </button>
+          <button ion-button small clear float-right icon-only color="primary">
+            <ion-icon name="thumbs-up">{{post.thumbUp}}</ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

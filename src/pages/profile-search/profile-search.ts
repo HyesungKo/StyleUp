@@ -59,7 +59,9 @@ export class ProfileSearchPage{
           hashtags: snap.val().hashtags,
           userType: snap.val().userType,
           userName: snap.val().userName,
-          uid: snap.val().uid
+          uid: snap.val().uid,
+          thumbUp: snap.val().thumbUp,
+          thumbDown: snap.val().thumbDown
           });
         }
         return false;

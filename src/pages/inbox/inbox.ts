@@ -10,7 +10,6 @@ import firebase from 'firebase';
 })
 export class InboxPage {
 
-  public delete = false;
   public inboxType = 'messages';
   public chatList = [];
   public profileList = [];
@@ -65,14 +64,6 @@ export class InboxPage {
 
   goToMessageDetail(profilekey) {
     this.navCtrl.push('MessageDetailPage', {profilekey: profilekey});
-  }
-
-  toggle(){
-    if (this.delete === false){
-      this.delete = true;
-    } else {
-      this.delete = false;
-    }
   }
 
   filterPost(ev: any) {

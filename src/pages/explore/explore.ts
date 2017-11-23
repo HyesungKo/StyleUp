@@ -3,12 +3,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import firebase from 'firebase';
 import { User } from 'firebase/app';
-/**
- * Generated class for the ExplorePage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({

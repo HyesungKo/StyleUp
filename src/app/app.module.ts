@@ -13,7 +13,6 @@ import { DataProvider } from '../providers/data/data.service';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { EventProvider } from '../providers/event/event.service';
 import { FormsModule } from "@angular/forms";
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -25,8 +24,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     AngularFireModule.initializeApp(FIREBASE_CONFIGURE),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    FormsModule,
-    Ng2SearchPipeModule
+    FormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

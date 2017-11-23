@@ -58,9 +58,9 @@ export class EventDetailPage {
       let hashtagList = this.currentPost.hashtags.match(/#\S+/g);
       if (!(hashtagList === null)){
         posts.forEach( post => {
-          hashtagList.forEach( hashtag => {
-            if( post.key !== this.currentPost.id ) {
-              if( post.val().hashtags.toLowerCase().includes(hashtag.toLowerCase())) {
+          for(var i = 0; i < hashtagList.length; i++){
+            if (post.key !== this.currentPost.id){
+              if(post.val().hashtags.toLowerCase().includes(hashtagList[i].toLowerCase())){
                 list.push({
                   id: post.key,
                   location: post.val().name,
@@ -73,9 +73,9 @@ export class EventDetailPage {
                   thumbUp: post.val().thumbUp,
                   thumbDown: post.val().thumbDown
                 });
-              } 
+              }
             }
-          });
+          }
           return false;
         });
       }

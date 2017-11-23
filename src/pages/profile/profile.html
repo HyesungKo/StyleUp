@@ -26,15 +26,18 @@
         <p>You didn't post yet.</p>
       </ion-row>
     </ion-card>
-    <ion-card *ngIf="likedPostList.length !== 0">
+    <ion-card >
       <ion-row>
         <ion-label padding-left>Liked Posts</ion-label>
       </ion-row>
-      <ion-row padding-left padding-right padding-bottom>
+      <ion-row padding-left padding-right padding-bottom *ngIf="likedPostList.length !== 0">
         <ion-col class="min-padding" col-4 *ngFor="let post of likedPostList" (click)="goToEventDetail(post)">
           <img src='{{post?.photo}}' style="width:auto;height:auto;" />
         </ion-col>
       </ion-row>
+      <ion-row padding-left *ngIf="likedPostList.length === 0">
+          <p>You don't have any thumbed up post yet.</p>
+        </ion-row>
     </ion-card>
     <button ion-button block color="danger" clear (click)="signOut()">Sign Out</button>
   </ion-grid>

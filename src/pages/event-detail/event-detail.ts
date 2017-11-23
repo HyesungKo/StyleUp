@@ -10,7 +10,10 @@ import { User } from 'firebase/app';
   templateUrl: 'event-detail.html',
 })
 export class EventDetailPage {
+  public currentPostId: string;
   public currentPost: any;
+  public currentIndex: number;
+  public postList = [];
   private posts: firebase.database.Reference;
   public currentUser: string;
   public owner: boolean;
@@ -24,11 +27,19 @@ export class EventDetailPage {
   constructor(public navC: NavController, public navParams: NavParams) {
     this.currentUser = firebase.auth().currentUser.uid;
     this.posts = firebase.database().ref(`posts`);
-    this.currentPost = this.navParams.get('post');
+    this.currentPostId = this.navParams.get('postId');
+    this.postList = this.navParams.get('postList');
+    this.postList.forEach( post => {
+      if(post.id === this.currentPostId){
+        this.currentPost = post;
+        this.currentIndex = this.postList.indexOf(this.currentPost);
+        this.owner = (this.currentPost.uid === this.currentUser);
+        
+      }
+    });
     this.likedPostsRef = firebase.database().ref(`profiles/${this.currentUser}/likedPosts`);
     this.dislikedPostsRef = firebase.database().ref(`profiles/${this.currentUser}/dislikedPosts`);
-    this.currentPostRef = firebase.database().ref(`posts/${this.currentPost.id}`);
-    this.owner = (this.currentPost.uid === this.currentUser);
+    this.currentPostRef = firebase.database().ref(`posts/${this.currentPostId}`);
   }
 
   ionViewDidLoad(){
@@ -102,6 +113,14 @@ export class EventDetailPage {
         key: currentPost.id
       });
     }
+  }
+
+  onSwipeRight() {
+    this.navC.push('EventDetailPage', { postId : this.postList[this.currentIndex - 1].id, postList: this.postList});
+  }
+
+  onSwipeLeft() {
+    this.navC.push('EventDetailPage', { postId : this.postList[this.currentIndex + 1].id, postList: this.postList});
   }
 
   goToProfile(userName) {

@@ -5,7 +5,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content on-swipe-right="onSwipeRight()" on-swipe-left="onSwipeLeft()">
   <ion-row padding>
   </ion-row>
   <ion-card *ngIf="currentPost">
@@ -13,11 +13,11 @@
       {{currentPost.location}}
     </ion-card-header>
     <ion-card-content>
-     <p><img src="{{currentPost.photo}}"></p>
-    <button float-left ion-button outline (click)="toggleDown(currentPost)">
+     <img src="{{currentPost.photo}}"/>
+    <button float-left ion-button outline (click)="toggleDown(currentPost)" color="danger">
       <ion-icon name="thumbs-down">{{currentPost.thumbDown}}</ion-icon>
     </button>
-    <button float-right ion-button outline (click)="toggleUp(currentPost)">
+    <button float-right ion-button outline (click)="toggleUp(currentPost)" color="primary">
       <ion-icon name="thumbs-up">{{currentPost.thumbUp}}</ion-icon>
     </button>
     <h1 align="center"><br/>{{currentPost.hashtags}}</h1>

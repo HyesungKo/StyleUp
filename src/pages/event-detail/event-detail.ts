@@ -41,16 +41,18 @@ export class EventDetailPage {
           list.push(post.val().key);
         return false;
       });
-      this.likedPostList = list;
+      this.likedPostList = list.reverse();
     });
+
     this.dislikedPostsRef.on('value', posts => {
       let list = [];
       posts.forEach( post => {
           list.push(post.val().key);
         return false;
       });
-      this.dislikedPostList = list;
+      this.dislikedPostList = list.reverse();
     });
+    
     this.posts.on('value', posts => {
       let list = [];
       let hashtagList = this.currentPost.hashtags.match(/#\S+/g);
@@ -77,7 +79,7 @@ export class EventDetailPage {
           return false;
         });
       }
-      this.similarPost = list;
+      this.similarPost = list.reverse();
     });
   }
 

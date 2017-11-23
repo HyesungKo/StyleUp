@@ -78,8 +78,8 @@ export class ProfilePage implements OnDestroy{
        }
        return false;
      });
-     this.myPosts = postList;
-     this.likedPostList = likedPostList;
+     this.myPosts = postList.reverse();
+     this.likedPostList = likedPostList.reverse();
      
    });
   }

@@ -55,8 +55,8 @@ export class ExplorePage {
        
         return false;
       });
-      this.standardList = standardList;
-      this.boutiqueList = boutiqueList;
+      this.standardList = standardList.reverse();
+      this.boutiqueList = boutiqueList.reverse();
     });
   }
 

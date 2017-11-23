@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavParams, ViewController } from 'ionic-angular';
+import { Geolocation, GeolocationOptions, Geoposition, PositionError } from '@ionic-native/geolocation';
 
 /**
  * Generated class for the LocationPage page.
@@ -15,46 +16,30 @@ declare var google: any;
   selector: 'page-location',
   templateUrl: 'location.html',
 })
-export class LocationPage implements OnInit {
+export class LocationPage {
 
   autocompArray: any;
   autocompInput: any;
   autocompService: any;
-  //placesService: any;
-  retSame: any = {
-    description: ''
-  };
-  backToCurrent: any = {
-    description: 'Current Location'
-  };
 
-  constructor(private navParams: NavParams, private view: ViewController) {
-  }
+  retSame: any = {description: ''};
+  currentLocation: any = {description: 'Current Location'};
 
-  ngOnInit() {
-    this.autocompService = new google.maps.places.AutocompleteService();        
-    this.autocompArray = [];
-    this.autocompInput = '';
-  }
-
-  closeModal() {
-    this.view.dismiss(this.retSame);
+  constructor(private navParams: NavParams, private view: ViewController, private geolocation: Geolocation) {
   }
 
   ionViewDidLoad() {
+    this.autocompService = new google.maps.places.AutocompleteService();        
+    this.autocompArray = [];
+    this.autocompInput = '';
     this.retSame.description = this.navParams.get('city');
     console.log(this.retSame.description);
   }
 
-  chooseItem(item: any) {
-    console.log('modal > chooseItem > item > ', item);
-    this.view.dismiss(item);
-  }
-
+  //Updates the array of locations as a user types
   updateSearch() {
-    console.log('modal > updateSearch');
     if (this.autocompInput == '') {
-        this.autocompArray = [];
+        this.autocompArray = []; //no list of locations while input is empty
         return;
     }
     let self = this;
@@ -63,11 +48,22 @@ export class LocationPage implements OnInit {
         types:  ['(cities)']
     }
     this.autocompService.getPlacePredictions(request, function (predictions, status) {
-        console.log('modal > getPlacePredictions > status > ', status);
         self.autocompArray = [];            
         predictions.forEach(function (prediction) {              
-            self.autocompArray.push(prediction);
+            self.autocompArray.push(prediction); //calls on google maps api to generate list of cities
         });
     });
   }
+
+  //modal is closed because user decided to cancel
+  closeModal() {
+    this.view.dismiss(this.retSame);
+  }
+
+  //modal is closed after selecting a location from the list
+  chooseItem(item: any) {
+    this.view.dismiss(item);
+  }
+
+
 }

@@ -78,7 +78,7 @@ export class ExplorePage {
   //shows loading pop up while location loads, disables user interaction
   presentLoadingText() {
     let loading = this.loadingCtrl.create({
-      spinner: 'hide',
+      spinner: 'crescent',
       content: 'Loading Current Location...'
     });
     loading.present();

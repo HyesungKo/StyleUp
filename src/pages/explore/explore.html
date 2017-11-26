@@ -1,7 +1,7 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title *ngIf="currentCity">{{currentCity}}</ion-title>
-    <ion-buttons end>
+    <ion-buttons right>
       <button ion-button icon-only clear="true" (click)="openLocationModal()">
         <ion-icon name="md-pin"></ion-icon>
       </button>
@@ -10,7 +10,7 @@
 
   <ion-searchbar placeholder="Filter by Hashtag" (ionInput)="filterPost($event)"> </ion-searchbar>
 
-  <ion-segment [(ngModel)]="postType">
+  <ion-segment class="md" [(ngModel)]="postType">
     <ion-segment-button value="standard">Users</ion-segment-button>
     <ion-segment-button value="boutique">Boutiques</ion-segment-button>
   </ion-segment>

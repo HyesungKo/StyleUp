@@ -7,27 +7,30 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>LocationPage</ion-title>
-      <button ion-button icon-only clear="true" (click)="closeModal()">
-        <ion-icon name="md-arrow-back"></ion-icon>
-      </button>
-        <ion-searchbar
-        [(ngModel)]="autocompInput" 
-        (ionInput)="updateSearch()" 
-        placeholder="Select a City"
-        style="float: right; width: 88%;">
-        </ion-searchbar>
+      <ion-buttons left>
+        <button ion-button icon-only clear="true" (click)="closeModal()">
+          <ion-icon name="md-arrow-back"></ion-icon>
+        </button>
+      </ion-buttons>
+    <ion-title>Choose a Location</ion-title>
   </ion-navbar>
+  <ion-searchbar 
+  [(ngModel)]="autocompInput" 
+  (ionInput)="updateSearch()" 
+  placeholder="Search for a City">
+  </ion-searchbar>
 
 </ion-header>
 
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngIf="currentLocation.description" (click)="chooseItem(currentLocation)">
-      <ion-icon name="md-pin"> Current Location</ion-icon>
+    <ion-item *ngIf="currentLocation.description" (click)="chooseItem(currentLocation)" style="color:dodgerblue;">
+      <ion-icon name="md-pin" item-start style="color:dodgerblue;"></ion-icon>
+      Current Location
     </ion-item>
     <ion-item *ngFor="let item of autocompArray" (click)="chooseItem(item)">
+      <ion-icon name="md-pin" item-start></ion-icon>
       {{item.description}}
     </ion-item>
   </ion-list>

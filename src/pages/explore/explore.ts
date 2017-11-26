@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage, Modal, ModalController } from 'ionic-angular';
 import firebase from 'firebase';
-import { Geolocation, GeolocationOptions, Geoposition, PositionError } from '@ionic-native/geolocation';
-import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/native-geocoder';
-import { User } from 'firebase/app';
+//import { User } from 'firebase/app';
+import { NavController, IonicPage, ModalController, LoadingController } from 'ionic-angular';
+import { LocationProvider } from '../../providers/location/location.service';
 
-
-declare var google: any;
 
 @IonicPage()
 @Component({
@@ -19,36 +16,30 @@ export class ExplorePage {
   public posts: firebase.database.Reference;
   public postType = 'standard';
 
-  geoOptions: GeolocationOptions = {
-    enableHighAccuracy: true
-  };
-  cityTypes: Array<string> = ["locality", "political"];
+  public currentCity: any = '';
 
-  currentPos: any;
-  currentCity: any = 'Current Location';
-  //selectedCity: any = '';
-
-
-  constructor(public navCtrl: NavController, private modal: ModalController, private geolocation: Geolocation, private geocoder: NativeGeocoder) {
+  constructor(public navCtrl: NavController, private modal: ModalController, public loadingCtrl: LoadingController, private location: LocationProvider) {
     this.posts = firebase.database().ref(`posts`);
   }
 
   ionViewDidLoad() {
-    this.getUserPosition();
+    this.location.getUserPosition();//begins locating the user right when explore page is loaded
+  }
+
+  ionViewCanEnter() {
+    this.presentLoadingText(); //displays a loading pop up to allow location to load before displaying posts
   }
 
   ionViewDidEnter() {
     //this.doRefresh(0);
-    if(this.currentPos !== undefined && this.currentCity == 'Current Location') {this.getCurrentLocation(this.currentPos);}
-    
-    console.log(this.currentPos);
+    if(this.location.currentLocation !== undefined && this.currentCity == '') {this.currentCity = this.location.currentLocation;}
     console.log(this.currentCity);
 
     this.posts.on('value', snapshot => {
       let standardList = [];
       let boutiqueList = [];
       snapshot.forEach(snap => {
-        if (snap.val().name === this.currentCity || this.currentCity === 'Current Location') {
+        if (snap.val().name === this.currentCity) {
           if (snap.val().userType === 'standard') {
             standardList.push({
               id: snap.key,
@@ -84,15 +75,25 @@ export class ExplorePage {
     });
   }
 
+  //shows loading pop up while location loads, disables user interaction
+  presentLoadingText() {
+    let loading = this.loadingCtrl.create({
+      spinner: 'hide',
+      content: 'Loading Current Location...'
+    });
+    loading.present();
+    setTimeout(() => {
+      loading.dismiss();
+      this.ionViewDidEnter();
+    }, 5000);
+  }
+
+  //shows post detail when a post is clicked on
   goToEventDetail(post){
     this.navCtrl.push('EventDetailPage', { post : post });
   }
 
-  /**doRefresh(refresher) {
-    this.ionViewDidEnter();
-    refresher.complete();
-  }*///possible code for pull down to refresh
-
+  //filters posts based on hashtag
   filterPost(ev: any) {
     this.ionViewDidEnter();
     if (this.postType === 'standard') {
@@ -125,39 +126,8 @@ export class ExplorePage {
     });
   }
 
-
-  //current location stuff
-  getUserPosition() {
-    console.log('computing coords now');
-    this.geolocation.getCurrentPosition(this.geoOptions).then((pos: Geoposition) => {
-      this.currentPos = pos; //sets current lat-lng using ionic native geolocation
-      console.log(this.currentPos);
-    }, (err: PositionError) => {
-      console.log("error : " + err.message);
-    });
-  }
-
-  getCurrentLocation(pos) {
-    console.log('computing city now');
-    var myLatLng = new google.maps.LatLng({lat: pos.coords.latitude, lng: pos.coords.longitude});
-    var geocoder = new google.maps.Geocoder();
-    let self = this;
-    geocoder.geocode({ 'location': myLatLng }, function (results, status) {
-      if (status === "OK") {
-        results.forEach(element => {
-          if(element.types[0] == self.cityTypes[0] && element.types[1] == self.cityTypes[1]) { //checks for result that is city, nation
-            console.log(element)
-            let city = element.address_components[0].long_name;
-            let state = element.address_components[2].short_name;
-            let country = element.address_components[3].long_name;
-            self.currentCity = city + ', ' + state + ', ' + country; //converts lat-lng to city and formats it to match location modal
-          }
-        });
-        console.log(self.currentCity);
-      } else {
-        alert('Geocoder failed due to: ' + status);
-      } 
-    })
-  }
-
+  /**doRefresh(refresher) {
+    this.ionViewDidEnter();
+    refresher.complete();
+  }*///possible code for pull down to refresh
 }

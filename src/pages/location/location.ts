@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavParams, ViewController } from 'ionic-angular';
-import { Geolocation, GeolocationOptions, Geoposition, PositionError } from '@ionic-native/geolocation';
+import { LocationProvider } from '../../providers/location/location.service';
 
 /**
  * Generated class for the LocationPage page.
@@ -23,9 +23,10 @@ export class LocationPage {
   autocompService: any;
 
   retSame: any = {description: ''};
-  currentLocation: any = {description: 'Current Location'};
+  currentLocation: any = {description: ''};
 
-  constructor(private navParams: NavParams, private view: ViewController, private geolocation: Geolocation) {
+
+  constructor(private navParams: NavParams, private view: ViewController, private location: LocationProvider) {
   }
 
   ionViewDidLoad() {
@@ -33,6 +34,7 @@ export class LocationPage {
     this.autocompArray = [];
     this.autocompInput = '';
     this.retSame.description = this.navParams.get('city');
+    this.currentLocation.description = this.location.currentLocation;
     console.log(this.retSame.description);
   }
 
@@ -64,6 +66,5 @@ export class LocationPage {
   chooseItem(item: any) {
     this.view.dismiss(item);
   }
-
 
 }

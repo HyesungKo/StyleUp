@@ -1,14 +1,14 @@
 <form #loginForm="ngForm" novalidate>
   <ion-list inset>
     <ion-item>
-      <ion-input placeholder="Username" type="text" [(ngModel)]="account.email" name="email" #email="ngModel" required pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"></ion-input>
+      <ion-input text-lowercase placeholder="Username" type="text" [(ngModel)]="account.email" name="email" #email="ngModel" required pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"></ion-input>
     </ion-item>
     <div padding *ngIf="email.invalid && email.dirty">
       <span class="global__error">Email address is not valid.</span>
     </div>
 
     <ion-item>
-      <ion-input placeholder="Password" type="password" [(ngModel)]="account.password" name="password" #password="ngModel" required
+      <ion-input placeholder="password" type="password" [(ngModel)]="account.password" name="password" #password="ngModel" required
         pattern="(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,16}$"></ion-input>
     </ion-item>
     <div padding *ngIf="password.invalid && password.dirty">

@@ -1,6 +1,9 @@
 <div *ngIf="userProfile">
   <div class="profile-view__image-container">
-      <img *ngIf="userProfile.avatar" class="profile-view__image" [src]="userProfile.avatar" alt="profile">
+    <img *ngIf="userProfile.avatar" class="profile-view__image" [src]="userProfile.avatar" alt="profile">
+    <ion-label style="font-weight: bold; margin: 15px 10px 10px 10px; text-align: center; color: white;" *ngIf="userProfile.userName">@{{userProfile.userName}}</ion-label>
+    <ion-label style="margin: 0px 10px 0px 10px; text-align: center; color: white;" *ngIf="userProfile.userType">{{userProfile.userType}}</ion-label>
+    <br>
   </div>
   <ion-card>
     <ion-card-content>

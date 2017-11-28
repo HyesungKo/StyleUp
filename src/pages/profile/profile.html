@@ -1,16 +1,17 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Profile</ion-title>
-    <button ion-button style="float: right" clear small color="secondary" (click)="navigateToEditProfile()">Edit</button>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content>
-  <profile-form></profile-form>
+  <ion-row style="background-color: #3AA57A">
+    <ion-col col-auto>
+      <button ion-button clear small float-left style="color:white;" (click)="signOut()">Sign Out</button>
+    </ion-col>
+    <ion-col>
+      <!-- <ion-title *ngIf="authenticateduser">{{authenticatedUser.userName}}</ion-title> -->
+    </ion-col>
+    <ion-col col-auto>
+      <button ion-button clear small float-right style="color:white;" (click)="navigateToEditProfile()">Edit</button>
+    </ion-col>
+  </ion-row>
 
+  <profile-form></profile-form>
 
   <ion-grid>
     <ion-card>
@@ -39,7 +40,6 @@
           <p>You don't have any thumbed up post yet.</p>
         </ion-row>
     </ion-card>
-    <button ion-button block color="danger" clear (click)="signOut()">Sign Out</button>
   </ion-grid>
   
 </ion-content>

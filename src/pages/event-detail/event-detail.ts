@@ -13,26 +13,50 @@ export class EventDetailPage {
   public currentPost: any;
   public currentIndex: number;
   private posts: firebase.database.Reference;
+  private comments: firebase.database.Reference;
   public currentUser: string;
   public owner: boolean;
   public similarPost = [];
+  public postComments: any;
+  public commentContent;
+  public currentUserUsername: any;
 
   private currentPostRef: firebase.database.Reference;
   private likedPostsRef: firebase.database.Reference;
   private dislikedPostsRef: firebase.database.Reference;
+  private currentUserProfileRef: firebase.database.Reference;
   private likedPostList = [];
   private dislikedPostList = [];
 
   constructor(public navC: NavController, public navParams: NavParams) {
     this.currentUser = firebase.auth().currentUser.uid;
     this.posts = firebase.database().ref(`posts`);
+    this.currentUserProfileRef= firebase.database().ref(`profiles/${this.currentUser}`);
     this.currentPost = this.navParams.get('post');
+    this.comments = firebase.database().ref(`posts/${this.currentPost.id}/commentList`);
     this.likedPostsRef = firebase.database().ref(`profiles/${this.currentUser}/likedPosts`);
     this.dislikedPostsRef = firebase.database().ref(`profiles/${this.currentUser}/dislikedPosts`);
     this.currentPostRef = firebase.database().ref(`posts/${this.currentPost.id}`);
     this.owner = (this.currentPost.uid === this.currentUser);
   }
 
+  ionViewDidEnter(){
+     this.comments.on('value', snapshot => {
+     let commentList = [];
+     snapshot.forEach( snap => {
+              
+        commentList.push({
+          id: snap.key,
+          commentContent: snap.val().commentContent,
+          commentOwner: snap.val().commentOwner
+         });
+     return false;
+       });
+
+     this.postComments = commentList;
+    
+    });
+  }
   ionViewDidLoad(){
 
     this.likedPostsRef.on('value', posts => {
@@ -81,6 +105,25 @@ export class EventDetailPage {
       }
       this.similarPost = list.reverse();
     });
+  }
+
+  uploadComment(commentContent :string){
+    var username : any;
+
+    this.currentUserProfileRef.on('value', snapshot => {
+     
+         
+     username =snapshot.val().userName;
+
+
+        this.comments.push({
+          commentContent: commentContent,
+          commentOwner: username
+        });
+        this.commentContent = null;
+    });
+
+   
   }
 
   navigateToEditPostPage() {
@@ -151,5 +194,8 @@ export class EventDetailPage {
 
   goToProfile(userName) {
     this.navC.push('ProfileSearchPage', { userName : this.currentPost.userName })
+  }
+    goToProfiles(userName) {
+    this.navC.push('ProfileSearchPage', { userName : userName })
   }
 }

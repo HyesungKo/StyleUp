@@ -22,6 +22,49 @@
     </button>
     <h1 align="center"><br/>{{currentPost.hashtags}}</h1>
     <button ion-button clear large block (click)="goToProfile(currentPost.userName)">{{currentPost.userName}}</button>
+
+
+
+
+
+
+
+
+  <ion-item>
+    
+    <ion-input [(ngModel)]="commentContent" type="text" placeholder="comment"></ion-input>
+  </ion-item>
+  <button ion-button  (click)="uploadComment(commentContent)">
+    send
+  </button>
+
+<ion-grid *ngIf="postComments">
+    <ion-card>
+      <ion-row>
+        <ion-label>comments ({{postComments.length}})</ion-label>
+      </ion-row>
+      <ion-row *ngFor="let comment of postComments">
+          <ion-col class="min-padding">
+          <div id= "containerIntro">
+           <button ion-button clear small (click)="goToProfiles(comment.commentOwner)">{{comment.commentOwner}} </button> <h5>{{comment.commentContent}} </h5>
+           </div>
+            
+            
+          </ion-col>
+        </ion-row>
+    </ion-card>
+  </ion-grid>
+
+
+
+
+
+
+
+
+
+
+
     </ion-card-content>
   </ion-card>
   <ion-card *ngIf="similarPost.length !== 0">

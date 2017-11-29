@@ -19,7 +19,7 @@ export class EventDetailPage {
   public similarPost = [];
   public postComments: any;
   public commentContent;
-  public currentUserUsername: any;
+  public currentUserType: any;
 
   private currentPostRef: firebase.database.Reference;
   private likedPostsRef: firebase.database.Reference;
@@ -115,7 +115,6 @@ export class EventDetailPage {
      
          
      username =snapshot.val().userName;
-
 
         this.comments.push({
           commentContent: commentContent,

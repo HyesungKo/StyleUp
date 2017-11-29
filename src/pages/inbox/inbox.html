@@ -21,7 +21,9 @@
         <ion-avatar item-left>
           <img [src]="profile.profile.avatar" alt="avatar">
         </ion-avatar>
-        <h2>{{profile.profile.userName}}</h2>
+        <h2>{{profile.profile.userName}}
+            <ion-icon  *ngIf="profile.profile.userType === 'boutique'" color="checkMark" name="checkmark-circle" md="md-checkmark-circle"></ion-icon>
+        </h2>
         <p>{{profile.profile.userType}}</p>
       </ion-item>
     </ion-list>

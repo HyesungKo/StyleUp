@@ -31,7 +31,7 @@
   <div [ngSwitch]="view">
       <ion-grid *ngSwitchCase="'your'">
           <ion-row padding-left padding-right padding-bottom *ngIf="myPosts.length !== 0">
-              <ion-col class="min-padding" col-4 *ngFor="let post of myPosts" (click)="goToEventDetail(post.id, myPosts)">
+              <ion-col class="min-padding" col-4 *ngFor="let post of myPosts" (click)="goToEventDetail(post)">
                 <img src='{{post?.photo}}' style="width:auto;height:auto;" />
               </ion-col>
             </ion-row>

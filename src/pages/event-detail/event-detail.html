@@ -48,18 +48,18 @@
     </ion-row>
     <ion-grid *ngIf="showComment">
       <ion-row style="padding-left:0.5em">
-          <ion-col col-10>
+          <ion-col>
               <ion-input [(ngModel)]="commentContent" type="text" placeholder="comment"></ion-input>
           </ion-col>
-          <ion-col col-2>
-              <button ion-button float-right (click)="uploadComment(commentContent)">
+          <ion-col col-auto >
+              <button ion-button small float-right align-self-end (click)="uploadComment(commentContent)">
                   send
                 </button>
           </ion-col>
         </ion-row>
         <ion-row align-items-center *ngFor="let comment of postComments" style="height:">
             <ion-col col-3>
-              <button ion-button clear small (click)="goToProfiles(comment.commentOwner)">{{comment.commentOwner}} </button> 
+              <a small text-nowrap style="font-weight:bolder;" (click)="goToProfiles(comment.commentOwner)">{{comment.commentOwner}} </a> 
             </ion-col>
             <ion-col col-9>            
                 <h5>{{comment.commentContent}}

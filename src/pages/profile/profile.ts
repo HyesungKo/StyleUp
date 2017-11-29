@@ -1,9 +1,12 @@
+import { Profile } from './../../models/profile/profile.interface';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthProvider } from './../../providers/auth/auth.service';
+import { DataProvider } from './../../providers/data/data.service';
 import { Component, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import firebase from 'firebase';
 import { User } from 'firebase/app';
+
 @IonicPage()
 @Component({
   selector: 'page-profile',
@@ -13,16 +16,22 @@ export class ProfilePage implements OnDestroy{
   public myPosts = [];
   private posts: firebase.database.Reference;
   private currentUserUid: string;
+  private currentUserProfile: Profile;
   private authenticatedUser$: Subscription;
   private authenticatedUser: User;
   private likedPostRef: firebase.database.Reference;
   private likedPostKeys = [];
   public likedPostList = [];
+  public view = 'your';
+  
 
-  constructor(private navCtrl: NavController, private auth: AuthProvider, private app: App){
+  constructor(private navCtrl: NavController, private auth: AuthProvider, private data: DataProvider, private app: App){
     this.posts = firebase.database().ref('posts');
     this.authenticatedUser$ = this.auth.getAuthenticatedUser().subscribe((user: User) => {
       this.currentUserUid = user.uid;
+      this.data.getProfile(user).subscribe(profile => {
+        this.currentUserProfile = <Profile>profile;
+      });
       this.likedPostRef = firebase.database().ref(`profiles/${this.currentUserUid}/likedPosts`);
       this.likedPostRef.on('value', posts => {
         let list = [];

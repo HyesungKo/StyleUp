@@ -1,35 +1,37 @@
-<!--
-  Generated template for the MessageDetailPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
     <ion-title>{{receiverProfile.profile.userName}}</ion-title>
   </ion-navbar>
-
 </ion-header>
-
 
 <ion-content padding>
   <ion-card>
       <ion-list>
-        <ion-item *ngFor="let message of messageList">
+        <div *ngFor="let message of messageList">
+           <ion-item *ngIf="message.messageOwner">
+            <ion-avatar item-right>
+              <img [src]="message.messageOwner? profile.avatar : receiverProfile.profile.avatar" alt="avatar">
+            </ion-avatar>
+            <p float-right text-wrap text-right style="width: 70%">{{message.message}}</p>    
+          </ion-item>
+          <ion-item *ngIf="!message.messageOwner">
             <ion-avatar item-left>
               <img [src]="message.messageOwner? profile.avatar : receiverProfile.profile.avatar" alt="avatar">
             </ion-avatar>
-            <h2>{{message.message}}</h2>
-        </ion-item>
+            <p text-wrap style="width: 70%">{{message.message}}</p>
+          </ion-item>
+       </div>  
       </ion-list>
   </ion-card>
-  <ion-row bottom>
-    <ion-col col-10>
-      <ion-input value="" [(ngModel)]="message">Type Messages</ion-input>
-    </ion-col>
-    <ion-col col-2>
-      <button ion-button (click)="sendMessage()">send</button>
-    </ion-col> 
-  </ion-row>
+
 </ion-content>
+<ion-footer>
+    <ion-row align-items-center>
+        <ion-col col-10 padding-left>
+          <ion-input placeholder="Type a message" [(ngModel)]="message"></ion-input>
+        </ion-col>
+        <ion-col col-2>
+          <button ion-button float-right (click)="sendMessage()">send</button>
+        </ion-col> 
+      </ion-row>
+</ion-footer>

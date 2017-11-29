@@ -60,6 +60,7 @@ export class MessageDetailPage {
         messageOwner: false,
         time: new Date().toISOString() 
       });
-    } 
+    }
+    this.message = ""; 
   }
 }

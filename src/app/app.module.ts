@@ -13,7 +13,10 @@ import { DataProvider } from '../providers/data/data.service';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { EventProvider } from '../providers/event/event.service';
 import { FormsModule } from "@angular/forms";
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+//import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { Geolocation } from '@ionic-native/geolocation';
+import { LocationProvider } from '../providers/location/location.service';
+
 
 @NgModule({
   declarations: [
@@ -25,8 +28,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     AngularFireModule.initializeApp(FIREBASE_CONFIGURE),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    FormsModule,
-    Ng2SearchPipeModule
+    FormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -39,7 +41,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     AuthProvider,
     DataProvider,
     EventProvider,
-    Camera
+    Camera,
+    Geolocation,
+    LocationProvider
   ]
 })
 export class AppModule {}

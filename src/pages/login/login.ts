@@ -11,8 +11,11 @@ import { User } from 'firebase/app';
 })
 export class LoginPage {
 
+  public logoUrl: string;
+
   constructor(private navCtrl: NavController, private navParams: NavParams,
   private toast:ToastController, private data: DataProvider) {
+    this.logoUrl = "https://firebasestorage.googleapis.com/v0/b/sp-login-94206.appspot.com/o/logo%2Ficon2.png?alt=media&token=1bb85ee6-f333-446e-a29c-76627e362a28";
   }
 
   login(event: LoginResponse) {
@@ -20,7 +23,7 @@ export class LoginPage {
     if(!event.error){
       this.toast.create({
         message: `Welcome to StyleUp, ${event.result.email}`,
-        duration: 1
+        duration: 3
       }).present();
 
       this.data.getProfile(<User>event.result).subscribe(profile => {

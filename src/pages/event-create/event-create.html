@@ -1,31 +1,30 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>New Post</ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content padding>
-  <ion-item>
-    <ion-label stacked>Location</ion-label>
-    <ion-input [(ngModel)]="eventLocation" type="text" placeholder="eventLocation"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label stacked>Caption</ion-label>
-    <ion-input [(ngModel)]="eventCaption" type="text" placeholder="Caption"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label stacked>Hashtags</ion-label>
-    <ion-input [(ngModel)]="eventHashtags" type="text" placeholder="Hashtags"></ion-input>
-  </ion-item>
+  <ion-row>
+    <ion-col></ion-col>
+    <ion-col col-auto style="padding: 50px 20px">
+        <button *ngIf="!postPicture" ion-button icon-only block large color="primary" (click)="takePicture()">
+            <ion-icon name="md-camera" style="margin: auto;"></ion-icon>
+        </button>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
   
-  <ion-item>
-        <button ion-button color="primary" (click)="takePicture()">Lets take a picture!</button>
-  </ion-item>
   <img [src]="postPicture"  *ngIf="postPicture"/>
 
-  <button ion-button block (click)="upload(eventLocation,eventCaption, eventHashtags)" *ngIf="postPicture">
-    Share post
-  </button>
+  <ion-list inset>
+    <button ion-button block clear *ngIf="eventLocation" (click)="openLocationModal()">{{ eventLocation }}</button>
+  
+    <ion-item>
+      <ion-input [(ngModel)]="eventCaption" type="text" placeholder="Caption"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-input [(ngModel)]="eventHashtags" type="text" placeholder="Hashtags"></ion-input>
+    </ion-item>
+    <ion-item></ion-item>
+
+    <button ion-button block *ngIf="postPicture" (click)="upload(eventLocation,eventCaption, eventHashtags)">
+      Share Post
+    </button>
+  </ion-list>
 </ion-content>

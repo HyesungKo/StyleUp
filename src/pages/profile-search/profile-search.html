@@ -1,47 +1,38 @@
 <ion-header>
-  
-    <ion-navbar>
-      <ion-title>Profile</ion-title>
- </ion-navbar>
-  
-  </ion-header>
-  
-  
-  <ion-content>
-    <div class="profile-view__image-container">
-      <img class="profile-view__image" src="assets/img/profile-placeholder.png" alt="profile">
-    </div>
-    <div class="btn-wrapper">
-      <button ion-button *ngIf="isFollowing(profile, followingUsers)" (click)="unfollowUser(profile)">following</button>
-      <button ion-button *ngIf="!isFollowing(profile, followingUsers)" (click)="followUser(profile)">follow</button>      
-    </div>
-    
-    <div *ngIf="profile">
-      <ion-card>
-        <ion-card-content>
-          <ion-item>
-            <ion-label floating>User Name</ion-label>
-            <ion-input [value]="profile.userName" [readonly]="true"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label floating>User Type</ion-label>
-            <ion-input [value]="profile.userType" [readonly]="true"></ion-input>
-          </ion-item>
-        </ion-card-content>
-      </ion-card>
-    </div>   
-    <ion-grid *ngIf="userPosts">
-      <ion-card>
-        <ion-row>
-          <ion-label>{{profile.userName}}'s Posts</ion-label>
-        </ion-row>
-        <ion-row>
-            <ion-col class="min-padding" col-4 *ngFor="let post of userPosts" (click)="goToEventDetail(post)">
-              <img src='{{post?.photo}}' style="width:auto;height:auto;" />
-            </ion-col>
-          </ion-row>
-      </ion-card>
-    </ion-grid>
-  </ion-content>
-  
-  
+  <ion-navbar>
+    <ion-title>Profile</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-row style="background-color: #3AA57A">
+        <ion-col col-auto>
+            <button ion-button clear small float-left style="color:white;" *ngIf="isFollowing(profile, followingUsers)">Following</button>        
+        </ion-col>
+        <ion-col></ion-col>
+        <ion-col col-auto>
+            <button ion-button clear small float-right style="color:white;" *ngIf="isFollowing(profile, followingUsers)" (click)="unfollowUser(profile)">Unfollow</button>
+            <button ion-button clear small float-right style="color:white;" *ngIf="!isFollowing(profile, followingUsers)" (click)="followUser(profile)">Follow</button>
+        </ion-col>
+    </ion-row>
+
+  <div style="background-color: #3AA57A">
+    <img *ngIf="profile.avatar" class="profile-view__image" [src]="profile.avatar" alt="profile">
+    <ion-label style="font-size: 150%; font-weight: bolder; margin: 10px; text-align: center; color: white;" *ngIf="profile.userName">{{profile.userName}}</ion-label>
+    <ion-label style="margin: 0px 10px 0px 10px; text-align: center; color: white;" *ngIf="profile.userType">{{profile.userType}}</ion-label>
+    <br>
+  </div>
+  <ion-segment [(ngModel)]="following">
+      <ion-segment-button value="'yes'">{{profile.userName}}'s Posts</ion-segment-button>
+  </ion-segment>
+
+
+  <ion-grid *ngIf="userPosts">
+      <ion-row>
+        <ion-col class="min-padding" col-4 *ngFor="let post of userPosts" (click)="goToEventDetail(post)">
+          <img src='{{post?.photo}}' style="width:auto;height:auto;" />
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-content>

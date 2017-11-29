@@ -36,41 +36,29 @@ export class EditProfileFormWithExistingProfileComponent implements OnDestroy{
         this.profile = <Profile>profile;
       });
     });
-    this.profileRef.on('value', profiles => {
-      let nameList = [];
-      profiles.forEach( profile => {
-        nameList.push(profile.val().userName.toLowerCase());
-        return false;
-      });
-      this.userNameList = nameList;
-      console.log(this.userNameList);
-    });
+  }
+
+  removePicture() {
+    this.profile.avatar = "https://firebasestorage.googleapis.com/v0/b/sp-login-94206.appspot.com/o/profileImgs%2Fprofile-placeholder.png?alt=media&token=fe0933c1-891b-43c9-8ea1-364b7759fa88";
   }
 
   saveProfile() {
-    if (this.userNameList.indexOf(this.profile.userName.toLocaleLowerCase().trim()) > -1){
-       this.showUsernameAlert();
-    } else { 
-      this.profile.email = this.authenticatedUser.email;
-      let storageRef = firebase.storage().ref();
-      const filename = Math.floor(Date.now() / 1000);
-      const imageRef = storageRef.child(`profileImgs/${filename}.jpg`)
-      var result: any;
-      if(this.postPicture) {
-        imageRef.putString(this.postPicture, firebase.storage.StringFormat.DATA_URL).then((snapshot) => {
-          this.profile.avatar = snapshot.downloadURL;
-          console.log(snapshot.downloadURL);
-          console.log(this.profile.avatar);
-          result = this.data.saveProfile(this.authenticatedUser, this.profile);
-          this.saveProfileResult.emit(result);
-        });
-  
-      } else {
-        this.profile.avatar = "https://firebasestorage.googleapis.com/v0/b/sp-login-94206.appspot.com/o/profileImgs%2Fprofile-placeholder.png?alt=media&token=555e5017-a4bf-4b89-af6a-4ccd055e2f25";
+    this.profile.email = this.authenticatedUser.email;
+    let storageRef = firebase.storage().ref();
+    const filename = Math.floor(Date.now() / 1000);
+    const imageRef = storageRef.child(`profileImgs/${filename}.jpg`)
+    var result: any;
+    if(this.postPicture) {
+      imageRef.putString(this.postPicture, firebase.storage.StringFormat.DATA_URL).then((snapshot) => {
+        this.profile.avatar = snapshot.downloadURL;
+        console.log(snapshot.downloadURL);
         console.log(this.profile.avatar);
         result = this.data.saveProfile(this.authenticatedUser, this.profile);
         this.saveProfileResult.emit(result);
-      }
+      });
+    } else {
+      result = this.data.saveProfile(this.authenticatedUser, this.profile);
+      this.saveProfileResult.emit(result);
     }
   }
 

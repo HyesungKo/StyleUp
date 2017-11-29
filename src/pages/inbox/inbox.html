@@ -1,58 +1,47 @@
-<!--
-  Generated template for the InboxPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
+  <ion-item no-lines>
+    <ion-title style="padding: 6px 0;">Inbox</ion-title>
+  </ion-item>
 
-  <ion-navbar>
-    <ion-title>Inbox</ion-title>
+  <ion-searchbar placeHoler="filter" (ionInput)="filterPost($event)"></ion-searchbar>
 
-    <button ion-button float-right clear *ngIf="!delete"  (click)="toggle()">Edit</button>
-    <button ion-button float-right clear *ngIf="delete"  (click)="toggle()">Done</button>
-  </ion-navbar>
-
+  <ion-segment [(ngModel)]="inboxType">
+    <ion-segment-button value="messages">
+      Messages
+    </ion-segment-button>
+    <ion-segment-button value="users">
+      Users
+    </ion-segment-button>
+  </ion-segment>
 </ion-header>
 
+<ion-content>
+  <div [ngSwitch]="inboxType">
+    <ion-list *ngSwitchCase="'users'">
+      <ion-item *ngFor="let profile of profileList" (click)="goToMessageDetail(profile)">
+        <ion-avatar item-left>
+          <img [src]="profile.profile.avatar" alt="avatar">
+        </ion-avatar>
+        <h2>{{profile.profile.userName}}
+            <ion-icon  *ngIf="profile.profile.userType === 'boutique'" color="checkMark" name="checkmark-circle" md="md-checkmark-circle"></ion-icon>
+        </h2>
+        <p>{{profile.profile.userType}}</p>
+      </ion-item>
+    </ion-list>
 
-<ion-content padding>
-
-    <div padding>
-        <ion-segment [(ngModel)]="inboxType">
-          <ion-segment-button value="users">
-            Users
-          </ion-segment-button>
-          <ion-segment-button value="messages">
-            Messages
-          </ion-segment-button>
-        </ion-segment>
-      </div>
-
-      <ion-searchbar placeHoler="filter" (ionInput)="filterPost($event)"></ion-searchbar>
-      
-      <div [ngSwitch]="inboxType">
-        
-        <ion-list *ngSwitchCase="'users'">
-          <ion-item *ngFor="let profile of profileList" (click)="goToMessageDetail(profile)">
-            <ion-avatar item-left>
-              <img [src]="profile.profile.avatar" alt="avatar">
-            </ion-avatar>
-            <h2>{{profile.profile.userName}}</h2>
-            <p>{{profile.profile.userType}}</p>
-          </ion-item>
-        </ion-list>
-      
-        <ion-list *ngSwitchCase="'messages'">
-            <ion-item *ngFor="let user of chatList">
-              <ion-avatar item-left>
-              </ion-avatar>
-              <h2 (click)="goToMessageDetailFromMessageList(user)">{{user}}</h2>
-              <button item-right ion-button clear *ngIf="delete" (click)="deleteMessage(user)" >
-                  <ion-icon name="close-circle"></ion-icon>
-              </button>
-              </ion-item>
-              
-        </ion-list>
-      </div>
+    <ion-list *ngSwitchCase="'messages'">
+      <ion-item-sliding #item *ngFor="let user of chatList">
+        <ion-item (click)="goToMessageDetailFromMessageList(user)">
+          <ion-avatar item-left></ion-avatar>
+          <h2>{{user}}</h2>
+        </ion-item>
+        <ion-item-options>
+          <button ion-button color="danger" (click)="deleteMessage(user)">
+            <ion-icon name="trash"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
 </ion-content>

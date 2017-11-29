@@ -19,19 +19,21 @@ export class EditProfileFormComponent implements OnDestroy{
   private authenticatedUser: User;
   profile = {} as Profile;
   public postPicture: string;
-  public defaultProfile: string;
+  public defaultProfilePicture: string;
   private userNameList = [];
   private profileRef: firebase.database.Reference;
 
   @Output() saveProfileResult: EventEmitter<Boolean>;
 
   constructor(private data: DataProvider, private auth: AuthProvider, private navCtrl: NavController, private cameraPlugin: Camera, private alertCtl: AlertController) {
-    this.defaultProfile = "assets/img/profile-placeholder.png";
+
+    this.defaultProfilePicture = "https://firebasestorage.googleapis.com/v0/b/sp-login-94206.appspot.com/o/profileImgs%2Fprofile-placeholder.png?alt=media&token=fe0933c1-891b-43c9-8ea1-364b7759fa88";
     this.saveProfileResult = new EventEmitter<Boolean>();
     this.authenticatedUser$ = this.auth.getAuthenticatedUser().subscribe((user: User) => {
       this.authenticatedUser = user;
     });
     this.profileRef = firebase.database().ref(`profiles`);
+    this.profile.userType = 'standard';
   }
 
   ionViewDidLoad(){
@@ -47,8 +49,10 @@ export class EditProfileFormComponent implements OnDestroy{
   }
 
   saveProfile() {
-    if (this.userNameList.indexOf(this.profile.userName.toLocaleLowerCase().trim()) > -1){
-       this.showUsernameAlert();
+    if (!this.profile.userName){
+      this.showEmptyUsernameAlert();
+    } else if (this.userNameList.indexOf(this.profile.userName.toLowerCase().trim()) > -1){
+      this.showUsernameAlert();
     } else { 
       this.profile.email = this.authenticatedUser.email;
       let storageRef = firebase.storage().ref();
@@ -65,7 +69,7 @@ export class EditProfileFormComponent implements OnDestroy{
         });
   
       } else {
-        this.profile.avatar = "https://firebasestorage.googleapis.com/v0/b/sp-login-94206.appspot.com/o/profileImgs%2Fprofile-placeholder.png?alt=media&token=555e5017-a4bf-4b89-af6a-4ccd055e2f25";
+        this.profile.avatar = "https://firebasestorage.googleapis.com/v0/b/sp-login-94206.appspot.com/o/profileImgs%2Fprofile-placeholder.png?alt=media&token=fe0933c1-891b-43c9-8ea1-364b7759fa88";
         console.log(this.profile.avatar);
         result = this.data.saveProfile(this.authenticatedUser, this.profile);
         this.saveProfileResult.emit(result);
@@ -92,7 +96,7 @@ export class EditProfileFormComponent implements OnDestroy{
 
   showUsernameAlert() {
     let alert = this.alertCtl.create({
-      title: 'Unique Username Required!',
+      title: 'Unique Username is Required!',
       subTitle: 'The user name is already taken',
       buttons: ['OK']
     });
@@ -102,5 +106,14 @@ export class EditProfileFormComponent implements OnDestroy{
 
   ngOnDestroy(): void {
     this.authenticatedUser$.unsubscribe();
+  }
+
+  showEmptyUsernameAlert() {
+    let alert = this.alertCtl.create({
+      title: 'User Name Required',
+      subTitle: 'User name must not be empty',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 }

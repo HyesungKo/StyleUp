@@ -1,6 +1,6 @@
 <div class="profile-view__image-container">
   <img (click)="takePicture()" *ngIf="postPicture" class="profile-view__image" [src]="postPicture" alt="profile">
-  <img (click)="takePicture()" *ngIf="!postPicture" class="profile-view__image" src="assets/img/profile-placeholder.png" alt="profile">
+  <img (click)="takePicture()" *ngIf="!postPicture" class="profile-view__image" [src]="defaultProfilePicture" alt="profile">
 </div>
 
 <ion-card>

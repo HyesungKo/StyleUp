@@ -1,42 +1,49 @@
-
 <ion-header>
-    <ion-navbar>
-      <ion-title>
-        Explore
-        <ion-icon name="md-pin" style="float: right;"></ion-icon>
-      </ion-title>
-    </ion-navbar>
-  
-    <ion-segment [(ngModel)]="postType">
-      <ion-segment-button value="standard">
-        Users
-      </ion-segment-button>
-      <ion-segment-button value="boutique">
-        Boutiques
-      </ion-segment-button>
-    </ion-segment>
-  </ion-header>
-  
-  <ion-content no-padding>
-    <ion-searchbar placeHoler="filter" (ionInput)="filterPost($event)">
-  </ion-searchbar>
-  
-    <div [ngSwitch]="postType">
-      <ion-grid *ngSwitchCase="'standard'">
-          <ion-row>
-              <ion-col class="min-padding" col-4 *ngFor="let post of standardList" (click)="goToEventDetail(post)">
-                <img src='{{post?.photo}}' style="width:auto;height:auto;" />
-              </ion-col>
-            </ion-row>
-      </ion-grid>
-    
-      <ion-grid *ngSwitchCase="'boutique'">
-          <ion-row>
-              <ion-col class="min-padding" col-4 *ngFor="let post of boutiqueList" (click)="goToEventDetail(post)">
-                <img src='{{post?.photo}}' style="width:auto;height:auto;" />
-              </ion-col>
-            </ion-row>
-      </ion-grid>
-    </div>
-  </ion-content>
+  <ion-item no-lines>
+    <ion-title text-wrap *ngIf="currentCity">{{currentCity}}</ion-title>
+    <ion-buttons item-end>
+      <button ion-button icon-only clear (click)="openLocationModal()">
+        <ion-icon name="md-pin"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-item>
 
+  <ion-searchbar placeholder="Filter by Hashtag" (ionInput)="filterPost($event)"> </ion-searchbar>
+
+  <ion-segment class="md" [(ngModel)]="postType">
+    <ion-segment-button value="standard">Users</ion-segment-button>
+    <ion-segment-button value="boutique">Boutiques</ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content no-padding>
+
+  <!--
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content
+        pullingIcon="arrow-dropdown"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+    -->
+
+  <div [ngSwitch]="postType">
+    <ion-grid *ngSwitchCase="'standard'">
+      <ion-row>
+        <ion-col class="min-padding" col-4 *ngFor="let post of standardList" (click)="goToEventDetail(post)">
+          <img src='{{post?.photo}}' style="width:auto;height:auto;"/>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngSwitchCase="'boutique'">
+      <ion-row>
+        <ion-col class="min-padding" col-4 *ngFor="let post of boutiqueList" (click)="goToEventDetail(post)">
+          <img src='{{post?.photo}}' style="width:auto;height:auto;"/>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

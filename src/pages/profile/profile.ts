@@ -84,8 +84,8 @@ export class ProfilePage implements OnDestroy{
    });
   }
 
-  goToEventDetail(post){
-    this.navCtrl.push('EventDetailPage', { post: post });
+  goToEventDetail(currentPost){
+    this.navCtrl.push('EventDetailPage', { post: currentPost });
   }
 
   signOut() {

@@ -25,10 +25,10 @@
     </ion-card-content>
 
     <ion-row>
-      <ion-col>
-        <button ion-button icon-left clear small>
+      <ion-col *ngIf="postComments">
+        <button ion-button icon-left clear small (click)="toggleComment()">
           <ion-icon name="text"></ion-icon>
-          <div>Comments</div>
+          <div>Comments ({{postComments.length}})</div>
         </button>
       </ion-col>
       <ion-col col-auto>
@@ -44,8 +44,29 @@
         </button>
       </ion-col>
     </ion-row>
-  </ion-card>
+    <ion-grid *ngIf="showComment">
+      <ion-row style="padding-left:0.5em">
+          <ion-col col-10>
+              <ion-input [(ngModel)]="commentContent" type="text" placeholder="comment"></ion-input>
+          </ion-col>
+          <ion-col col-2>
+              <button ion-button float-right (click)="uploadComment(commentContent)">
+                  send
+                </button>
+          </ion-col>
+        </ion-row>     
 
+        <ion-row *ngFor="let comment of postComments" style="align-items: center">
+            <ion-col col-3>
+              <button ion-button clear small (click)="goToProfiles(comment.commentOwner)">{{comment.commentOwner}} </button> 
+            </ion-col>
+            <ion-col col-9>            
+                <h5>{{comment.commentContent}}
+                </h5>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+  </ion-card>
   <ion-card *ngIf="similarPost.length !== 0">
     <ion-row>
       <ion-label padding-left>Posts you might like</ion-label>

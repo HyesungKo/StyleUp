@@ -1,4 +1,11 @@
 page-event-detail {
+
+#containerIntro h5,
+#containerIntro button {
+    display: inline;
+    vertical-align: middle;
+
+}
   ion-card-header {
     text-align: center;
   }
@@ -17,3 +24,5 @@ page-event-detail {
     color: #FF0000;
   }
 }
+
+

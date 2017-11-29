@@ -44,16 +44,18 @@ export class EditProfileFormComponent implements OnDestroy{
         return false;
       });
       this.userNameList = nameList;
-      console.log(this.userNameList);
     });
   }
 
   saveProfile() {
     if (!this.profile.userName){
       this.showEmptyUsernameAlert();
-    } else if (this.userNameList.indexOf(this.profile.userName.toLowerCase().trim()) > -1){
+    } else if (this.userNameList.indexOf(this.profile.userName.toLowerCase()) > -1){
       this.showUsernameAlert();
+    } else if (this.profile.userName.includes(" ")) {
+      this.showSpaceAlert();
     } else { 
+      this.profile.userName = this.profile.userName.toLowerCase();
       this.profile.email = this.authenticatedUser.email;
       let storageRef = firebase.storage().ref();
       const filename = Math.floor(Date.now() / 1000);
@@ -112,6 +114,15 @@ export class EditProfileFormComponent implements OnDestroy{
     let alert = this.alertCtl.create({
       title: 'User Name Required',
       subTitle: 'User name must not be empty',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  showSpaceAlert() {
+    let alert = this.alertCtl.create({
+      title: 'User Name Alert!',
+      subTitle: 'User name must not have a space',
       buttons: ['OK']
     });
     alert.present();

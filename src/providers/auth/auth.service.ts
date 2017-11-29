@@ -1,4 +1,3 @@
-import { AngularFireDatabase } from 'angularfire2/database';
 import { LoginResponse } from './../../models/login/login-response.interface';
 import { Account } from './../../models/account/account.interface';
 import { Injectable } from '@angular/core';

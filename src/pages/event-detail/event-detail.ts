@@ -77,24 +77,28 @@ export class EventDetailPage {
 
     this.posts.on('value', posts => {
       let list = [];
+      let keyList = [];
       let hashtagList = this.currentPost.hashtags.match(/#\S+/g);
-      if (!(hashtagList === null)) {
-        posts.forEach(post => {
-          for (var i = 0; i < hashtagList.length; i++) {
-            if (post.key !== this.currentPost.id) {
-              if (post.val().hashtags.toLowerCase().includes(hashtagList[i].toLowerCase())) {
-                list.push({
-                  id: post.key,
-                  location: post.val().location,
-                  photo: post.val().photo,
-                  caption: post.val().caption,
-                  hashtags: post.val().hashtags,
-                  userType: post.val().userType,
-                  userName: post.val().userName,
-                  uid: post.val().uid,
-                  thumbUp: post.val().thumbUp,
-                  thumbDown: post.val().thumbDown
-                });
+      if (!(hashtagList === null)){
+        posts.forEach( post => {
+          for(var i = 0; i < hashtagList.length; i++){
+            if (post.key !== this.currentPost.id){              
+              if (keyList.indexOf(post.key) === -1){
+                if(post.val().hashtags.toLowerCase().includes(hashtagList[i].toLowerCase())){
+                  list.push({
+                    id: post.key,
+                    location: post.val().location,
+                    photo: post.val().photo,
+                    caption: post.val().caption,
+                    hashtags: post.val().hashtags,
+                    userType: post.val().userType,
+                    userName: post.val().userName,
+                    uid: post.val().uid,
+                    thumbUp: post.val().thumbUp,
+                    thumbDown: post.val().thumbDown
+                  });
+                  keyList.push(post.key);
+                }
               }
             }
           }

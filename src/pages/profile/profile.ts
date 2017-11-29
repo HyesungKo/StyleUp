@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { AuthProvider } from './../../providers/auth/auth.service';
 import { DataProvider } from './../../providers/data/data.service';
 import { Component, OnDestroy } from '@angular/core';
-import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { IonicPage, NavController, App } from 'ionic-angular';
 import firebase from 'firebase';
 import { User } from 'firebase/app';
 
@@ -105,5 +105,4 @@ export class ProfilePage implements OnDestroy{
   ngOnDestroy(): void {    
     this.authenticatedUser$.unsubscribe();
   }
-
 }

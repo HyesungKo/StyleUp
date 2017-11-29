@@ -24,12 +24,15 @@
         </ion-item>
       </ion-list>
   </ion-card>
-  <ion-row bottom>
-    <ion-col col-10>
-      <ion-input value="" [(ngModel)]="message">Type Messages</ion-input>
-    </ion-col>
-    <ion-col col-2>
-      <button ion-button (click)="sendMessage()">send</button>
-    </ion-col> 
-  </ion-row>
+
 </ion-content>
+<ion-footer>
+    <ion-row align-items-center>
+        <ion-col col-10 padding-left>
+          <ion-input placeholder="Type a message" [(ngModel)]="message"></ion-input>
+        </ion-col>
+        <ion-col col-2>
+          <button ion-button float-right (click)="sendMessage()">send</button>
+        </ion-col> 
+      </ion-row>
+</ion-footer>

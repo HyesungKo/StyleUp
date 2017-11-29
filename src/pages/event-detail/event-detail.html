@@ -54,9 +54,8 @@
                   send
                 </button>
           </ion-col>
-        </ion-row>     
-
-        <ion-row *ngFor="let comment of postComments" style="align-items: center">
+        </ion-row>
+        <ion-row align-items-center *ngFor="let comment of postComments" style="height:">
             <ion-col col-3>
               <button ion-button clear small (click)="goToProfiles(comment.commentOwner)">{{comment.commentOwner}} </button> 
             </ion-col>

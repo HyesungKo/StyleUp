@@ -54,7 +54,7 @@ export class EventDetailPage {
      return false;
        });
 
-     this.postComments = commentList;
+     this.postComments = commentList.reverse();
     
     });
   }

@@ -24,6 +24,10 @@ export class ChannelPage {
     this.followingRef = firebase.database().ref(`profiles/${this.currentUser}/following`)
   }
 
+  ionViewWillEnter(){
+   this.ionViewDidLoad();
+  }
+
   ionViewDidLoad() {
     this.followingRef.on('value', snapshot => {
       let list = [];

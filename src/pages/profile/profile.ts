@@ -105,8 +105,4 @@ export class ProfilePage implements OnDestroy{
   ngOnDestroy(): void {    
     this.authenticatedUser$.unsubscribe();
   }
-
-  ngOnDestroy(): void {
-    this.authenticatedUser$.unsubscribe();
-  }
 }

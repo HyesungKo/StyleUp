@@ -1,28 +1,33 @@
 <form #loginForm="ngForm" novalidate>
-  <ion-card>
-    <ion-card-content>
-      <ion-item>
-        <ion-label floating>Email Address</ion-label>
-        <ion-input type="text" [(ngModel)]="account.email" name="email" #email="ngModel" required pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"></ion-input>
-      </ion-item>
+  <ion-list inset>
+    <ion-item>
+      <ion-input text-lowercase placeholder="Username" type="text" [(ngModel)]="account.email" name="email" #email="ngModel" required pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"></ion-input>
+    </ion-item>
+    <div *ngIf="email.invalid && email.dirty">
+      <span class="global__error">Email address is not valid.</span>
+    </div>
+    <div no-padding *ngIf="!email.invalid || !email.dirty">
+      <br>
+    </div>
 
-      <div padding *ngIf="email.invalid && email.dirty">
-        <span class="global__error">Email address is not valid.</span>
-      </div>
+    <ion-item>
+      <ion-input placeholder="password" type="password" [(ngModel)]="account.password" name="password" #password="ngModel" required
+        pattern="(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,16}$"></ion-input>
+    </ion-item>
+    <div *ngIf="password.invalid && password.dirty">
+      <span class="global__error">Password must be at least 6 character and 1 number.</span>
+    </div>
+    <div no-padding *ngIf="!password.invalid || !password.dirty">
+      <br>
+      <br>
+    </div>
 
-      <ion-item>
-        <ion-label floating>Password</ion-label>
-        <ion-input type="password" [(ngModel)]="account.password" name="password" #password="ngModel" required pattern="(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,16}$"></ion-input>
-      </ion-item>
-      <div padding *ngIf="password.invalid && password.dirty">
-        <span class="global__error">Password must be at least 6 character and 1 number.</span>
-      </div>
-    </ion-card-content>
-    <ion-row class="login-form__buttons">
-      <div>
-      <button ion-button color="secondary" (click)="navigateToRegisterPage()">Register</button>
-      <button ion-button color="primary" (click)="login()" [disabled]="loginForm.invalid">Login</button>
-      </div>
-    </ion-row>
-  </ion-card>
+    <button ion-button block style="margin-top: 10px; margin-bottom: 10px;" (click)="login()" [disabled]="loginForm.invalid">
+      <div style="color: white;">Login</div>
+    </button>
+
+    <button ion-button block color="light" (click)="navigateToRegisterPage()">
+      <div style="color:#9d9d9d;">Register</div>
+    </button>
+  </ion-list>
 </form>

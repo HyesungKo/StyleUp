@@ -16,6 +16,10 @@ export class AuthProvider {
     return this.auth.authState;
   }
 
+  getAuthenticatedUserUid(){
+    return this.auth.auth.currentUser.uid;
+  }
+
   resetPassword(email: string) {
     return this.auth.auth.sendPasswordResetEmail(email);
   }
@@ -43,6 +47,10 @@ export class AuthProvider {
         error: e
       }
     }
+  }
+
+  signOut() {
+    this.auth.auth.signOut();
   }
 
 }

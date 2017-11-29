@@ -16,7 +16,7 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 })
 export class RegisterPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private toast: ToastController) {
+  constructor(private navParams: NavParams, private toast: ToastController) {
   }
 
   register(event: LoginResponse) {

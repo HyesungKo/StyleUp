@@ -1,5 +1,14 @@
+<div class="profile-view__image-container">
+  <img (click)="takePicture()" *ngIf="postPicture" class="profile-view__image" [src]="postPicture" alt="profile">
+  <img (click)="takePicture()" *ngIf="!postPicture" class="profile-view__image" [src]="defaultProfilePicture" alt="profile">
+</div>
+
 <ion-card>
   <ion-card-content>
+    <ion-item>
+      <ion-label floating>User Name</ion-label>
+      <ion-input type="text" [value]="profile.userName" [(ngModel)]="profile.userName"></ion-input>
+    </ion-item>
     <ion-item>
       <ion-label floating>First Name</ion-label>
       <ion-input type="text" [value]="profile.firstName" [(ngModel)]="profile.firstName"></ion-input>
@@ -11,7 +20,21 @@
     <ion-item>
       <ion-label floating>Date of Birth</ion-label>
       <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="profile.dateOfBirth"></ion-datetime>
-    </ion-item>  
+    </ion-item>
+    <ion-list radio-group [(ngModel)]="profile.userType">
+      <ion-list-header>
+        User Type
+      </ion-list-header>
+      <ion-item>
+        <ion-label>Standard</ion-label>
+        <ion-radio value="standard"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Boutique</ion-label>
+        <ion-radio value="boutique"></ion-radio>
+      </ion-item>
+    </ion-list>
+           
   </ion-card-content>
 </ion-card>
 

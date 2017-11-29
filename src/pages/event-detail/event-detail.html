@@ -1,24 +1,81 @@
 <ion-header>
   <ion-navbar>
-    <ion-title></ion-title>
+    <ion-title>Post</ion-title>
+    <ion-buttons end>
+      <button ion-button clear color="secondary" *ngIf="owner" (click)="navigateToEditPostPage()">Edit</button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-row padding>
-    
+  <ion-card *ngIf="currentPost">
+    <img src="{{currentPost.photo}}"/>
 
-  </ion-row>
+    <ion-item>
+        <ion-avatar item-start>
+          <img src="https://firebasestorage.googleapis.com/v0/b/sp-login-94206.appspot.com/o/logo%2Ficon.png?alt=media&token=45215c3c-63f9-4ff9-8af5-fc4f9b2e0e98">
+        </ion-avatar>
+        <h2 (click)="goToProfile(currentPost.userName)">{{currentPost.userName}}
+            <ion-icon  *ngIf="currentPost.userType === 'boutique'" color="checkMark" name="checkmark-circle" md="md-checkmark-circle"></ion-icon>
+        </h2>
+        <p>{{currentPost.location}}</p>
+      </ion-item>
 
-  <ion-card>
-    <ion-card-header>
-      {{currentEvent?.name}}
-    </ion-card-header>
     <ion-card-content>
-      <p><img src="{{currentEvent?.photo}}"></p>
-      <h1 align="center"> {{currentEvent?.caption}} </h1>
-      <h1 align="center"> {{currentEvent?.hashtags}} </h1>
+      <p>{{currentPost.caption}}</p>
+      <div style="padding: 10px 0px 0px 0px;">{{currentPost.hashtags}}</div>
     </ion-card-content>
-  </ion-card>
 
-  
+    <ion-row>
+      <ion-col *ngIf="postComments">
+        <button ion-button icon-left clear small (click)="toggleComment()">
+          <ion-icon name="text"></ion-icon>
+          <div>Comments ({{postComments.length}})</div>
+        </button>
+      </ion-col>
+      <ion-col col-auto>
+          <button ion-button icon-left clear small color="danger" (click)="toggleDown(currentPost)">
+            <ion-icon name="thumbs-down"></ion-icon>
+            <div> {{currentPost.thumbDown}}</div>
+          </button>
+        </ion-col>
+      <ion-col col-auto>
+        <button ion-button icon-left clear small (click)="toggleUp(currentPost)">
+          <ion-icon name="thumbs-up"></ion-icon>
+          <div> {{currentPost.thumbUp}}</div>
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-grid *ngIf="showComment">
+      <ion-row style="padding-left:0.5em">
+          <ion-col>
+              <ion-input [(ngModel)]="commentContent" type="text" placeholder="comment"></ion-input>
+          </ion-col>
+          <ion-col col-auto >
+              <button ion-button small float-right align-self-end (click)="uploadComment(commentContent)">
+                  send
+                </button>
+          </ion-col>
+        </ion-row>
+        <ion-row align-items-center *ngFor="let comment of postComments" style="height:">
+            <ion-col col-3>
+              <a small text-nowrap style="font-weight:bolder;" (click)="goToProfiles(comment.commentOwner)">{{comment.commentOwner}} </a> 
+            </ion-col>
+            <ion-col col-9>            
+                <h5>{{comment.commentContent}}
+                </h5>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+  </ion-card>
+  <ion-card *ngIf="similarPost.length !== 0">
+    <ion-row>
+      <ion-label padding-left>Posts you might like</ion-label>
+    </ion-row>
+    <ion-row padding-left padding-right padding-bottom>
+      <ion-col class="min-padding" col-4 *ngFor="let post of similarPost" (click)="goToEventDetail(post)">
+        <img src='{{post?.photo}}' style="width:auto;height:auto;" />
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>

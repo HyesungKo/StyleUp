@@ -1,16 +1,11 @@
-<div class="profile-view__image-container">
-  <img class="profile-view__image" src="assets/images/profile-placeholder.png" alt="profile">
-</div>
-
 <div *ngIf="userProfile">
+  <div class="profile-view__image-container">
+      <img *ngIf="userProfile.avatar" class="profile-view__image" [src]="userProfile.avatar" alt="profile">
+  </div>
   <ion-card>
     <ion-card-content>
       <ion-item>
-        <ion-label floating>Email</ion-label>
-        <ion-input [value]="userProfile.email" [readonly]="true"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>First name</ion-label>
+        <ion-label floating>First Name</ion-label>
         <ion-input [value]="userProfile.firstName" [readonly]="true"></ion-input>
       </ion-item>
       <ion-item>
@@ -23,4 +18,16 @@
       </ion-item>
     </ion-card-content>
   </ion-card>
-</div> 
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label floating>Username</ion-label>
+        <ion-input [value]="userProfile.userName" [readonly]="true"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input [value]="userProfile.email" [readonly]="true"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</div>

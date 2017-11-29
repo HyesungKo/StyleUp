@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Edit Post</ion-title>
+    <button ion-button float-right clear (click)="updatePost(currentPost.location, currentPost.caption, currentPost.hashtags)">Update</button>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <img [src]="currentPost.photo">
+  <ion-item>
+    <ion-label stacked>Location</ion-label>
+    <ion-input [(ngModel)]="currentPost.location" type="text" [value]="currentPost.location"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Caption</ion-label>
+    <ion-input [(ngModel)]="currentPost.caption" type="text" [value]="currentPost.caption"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Hashtags</ion-label>
+    <ion-input [(ngModel)]="currentPost.hashtags" type="text" [value]="currentPost.Hashtags"></ion-input>
+  </ion-item>
+
+  <button ion-button block color="danger" (click)="deletePost()">Delete This Post</button>
+
+</ion-content>

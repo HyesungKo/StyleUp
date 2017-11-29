@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{receiverProfile.profile.userName}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+      <ion-list>
+        <div *ngFor="let message of messageList">
+           <ion-item *ngIf="message.messageOwner">
+            <ion-avatar item-right>
+              <img [src]="message.messageOwner? profile.avatar : receiverProfile.profile.avatar" alt="avatar">
+            </ion-avatar>
+            <p float-right text-wrap text-right style="width: 70%">{{message.message}}</p>    
+          </ion-item>
+          <ion-item *ngIf="!message.messageOwner">
+            <ion-avatar item-left>
+              <img [src]="message.messageOwner? profile.avatar : receiverProfile.profile.avatar" alt="avatar">
+            </ion-avatar>
+            <p text-wrap style="width: 70%">{{message.message}}</p>
+          </ion-item>
+       </div>  
+      </ion-list>
+  </ion-card>
+
+</ion-content>
+<ion-footer>
+    <ion-row align-items-center>
+        <ion-col col-10 padding-left>
+          <ion-input placeholder="Type a message" [(ngModel)]="message"></ion-input>
+        </ion-col>
+        <ion-col col-2>
+          <button ion-button float-right (click)="sendMessage()">send</button>
+        </ion-col> 
+      </ion-row>
+</ion-footer>

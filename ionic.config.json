@@ -1,6 +1,6 @@
 {
-  "name": "beep",
-  "app_id": "c03abb43",
+  "name": "StyleUp",
+  "app_id": "f6fad173",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

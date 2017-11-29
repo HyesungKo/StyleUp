@@ -1,21 +1,89 @@
-<!--
-  Generated template for the ProfilePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Profile</ion-title>
-    <button ion-button style="float: right" clear small color="secondary" (click)="navigateToEditProfile()">Edit</button>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content>
+  <ion-row style="background-color: #3AA57A">
+    <ion-col col-auto>
+      <button ion-button clear small float-left style="color:white;" (click)="signOut()">Sign Out</button>
+    </ion-col>
+    <ion-col></ion-col>
+    <ion-col col-auto>
+      <button ion-button clear small float-right style="color:white;" (click)="navigateToEditProfile()">Edit</button>
+    </ion-col>
+  </ion-row>
 
+  <div *ngIf="currentUserProfile" style="background-color: #3AA57A">
+    <img *ngIf="currentUserProfile.avatar" class="profile-view__image" [src]="currentUserProfile.avatar" alt="profile">
+    <ion-label style="font-size: 150%; font-weight: bold; margin: 10px; text-align: center; color: white;" *ngIf="currentUserProfile.userName">{{currentUserProfile.userName}}</ion-label>
+    <ion-label style="margin: 0px 10px 0px 10px; text-align: center; color: white;" *ngIf="currentUserProfile.userType">{{currentUserProfile.userType}}</ion-label>
+    <br>
+  </div>
+
+  <ion-segment [(ngModel)]="view" color="primary">
+    <ion-segment-button value="your">
+      Your Posts
+    </ion-segment-button>
+    <ion-segment-button value="liked">
+      Liked Posts
+    </ion-segment-button>
+    <ion-segment-button value="bio">
+      Biography
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="view">
+      <ion-grid *ngSwitchCase="'your'">
+          <ion-row padding-left padding-right padding-bottom *ngIf="myPosts.length !== 0">
+              <ion-col class="min-padding" col-4 *ngFor="let post of myPosts" (click)="goToEventDetail(post.id, myPosts)">
+                <img src='{{post?.photo}}' style="width:auto;height:auto;" />
+              </ion-col>
+            </ion-row>
+            <ion-row padding-left *ngIf="myPosts.length === 0">
+              <p>You didn't post yet.</p>
+            </ion-row>
+      </ion-grid>
+      
+      <ion-grid *ngSwitchCase="'liked'">
+          <ion-row padding-left padding-right padding-bottom *ngIf="likedPostList.length !== 0">
+              <ion-col class="min-padding" col-4 *ngFor="let post of likedPostList" (click)="goToEventDetail(post)">
+                <img src='{{post?.photo}}' style="width:auto;height:auto;" />
+              </ion-col>
+            </ion-row>
+            <ion-row padding-left *ngIf="likedPostList.length === 0">
+              <p>You don't have any thumbed up post yet.</p>
+            </ion-row>
+      </ion-grid>
+
+      <div *ngSwitchCase="'bio'">
+          <profile-form></profile-form>
+      </div>
+
+  </div>
+
+  <!--
   <profile-form></profile-form>
-  
+
+  <ion-grid>
+    <ion-card>
+      <ion-row padding-left padding-right padding-bottom *ngIf="myPosts.length !== 0">
+        <ion-col class="min-padding" col-4 *ngFor="let post of myPosts" (click)="goToEventDetail(post.id, myPosts)">
+          <img src='{{post?.photo}}' style="width:auto;height:auto;" />
+        </ion-col>
+      </ion-row>
+      <ion-row padding-left *ngIf="myPosts.length === 0">
+        <p>You didn't post yet.</p>
+      </ion-row>
+    </ion-card>
+    <ion-card>
+      <ion-row>
+        <ion-label padding-left>Liked Posts</ion-label>
+      </ion-row>
+      <ion-row padding-left padding-right padding-bottom *ngIf="likedPostList.length !== 0">
+        <ion-col class="min-padding" col-4 *ngFor="let post of likedPostList" (click)="goToEventDetail(post)">
+          <img src='{{post?.photo}}' style="width:auto;height:auto;" />
+        </ion-col>
+      </ion-row>
+      <ion-row padding-left *ngIf="likedPostList.length === 0">
+        <p>You don't have any thumbed up post yet.</p>
+      </ion-row>
+    </ion-card>
+  </ion-grid> -->
+
 </ion-content>

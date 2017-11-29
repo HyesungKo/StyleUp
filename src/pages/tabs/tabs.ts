@@ -20,13 +20,14 @@ export class TabsPage {
   tab3Root: string;
   tab4Root: string;
   tab5Root: string;
+  tab6Root: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.tab1Root = 'InboxPage';
+    this.tab1Root = 'ExplorePage';
     this.tab2Root = 'ChannelPage';
     this.tab3Root = 'EventCreatePage';
-    this.tab4Root = '';
-    this.tab5Root = 'ProfilePage';  
+    this.tab4Root = 'ProfilePage';
+    this.tab5Root = 'InboxPage'; 
   }
 
 

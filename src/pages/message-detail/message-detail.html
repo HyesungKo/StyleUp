@@ -17,10 +17,19 @@
   <ion-card>
       <ion-list>
         <ion-item *ngFor="let message of messageList">
-            <ion-avatar item-left>
-              <img [src]="message.messageOwner? profile.avatar : receiverProfile.profile.avatar" alt="avatar">
-            </ion-avatar>
-            <h2>{{message.message}}</h2>
+          <div float-right *ngIf="message.commentOwner">
+              <ion-avatar item-right>
+                  <img [src]="message.messageOwner? profile.avatar : receiverProfile.profile.avatar" alt="avatar">
+                </ion-avatar>
+                <h2>{{message.message}}</h2>    
+          </div>
+          <div *ngIf="!message.commnetOwner">
+              <ion-avatar item-left>
+                  <img [src]="message.messageOwner? profile.avatar : receiverProfile.profile.avatar" alt="avatar">
+                </ion-avatar>
+                <h2>{{message.message}}</h2>
+      
+            </div>  
         </ion-item>
       </ion-list>
   </ion-card>

@@ -32,7 +32,7 @@ export class EventDetailPage {
   constructor(public navC: NavController, public navParams: NavParams) {
     this.currentUser = firebase.auth().currentUser.uid;
     this.posts = firebase.database().ref(`posts`);
-    this.currentUserProfileRef= firebase.database().ref(`profiles/${this.currentUser}`);
+    this.currentUserProfileRef = firebase.database().ref(`profiles/${this.currentUser}`);
     this.currentPost = this.navParams.get('post');
     this.comments = firebase.database().ref(`posts/${this.currentPost.id}/commentList`);
     this.likedPostsRef = firebase.database().ref(`profiles/${this.currentUser}/likedPosts`);
@@ -41,29 +41,26 @@ export class EventDetailPage {
     this.owner = (this.currentPost.uid === this.currentUser);
   }
 
-  ionViewDidEnter(){
-     this.comments.on('value', snapshot => {
-     let commentList = [];
-     snapshot.forEach( snap => {
-              
+  ionViewDidEnter() {
+    this.comments.on('value', snapshot => {
+      let commentList = [];
+      snapshot.forEach(snap => {
         commentList.push({
           id: snap.key,
           commentContent: snap.val().commentContent,
           commentOwner: snap.val().commentOwner
-         });
-     return false;
-       });
-
-     this.postComments = commentList.reverse();
-    
+        });
+        return false;
+      });
+      this.postComments = commentList.reverse();
     });
   }
-  ionViewDidLoad(){
 
+  ionViewDidLoad() {
     this.likedPostsRef.on('value', posts => {
       let list = [];
-      posts.forEach( post => {
-          list.push(post.val().key);
+      posts.forEach(post => {
+        list.push(post.val().key);
         return false;
       });
       this.likedPostList = list.reverse();
@@ -71,21 +68,21 @@ export class EventDetailPage {
 
     this.dislikedPostsRef.on('value', posts => {
       let list = [];
-      posts.forEach( post => {
-          list.push(post.val().key);
+      posts.forEach(post => {
+        list.push(post.val().key);
         return false;
       });
       this.dislikedPostList = list.reverse();
     });
-    
+
     this.posts.on('value', posts => {
       let list = [];
       let hashtagList = this.currentPost.hashtags.match(/#\S+/g);
-      if (!(hashtagList === null)){
-        posts.forEach( post => {
-          for(var i = 0; i < hashtagList.length; i++){
-            if (post.key !== this.currentPost.id){
-              if(post.val().hashtags.toLowerCase().includes(hashtagList[i].toLowerCase())){
+      if (!(hashtagList === null)) {
+        posts.forEach(post => {
+          for (var i = 0; i < hashtagList.length; i++) {
+            if (post.key !== this.currentPost.id) {
+              if (post.val().hashtags.toLowerCase().includes(hashtagList[i].toLowerCase())) {
                 list.push({
                   id: post.key,
                   location: post.val().location,
@@ -108,44 +105,39 @@ export class EventDetailPage {
     });
   }
 
-  uploadComment(commentContent :string){
-    var username : any;
+  uploadComment(commentContent: string) {
+    var username: any;
 
     this.currentUserProfileRef.on('value', snapshot => {
-     
-         
-     username =snapshot.val().userName;
-
-        this.comments.push({
-          commentContent: commentContent,
-          commentOwner: username
-        });
-        this.commentContent = null;
+      username = snapshot.val().userName;
+      this.comments.push({
+        commentContent: commentContent,
+        commentOwner: username
+      });
+      this.commentContent = null;
     });
-
-   
   }
 
   navigateToEditPostPage() {
-    this.navC.push('EditPostPage', {currentPost: this.currentPost});
+    this.navC.push('EditPostPage', { currentPost: this.currentPost });
   }
 
-  toggleUp(currentPost){
-    if(this.likedPostList.indexOf(this.currentPost.id) > -1) {
-      currentPost.thumbUp = currentPost.thumbUp - 1;      
+  toggleUp(currentPost) {
+    if (this.likedPostList.indexOf(this.currentPost.id) > -1) {
+      currentPost.thumbUp = currentPost.thumbUp - 1;
       this.currentPostRef.update({
         "thumbUp": currentPost.thumbUp
       });
       this.likedPostsRef.on('value', likedPosts => {
-        likedPosts.forEach( post => {
-          if(post.val().key === currentPost.id){
+        likedPosts.forEach(post => {
+          if (post.val().key === currentPost.id) {
             post.ref.remove();
           }
           return false;
         });
       });
     } else {
-      currentPost.thumbUp = currentPost.thumbUp + 1;      
+      currentPost.thumbUp = currentPost.thumbUp + 1;
       this.currentPostRef.update({
         "thumbUp": currentPost.thumbUp
       });
@@ -155,15 +147,15 @@ export class EventDetailPage {
     }
   }
 
-  toggleDown(currentPost){
-    if(this.dislikedPostList.indexOf(this.currentPost.id) > -1) {
+  toggleDown(currentPost) {
+    if (this.dislikedPostList.indexOf(this.currentPost.id) > -1) {
       currentPost.thumbDown = currentPost.thumbDown - 1;
       this.currentPostRef.update({
         "thumbDown": currentPost.thumbDown
       });
       this.dislikedPostsRef.on('value', dislikedPosts => {
-        dislikedPosts.forEach( post => {
-          if(post.val().key === currentPost.id){
+        dislikedPosts.forEach(post => {
+          if (post.val().key === currentPost.id) {
             post.ref.remove();
           }
           return false;
@@ -180,27 +172,28 @@ export class EventDetailPage {
     }
   }
 
-  goToEventDetail(post){
-    this.navC.push('EventDetailPage', { post : post });
+  goToEventDetail(post) {
+    this.navC.push('EventDetailPage', { post: post });
   }
-/* 
-  onSwipeRight() {
-    this.navC.push('EventDetailPage', { postId : this.postList[this.currentIndex - 1].id, postList: this.postList});
-  }
-
-  onSwipeLeft() {
-    this.navC.push('EventDetailPage', { postId : this.postList[this.currentIndex + 1].id, postList: this.postList});
-  } */
+  /* 
+    onSwipeRight() {
+      this.navC.push('EventDetailPage', { postId : this.postList[this.currentIndex - 1].id, postList: this.postList});
+    }
+  
+    onSwipeLeft() {
+      this.navC.push('EventDetailPage', { postId : this.postList[this.currentIndex + 1].id, postList: this.postList});
+    } */
 
   goToProfile() {
-    this.navC.push('ProfileSearchPage', { userName : this.currentPost.userName })
-  }
-  goToProfiles(userName) {
-    this.navC.push('ProfileSearchPage', { userName : userName })
+    this.navC.push('ProfileSearchPage', { userName: this.currentPost.userName })
   }
 
-  toggleComment(){
-    if(this.showComment === false){
+  goToProfiles(userName) {
+    this.navC.push('ProfileSearchPage', { userName: userName })
+  }
+
+  toggleComment() {
+    if (this.showComment === false) {
       this.showComment = true;
     } else {
       this.showComment = false;

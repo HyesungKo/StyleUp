@@ -15,15 +15,9 @@ export class ProfileFormComponent{
   public loader: Loading;
 
   constructor(private loading: LoadingController, private data: DataProvider, private auth: AuthProvider, private navCtrl: NavController){
-    this.loader = this.loading.create({
-      content: 'Loading profile...'
-    });
-    this.loader.present();
     this.auth.getAuthenticatedUser().subscribe((user: User) => {
       this.data.getProfile(user).subscribe(profile => {
         this.userProfile = <Profile>profile;
-        
-        this.loader.dismiss();
       })
     })
   }

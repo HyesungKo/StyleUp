@@ -27,7 +27,9 @@ export class ExplorePage {
   }
 
   ionViewCanEnter() {
-    this.presentLoadingText(); //displays a loading pop up to allow location to load before displaying posts
+    if(this.currentCity == ''){
+      this.presentLoadingText();//displays a loading pop up to allow location to load before displaying posts
+    }
   }
 
   ionViewDidEnter() {
@@ -125,9 +127,4 @@ export class ExplorePage {
       this.ionViewDidEnter(); //resets the posts displayed
     });
   }
-
-  /**doRefresh(refresher) {
-    this.ionViewDidEnter();
-    refresher.complete();
-  }*///possible code for pull down to refresh
 }

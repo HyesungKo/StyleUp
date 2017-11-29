@@ -21,7 +21,7 @@
     <ion-item>
       <ion-input [(ngModel)]="eventHashtags" type="text" placeholder="Hashtags"></ion-input>
     </ion-item>
-    <ion-item></ion-item>
+    <ion-item no-lines></ion-item>
 
     <button ion-button block *ngIf="postPicture" (click)="upload(eventLocation,eventCaption, eventHashtags)">
       Share Post

@@ -7,9 +7,11 @@
 
 <ion-content padding>
     <img [src]="currentPost.photo">
-  <ion-item>
-    <ion-label stacked>Location</ion-label>
-    <ion-input [(ngModel)]="currentPost.location" type="text" [value]="currentPost.location"></ion-input>
+  <ion-item style="text-align: center">
+    <button ion-button icon-only clear large (click)="openLocationModal()">
+        {{currentPost.location}}\t
+      <ion-icon name="md-pin"></ion-icon>
+    </button>
   </ion-item>
 
   <ion-item>

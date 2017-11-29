@@ -1,9 +1,17 @@
-<div class="profile-view__image-container" >
-  <a (click)="takePicture()">
-    <img  *ngIf="postPicture" class="profile-view__image" [src]="postPicture" alt="profile">
-    <img  *ngIf="!postPicture" class="profile-view__image" [src]="profile.avatar" alt="profile">
+<div style="background-color: #3AA57A">
+  <a (click)="takePicture()" padding>
+    <img *ngIf="postPicture" class="profile-view__image" [src]="postPicture" alt="profile">
+    <img *ngIf="!postPicture" class="profile-view__image" [src]="profile.avatar" alt="profile">
   </a>
-  <button ion-button clear (click)="removePicture()">removePicture</button>
+  <ion-row>
+    <ion-col></ion-col>
+    <ion-col col-auto>
+      <button ion-button small clear (click)="removePicture()">
+        <p style="color: white;">Remove Picture</p>
+      </button>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
 </div>
 
 <ion-card>
@@ -19,9 +27,10 @@
       <ion-item>
         <ion-label floating>Date of Birth</ion-label>
         <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="profile.dateOfBirth"></ion-datetime>
-      </ion-item>  
+      </ion-item>
     </ion-card-content>
   </ion-card>
   
-  
-  <button style="float:right" ion-button (click)="saveProfile()">Save</button>
+<ion-list inset>
+  <button ion-button block (click)="saveProfile()">Save</button>
+</ion-list>

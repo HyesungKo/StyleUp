@@ -41,6 +41,7 @@ export class ProfileSearchPage{
           profile = {
             userName: snap.val().userName,
             userType: snap.val().userType,
+            avatar: snap.val().avatar,
           };
         } 
       return false;

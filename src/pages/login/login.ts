@@ -15,7 +15,7 @@ export class LoginPage {
 
   constructor(private navCtrl: NavController, private navParams: NavParams,
   private toast:ToastController, private data: DataProvider) {
-    this.logoUrl = "https://firebasestorage.googleapis.com/v0/b/sp-login-94206.appspot.com/o/logo%2Ficon.png?alt=media&token=45215c3c-63f9-4ff9-8af5-fc4f9b2e0e98";
+    this.logoUrl = "https://firebasestorage.googleapis.com/v0/b/sp-login-94206.appspot.com/o/logo%2Ficon2.png?alt=media&token=1bb85ee6-f333-446e-a29c-76627e362a28";
   }
 
   login(event: LoginResponse) {

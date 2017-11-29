@@ -23,8 +23,8 @@
     <ion-label style="margin: 0px 10px 0px 10px; text-align: center; color: white;" *ngIf="profile.userType">{{profile.userType}}</ion-label>
     <br>
   </div>
-  <ion-segment>
-      <ion-segment-button>{{profile.userName}}'s Posts</ion-segment-button>
+  <ion-segment [(ngModel)]="following">
+      <ion-segment-button value="'yes'">{{profile.userName}}'s Posts</ion-segment-button>
   </ion-segment>
 
 

@@ -1,20 +1,21 @@
 <ion-header>
+  <ion-item no-lines>
+    <ion-title style="padding: 6px 0;">Inbox</ion-title>
+  </ion-item>
 
-  <ion-navbar>
-    <ion-title>Inbox</ion-title>
-  </ion-navbar>
+  <ion-searchbar placeHoler="filter" (ionInput)="filterPost($event)"></ion-searchbar>
+
   <ion-segment [(ngModel)]="inboxType">
-    <ion-segment-button value="users">
-      Users
-    </ion-segment-button>
     <ion-segment-button value="messages">
       Messages
+    </ion-segment-button>
+    <ion-segment-button value="users">
+      Users
     </ion-segment-button>
   </ion-segment>
 </ion-header>
 
 <ion-content>
-  <ion-searchbar placeHoler="filter" (ionInput)="filterPost($event)"></ion-searchbar>
   <div [ngSwitch]="inboxType">
     <ion-list *ngSwitchCase="'users'">
       <ion-item *ngFor="let profile of profileList" (click)="goToMessageDetail(profile)">
@@ -25,7 +26,7 @@
         <p>{{profile.profile.userType}}</p>
       </ion-item>
     </ion-list>
-  
+
     <ion-list *ngSwitchCase="'messages'">
       <ion-item-sliding #item *ngFor="let user of chatList">
         <ion-item (click)="goToMessageDetailFromMessageList(user)">

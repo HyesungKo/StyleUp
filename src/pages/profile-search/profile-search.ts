@@ -24,6 +24,7 @@ export class ProfileSearchPage{
   public currentUser: string;
   public followingUsers =[];
   public followingUser: boolean;
+  public following= 'yes';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private data: DataProvider, private auth: AuthProvider) {
     this.profiles = firebase.database().ref(`profiles`);

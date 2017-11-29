@@ -1,4 +1,4 @@
-<div class="profile-view__image-container">
+<div style="background-color: #3AA57A">
   <img (click)="takePicture()" *ngIf="postPicture" class="profile-view__image" [src]="postPicture" alt="profile">
   <img (click)="takePicture()" *ngIf="!postPicture" class="profile-view__image" [src]="defaultProfilePicture" alt="profile">
 </div>
@@ -6,19 +6,19 @@
 <ion-card>
   <ion-card-content>
     <ion-item>
-      <ion-label floating>User Name</ion-label>
-      <ion-input type="text" [value]="profile.userName" [(ngModel)]="profile.userName"></ion-input>
+      <ion-label stacked>User Name</ion-label>
+      <ion-input type="text" placeholder="User Name" [value]="profile.userName" [(ngModel)]="profile.userName"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating>First Name</ion-label>
-      <ion-input type="text" [value]="profile.firstName" [(ngModel)]="profile.firstName"></ion-input>
+      <ion-label stacked>First Name</ion-label>
+      <ion-input type="text" placeholder="First Name" [value]="profile.firstName" [(ngModel)]="profile.firstName"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating>Last Name</ion-label>
-      <ion-input type="text" [value]="profile.lastName" [(ngModel)]="profile.lastName"></ion-input>
+      <ion-label stacked>Last Name</ion-label>
+      <ion-input type="text" placeholder="Last Name" [value]="profile.lastName" [(ngModel)]="profile.lastName"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating>Date of Birth</ion-label>
+      <ion-label Floating>Date of Birth</ion-label>
       <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="profile.dateOfBirth"></ion-datetime>
     </ion-item>
     <ion-list radio-group [(ngModel)]="profile.userType">

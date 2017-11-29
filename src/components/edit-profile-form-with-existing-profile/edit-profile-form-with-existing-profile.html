@@ -17,15 +17,15 @@
 <ion-card>
     <ion-card-content>
       <ion-item>
-        <ion-label floating>First Name</ion-label>
-        <ion-input type="text" [value]="profile.firstName" [(ngModel)]="profile.firstName"></ion-input>
+        <ion-label stacked>First Name</ion-label>
+        <ion-input type="text" placeholder="First Name" [value]="profile.firstName" [(ngModel)]="profile.firstName"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label floating>Last Name</ion-label>
-        <ion-input type="text" [value]="profile.lastName" [(ngModel)]="profile.lastName"></ion-input>
+        <ion-label stacked>Last Name</ion-label>
+        <ion-input type="text" placeholder="Last Name" [value]="profile.lastName" [(ngModel)]="profile.lastName"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label floating>Date of Birth</ion-label>
+        <ion-label Floating>Date of Birth</ion-label>
         <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="profile.dateOfBirth"></ion-datetime>
       </ion-item>
     </ion-card-content>

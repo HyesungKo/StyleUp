@@ -11,9 +11,7 @@ import { MyApp } from './app.component';
 import { AuthProvider } from '../providers/auth/auth.service';
 import { DataProvider } from '../providers/data/data.service';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { EventProvider } from '../providers/event/event.service';
 import { FormsModule } from "@angular/forms";
-//import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Geolocation } from '@ionic-native/geolocation';
 import { LocationProvider } from '../providers/location/location.service';
 
@@ -40,7 +38,6 @@ import { LocationProvider } from '../providers/location/location.service';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     DataProvider,
-    EventProvider,
     Camera,
     Geolocation,
     LocationProvider

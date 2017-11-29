@@ -71,7 +71,6 @@ export class EventCreatePage {
           name: eventLocation,
           caption: eventCaption,
           hashtags: eventHashtags,
-          //photo: this.postPicture,
           photo: snapshot.downloadURL,
           userType: this.profile.userType,
           uid: this.currentUser.uid,

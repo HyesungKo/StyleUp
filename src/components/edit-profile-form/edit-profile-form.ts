@@ -26,6 +26,7 @@ export class EditProfileFormComponent implements OnDestroy{
   @Output() saveProfileResult: EventEmitter<Boolean>;
 
   constructor(private data: DataProvider, private auth: AuthProvider, private navCtrl: NavController, private cameraPlugin: Camera, private alertCtl: AlertController) {
+
     this.defaultProfilePicture = "https://firebasestorage.googleapis.com/v0/b/sp-login-94206.appspot.com/o/profileImgs%2Fprofile-placeholder.png?alt=media&token=fe0933c1-891b-43c9-8ea1-364b7759fa88";
     this.saveProfileResult = new EventEmitter<Boolean>();
     this.authenticatedUser$ = this.auth.getAuthenticatedUser().subscribe((user: User) => {

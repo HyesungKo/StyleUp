@@ -18,8 +18,6 @@ export class InboxPage {
   private profileRef: firebase.database.Reference;
   private userMessageRef: firebase.database.Reference;
   private receiverMessageRef: firebase.database.Reference;
-
-
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertCrl: AlertController) {
     this.currentUser = firebase.auth().currentUser.uid;
     this.profileRef = firebase.database().ref(`profiles`);

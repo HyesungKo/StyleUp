@@ -23,24 +23,33 @@ export class ChannelPage {
     this.postRef = firebase.database().ref(`posts`);
     this.followingRef = firebase.database().ref(`profiles/${this.currentUser}/following`)
   }
-  ionViewWillEnter(){
-   this.ionViewDidLoad();
-  }
+
   ionViewDidLoad() {
-    this.postRef.on('value', snapshot => {
+    this.followingRef.on('value', snapshot => {
       let list = [];
-      snapshot.forEach( post => {
-        this.followingRef.on('value', snap => {
-          snap.forEach( user => {
+      snapshot.forEach( user => {
+        this.postRef.on('value', snap => {
+          snap.forEach( post => {
             if(post.val().userName === user.val().userName){
-              list.push(post.val());
+              list.push({
+                id: post.key,
+                location: post.val().name,
+                photo: post.val().photo,
+                caption: post.val().caption,
+                hashtags: post.val().hashtags,
+                userType: post.val().userType,
+                userName: post.val().userName,
+                uid: post.val().uid,
+                thumbUp: post.val().thumbUp,
+                thumbDown: post.val().thumbDown
+              });
             }
             return false;
           });
         });
         return false;
       });
-      this.followingUsersPosts = list;
+      this.followingUsersPosts = list.reverse();
       console.log(this.followingUsersPosts);
     });
   }

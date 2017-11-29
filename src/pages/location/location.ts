@@ -2,13 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavParams, ViewController } from 'ionic-angular';
 import { LocationProvider } from '../../providers/location/location.service';
 
-/**
- * Generated class for the LocationPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-
 declare var google: any;
 
 @IonicPage()

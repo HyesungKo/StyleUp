@@ -23,18 +23,13 @@ export class ExplorePage {
   }
 
   ionViewDidLoad() {
-    this.location.getUserPosition();//begins locating the user right when explore page is loaded
-  }
-
-  ionViewCanEnter() {
-    if(this.currentCity == ''){
-      this.presentLoadingText();//displays a loading pop up to allow location to load before displaying posts
+    if(this.location.currentLocation !== undefined && this.currentCity == '') {
+      this.currentCity = this.location.currentLocation;
     }
   }
 
   ionViewDidEnter() {
     //this.doRefresh(0);
-    if(this.location.currentLocation !== undefined && this.currentCity == '') {this.currentCity = this.location.currentLocation;}
     console.log(this.currentCity);
 
     this.posts.on('value', snapshot => {
@@ -78,17 +73,17 @@ export class ExplorePage {
   }
 
   //shows loading pop up while location loads, disables user interaction
-  presentLoadingText() {
-    let loading = this.loadingCtrl.create({
-      spinner: 'crescent',
-      content: 'Loading Current Location...'
-    });
-    loading.present();
-    setTimeout(() => {
-      loading.dismiss();
-      this.ionViewDidEnter();
-    }, 5000);
-  }
+  /*   presentLoadingText() {
+      let loading = this.loadingCtrl.create({
+        spinner: 'crescent',
+        content: 'Loading Current Location...'
+      });
+      loading.present();
+      setTimeout(() => {
+        loading.dismiss();
+        this.ionViewDidEnter();
+      }, 1500);
+    } */
 
   //shows post detail when a post is clicked on
   goToEventDetail(post){

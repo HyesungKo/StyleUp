@@ -1,7 +1,9 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Edit Post</ion-title>
-    <button ion-button float-right clear (click)="updatePost(currentPost.location, currentPost.caption, currentPost.hashtags)">Update</button>
+    <ion-buttons item-end>
+      <button ion-button clear (click)="updatePost(currentPost.location, currentPost.caption, currentPost.hashtags)">Update</button>      
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 

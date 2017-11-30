@@ -40,7 +40,7 @@ export class EventCreatePage {
 
   takePicture(){
     this.cameraPlugin.getPicture({
-      quality : 95,
+      quality : 50,
       destinationType : this.cameraPlugin.DestinationType.DATA_URL,
       sourceType : this.cameraPlugin.PictureSourceType.CAMERA,
       allowEdit : true,

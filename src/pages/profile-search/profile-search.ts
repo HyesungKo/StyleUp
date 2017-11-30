@@ -99,7 +99,6 @@ export class ProfileSearchPage{
     this.authenticatedUserFollowing.push({
       userName: profile.userName
     });
-    alert("Following");
   }
 
   goToEventDetail(post){

@@ -79,7 +79,7 @@ export class EventCreatePage {
           thumbDown: 0
         });
       this.showSuccesfulUploadAlert();
-      this.navCtrl.setRoot('TabsPage');
+      this.navCtrl.setRoot('EventCreatePage');
     });
   }
 

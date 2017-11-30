@@ -25,15 +25,18 @@ export class EventDetailPage {
   private likedPostsRef: firebase.database.Reference;
   private dislikedPostsRef: firebase.database.Reference;
   private currentUserProfileRef: firebase.database.Reference;
+  private currentPostOwner: firebase.database.Reference;
   private likedPostList = [];
   private dislikedPostList = [];
   public showComment = false;
+  public postOwnerAvatar: string;
 
   constructor(public navC: NavController, public navParams: NavParams) {
     this.currentUser = firebase.auth().currentUser.uid;
     this.posts = firebase.database().ref(`posts`);
     this.currentUserProfileRef = firebase.database().ref(`profiles/${this.currentUser}`);
     this.currentPost = this.navParams.get('post');
+    this.currentPostOwner = firebase.database().ref(`profiles/${this.currentPost.uid}`)
     this.comments = firebase.database().ref(`posts/${this.currentPost.id}/commentList`);
     this.likedPostsRef = firebase.database().ref(`profiles/${this.currentUser}/likedPosts`);
     this.dislikedPostsRef = firebase.database().ref(`profiles/${this.currentUser}/dislikedPosts`);
@@ -54,6 +57,10 @@ export class EventDetailPage {
       });
       this.postComments = commentList.reverse();
     });
+
+    this.currentPostOwner.on('value', snapshot => {
+      this.postOwnerAvatar = snapshot.val().avatar;
+    })
   }
 
   ionViewDidLoad() {

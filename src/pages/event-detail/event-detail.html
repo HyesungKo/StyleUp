@@ -12,9 +12,8 @@
     <img src="{{currentPost.photo}}"/>
 
     <ion-item>
-        <ion-avatar item-start>
-          <img *ngIf="postProfileAvatarRef" [src]="postProfileAvatarRef">
-          <img *ngIf="!postProfileAvatarRef" src="https://firebasestorage.googleapis.com/v0/b/sp-login-94206.appspot.com/o/logo%2Ficon.png?alt=media&token=45215c3c-63f9-4ff9-8af5-fc4f9b2e0e98">
+        <ion-avatar item-start (click)="goToProfile(currentPost.userName)">
+          <img *ngIf="postOwnerAvatar" [src]="postOwnerAvatar">
         </ion-avatar>
         <h2 (click)="goToProfile(currentPost.userName)">{{currentPost.userName}}
             <ion-icon  *ngIf="currentPost.userType === 'boutique'" color="checkMark" name="checkmark-circle" md="md-checkmark-circle"></ion-icon>

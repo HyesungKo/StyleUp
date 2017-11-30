@@ -3,6 +3,7 @@ import { LoginResponse } from './../../models/login/login-response.interface';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { User } from 'firebase/app';
+import { LocationProvider } from '../../providers/location/location.service';
 
 @IonicPage()
 @Component({
@@ -14,8 +15,12 @@ export class LoginPage {
   public logoUrl: string;
 
   constructor(private navCtrl: NavController, private navParams: NavParams,
-  private toast:ToastController, private data: DataProvider) {
+  private toast:ToastController, private data: DataProvider, private location: LocationProvider) {
     this.logoUrl = "https://firebasestorage.googleapis.com/v0/b/sp-login-94206.appspot.com/o/logo%2Ficon2.png?alt=media&token=1bb85ee6-f333-446e-a29c-76627e362a28";
+  }
+
+  ionViewDidLoad() {
+    this.location.getUserPosition();//begins locating the user right when explore page is loaded
   }
 
   login(event: LoginResponse) {
